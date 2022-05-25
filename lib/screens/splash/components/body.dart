@@ -18,15 +18,16 @@ class _BodyState extends State<Body> {
   int currentPage = 0;
   List<Map<String, String>> splashData = [
     {
-      "text": "Welcome to BIG-SIZE Shop, Let’s shop!",
+      "text": "Chào mừng bạn đến với cửa hàng BIG SIZE",
       "image": "assets/images/splash_1.png"
     },
     {
-      "text": "We help overweight people go shopping \naround Viet Nam",
+      "text":
+          "SỨ mệnh của chúng tôi là giúp các bạn mua sắm\ntrên toàn Việt Nam",
       "image": "assets/images/splash_2.png"
     },
     {
-      "text": "We show the easy way to shop. \nJust stay at home with us",
+      "text": "Mua sắm nhanh chóng, dễ dàng \nHãy ở lại với chúng tôi nhé!",
       "image": "assets/images/splash_3.png"
     },
   ];
@@ -90,7 +91,7 @@ class _BodyState extends State<Body> {
                           color: kPrimaryColor,
                         ),
                         child: Text(
-                          "Shopping now",
+                          "Mua sắm ngay",
                           style: TextStyle(
                             fontFamily: "QuickSand",
                             fontSize: 25,
