@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/routes.dart';
-<<<<<<< HEAD
-import 'package:shop_app/screens/home/home_screen.dart';
-=======
->>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
 import 'package:shop_app/screens/profile/profile_screen.dart';
 import 'package:shop_app/screens/splash/splash_screen.dart';
 import 'package:shop_app/theme.dart';

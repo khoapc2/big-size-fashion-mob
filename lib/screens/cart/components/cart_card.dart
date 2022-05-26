@@ -15,7 +15,6 @@ class CartCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-<<<<<<< HEAD
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
@@ -39,25 +38,7 @@ class CartCard extends StatelessWidget {
         Container(
           width: 210.0,
           child: Column(
-=======
-      children: [
-        SizedBox(
-          width: 88,
-          child: AspectRatio(
-            aspectRatio: 0.88,
-            child: Container(
-              padding: EdgeInsets.all(getProportionateScreenWidth(10)),
-              decoration: BoxDecoration(
-                color: Color(0xFFF5F6F9),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Image.asset(cart.product.images[0]),
-            ),
-          ),
-        ),
-        SizedBox(width: 20),
-        Column(
->>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
+
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
@@ -79,7 +60,6 @@ class CartCard extends StatelessWidget {
               ),
             )
           ],
-<<<<<<< HEAD
         ),
         ),
             ]
@@ -99,10 +79,5 @@ class CartCard extends StatelessWidget {
   void _onSearchButtonPressed() {
     print("icon clicked");
   }
-=======
-        )
-      ],
-    );
-  }
->>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
+
 }

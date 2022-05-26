@@ -4,10 +4,7 @@ import 'package:shop_app/components/form_error.dart';
 import 'package:shop_app/helper/keyboard.dart';
 import 'package:shop_app/screens/forgot_password/forgot_password_screen.dart';
 import 'package:shop_app/screens/login_success/login_success_screen.dart';
-<<<<<<< HEAD
-=======
 import 'package:shop_app/screens/otp/otp_screen.dart';
->>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
 
 import '../../../components/default_button.dart';
 import '../../../constants.dart';
@@ -20,10 +17,8 @@ class SignForm extends StatefulWidget {
 
 class _SignFormState extends State<SignForm> {
   final _formKey = GlobalKey<FormState>();
-<<<<<<< HEAD
-=======
+
   String? phone;
->>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
   String? email;
   String? password;
   bool? remember = false;
@@ -49,14 +44,7 @@ class _SignFormState extends State<SignForm> {
       key: _formKey,
       child: Column(
         children: [
-<<<<<<< HEAD
-          buildEmailFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
-          buildPasswordFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
-          Row(
-            children: [
-=======
+
           //buildEmailFormField(),
           buildPhoneFormField(),
           SizedBox(height: getProportionateScreenHeight(20)),
@@ -65,7 +53,6 @@ class _SignFormState extends State<SignForm> {
           /*
           Row(
             children: <Widget>[
->>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
               Checkbox(
                 value: remember,
                 activeColor: kPrimaryColor,
@@ -87,12 +74,6 @@ class _SignFormState extends State<SignForm> {
               )
             ],
           ),
-<<<<<<< HEAD
-          FormError(errors: errors),
-          SizedBox(height: getProportionateScreenHeight(20)),
-          DefaultButton(
-            text: "Continue",
-=======
           */
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(50)),
@@ -135,7 +116,6 @@ class _SignFormState extends State<SignForm> {
           /*
           DefaultButton(
             text: "Đăng nhập",
->>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
             press: () {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
@@ -145,10 +125,8 @@ class _SignFormState extends State<SignForm> {
               }
             },
           ),
-<<<<<<< HEAD
-=======
+
           */
->>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
         ],
       ),
     );
@@ -219,8 +197,7 @@ class _SignFormState extends State<SignForm> {
       ),
     );
   }
-<<<<<<< HEAD
-=======
+
 
   TextFormField buildPhoneFormField() {
     return TextFormField(
@@ -278,5 +255,4 @@ class _SignFormState extends State<SignForm> {
       ),
     );
   }
->>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
 }

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop_app/components/default_button.dart';
-<<<<<<< HEAD
 import 'package:shop_app/screens/payment/payment.dart';
-=======
->>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
+
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -42,8 +40,6 @@ class CheckoutCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-<<<<<<< HEAD
-=======
               children: [
                 Container(
                   padding: EdgeInsets.all(10),
@@ -67,7 +63,6 @@ class CheckoutCard extends StatelessWidget {
             ),
             SizedBox(height: getProportionateScreenHeight(20)),
             Row(
->>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text.rich(
@@ -85,16 +80,13 @@ class CheckoutCard extends StatelessWidget {
                   width: getProportionateScreenWidth(190),
                   child: DefaultButton(
                     text: "Check Out",
-<<<<<<< HEAD
                     press: () {
                       Navigator.push(
                         context,
                       MaterialPageRoute(builder: (context) => const PaymentPage()),
                     );
                     },
-=======
-                    press: () {},
->>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
+
                   ),
                 ),
               ],

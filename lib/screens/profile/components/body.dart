@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-=======
+
 import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
->>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
 
 import 'profile_menu.dart';
 import 'profile_pic.dart';
@@ -39,16 +37,13 @@ class Body extends StatelessWidget {
           ProfileMenu(
             text: "Log Out",
             icon: "assets/icons/Log out.svg",
-<<<<<<< HEAD
-            press: () {},
-=======
+
             press: () => {
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (_) => SignInScreen()),
                   (route) => false),
             },
->>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
           ),
         ],
       ),

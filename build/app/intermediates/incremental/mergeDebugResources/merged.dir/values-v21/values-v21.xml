@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<<<<<<< HEAD
     <color name="notification_action_color_filter">@color/secondary_text_default_material_light</color>
-=======
-    <color name="notification_action_color_filter">@color/androidx_core_secondary_text_default_material_light</color>
->>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
     <dimen name="notification_content_margin_start">0dp</dimen>
     <dimen name="notification_main_column_padding_top">0dp</dimen>
     <dimen name="notification_media_narrow_margin">12dp</dimen>
@@ -17,11 +13,7 @@
     </style>
     <style name="Widget.Compat.NotificationActionText" parent="">
         <item name="android:textAppearance">?android:attr/textAppearanceButton</item>
-<<<<<<< HEAD
         <item name="android:textColor">@color/secondary_text_default_material_light</item>
-=======
-        <item name="android:textColor">@color/androidx_core_secondary_text_default_material_light</item>
->>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
         <item name="android:textSize">@dimen/notification_action_text_size</item>
     </style>
 </resources>
