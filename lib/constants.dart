@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/size_config.dart';
 
+<<<<<<< HEAD
 const kPrimaryColor = Color(0xFFFF7643);
+=======
+const kPrimaryColor = Color.fromARGB(255, 0, 0, 0);
+>>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
 const kPrimaryLightColor = Color(0xFFFFECDF);
 const kPrimaryGradientColor = LinearGradient(
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,
+<<<<<<< HEAD
   colors: [Color(0xFFFFA53E), Color(0xFFFF7643)],
+=======
+  colors: [
+    Color.fromARGB(255, 62, 175, 255),
+    Color.fromARGB(255, 67, 152, 255)
+  ],
+>>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
 );
 const kSecondaryColor = Color(0xFF979797);
 const kTextColor = Color(0xFF757575);
@@ -25,8 +36,16 @@ const defaultDuration = Duration(milliseconds: 250);
 // Form Error
 final RegExp emailValidatorRegExp =
     RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+<<<<<<< HEAD
 const String kEmailNullError = "Please Enter your email";
 const String kInvalidEmailError = "Please Enter Valid Email";
+=======
+final RegExp phoneNumberValidatorRegExp = RegExp(r"^(?:[+0]9)?[0-9]{10}$");
+//const String kPhoneNullError = "Vui lòng nhập SĐT của bạn";
+const String kEmailNullError = "Please Enter your email";
+const String kInvalidEmailError = "Please Enter Valid Email";
+const String kInvalidPhoneError = "Pleas enter Valid Phone number";
+>>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
 const String kPassNullError = "Please Enter your password";
 const String kShortPassError = "Password is too short";
 const String kMatchPassError = "Passwords don't match";

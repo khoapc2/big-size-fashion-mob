@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+// ignore_for_file: deprecated_member_use
+
+>>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
 import 'package:flutter/material.dart';
 import 'package:shop_app/constants.dart';
 import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
@@ -16,16 +21,28 @@ class _BodyState extends State<Body> {
   int currentPage = 0;
   List<Map<String, String>> splashData = [
     {
+<<<<<<< HEAD
       "text": "Welcome to Tokoto, Let’s shop!",
+=======
+      "text": "Chào mừng bạn đến với cửa hàng BIG SIZE",
+>>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
       "image": "assets/images/splash_1.png"
     },
     {
       "text":
+<<<<<<< HEAD
           "We help people conect with store \naround United State of America",
       "image": "assets/images/splash_2.png"
     },
     {
       "text": "We show the easy way to shop. \nJust stay at home with us",
+=======
+          "SỨ mệnh của chúng tôi là giúp các bạn mua sắm\ntrên toàn Việt Nam",
+      "image": "assets/images/splash_2.png"
+    },
+    {
+      "text": "Mua sắm nhanh chóng, dễ dàng \nHãy ở lại với chúng tôi nhé!",
+>>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
       "image": "assets/images/splash_3.png"
     },
   ];
@@ -67,12 +84,55 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                     Spacer(flex: 3),
+<<<<<<< HEAD
                     DefaultButton(
                       text: "Continue",
+=======
+                    ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.black),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(30)),
+                                      side: BorderSide(color: kPrimaryColor)))),
+                      child: Container(
+                        width: 250,
+                        height: 60,
+                        alignment: Alignment.center,
+                        //color: kPrimaryColor,
+                        decoration: new BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(100.00),
+                          ),
+                          color: kPrimaryColor,
+                        ),
+                        child: Text(
+                          "Mua sắm ngay",
+                          style: TextStyle(
+                            fontFamily: "QuickSand",
+                            fontSize: 25,
+                          ),
+                        ),
+                      ),
+                      onPressed: () => {
+                        Navigator.pushNamed(context, SignInScreen.routeName)
+                      },
+                    ),
+                    /*
+                    DefaultButton(
+                      text: "Shopping now",
+>>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
                       press: () {
                         Navigator.pushNamed(context, SignInScreen.routeName);
                       },
                     ),
+<<<<<<< HEAD
+=======
+                    */
+>>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
                     Spacer(),
                   ],
                 ),

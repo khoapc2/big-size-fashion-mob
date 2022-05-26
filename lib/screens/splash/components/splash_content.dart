@@ -17,15 +17,34 @@ class SplashContent extends StatelessWidget {
       children: <Widget>[
         Spacer(),
         Text(
+<<<<<<< HEAD
           "TOKOTO",
           style: TextStyle(
             fontSize: getProportionateScreenWidth(36),
+=======
+          "BIG SIZE",
+          style: TextStyle(
+            fontSize: getProportionateScreenWidth(50),
+            //fontFamily: "QuickSandBold",
+>>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
             color: kPrimaryColor,
             fontWeight: FontWeight.bold,
           ),
         ),
+<<<<<<< HEAD
         Text(
           text!,
+=======
+        SizedBox(
+          height: 10,
+        ),
+        Text(
+          text!,
+          style: TextStyle(
+            color: kSecondaryColor,
+            fontSize: 20,
+          ),
+>>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
           textAlign: TextAlign.center,
         ),
         Spacer(flex: 2),

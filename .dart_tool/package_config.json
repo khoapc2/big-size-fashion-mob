@@ -4,6 +4,7 @@
     {
       "name": "async",
       "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/async-2.8.1",
+
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -16,6 +17,7 @@
     {
       "name": "characters",
       "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/characters-1.1.0",
+
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -28,17 +30,20 @@
     {
       "name": "clock",
       "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/clock-1.1.0",
+
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "collection",
       "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/collection-1.15.0",
+
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "cupertino_icons",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/cupertino_icons-1.0.4",
       "packageUri": "lib/",
       "languageVersion": "2.12"
@@ -52,6 +57,7 @@
     {
       "name": "fake_async",
       "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/fake_async-1.2.0",
+
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -64,6 +70,7 @@
     {
       "name": "flutter_svg",
       "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_svg-0.22.0",
+
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -106,72 +113,84 @@
     {
       "name": "path_drawing",
       "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/path_drawing-0.5.1+1",
+
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "path_parsing",
       "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/path_parsing-0.2.1",
+
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "petitparser",
       "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/petitparser-4.4.0",
+
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "provider",
       "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/provider-6.0.3",
+
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "sky_engine",
       "rootUri": "file:///C:/Users/IT/flutter/bin/cache/pkg/sky_engine",
+
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "source_span",
       "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/source_span-1.8.1",
+
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "stack_trace",
       "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/stack_trace-1.10.0",
+
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "stream_channel",
       "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/stream_channel-2.1.0",
+
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "string_scanner",
       "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/string_scanner-1.1.0",
+
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "term_glyph",
       "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/term_glyph-1.2.0",
+
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "test_api",
       "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/test_api-0.4.2",
+
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "typed_data",
       "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/typed_data-1.3.0",
+
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -184,6 +203,7 @@
     {
       "name": "xml",
       "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/xml-5.3.1",
+
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -197,4 +217,5 @@
   "generated": "2022-05-25T12:43:39.333047Z",
   "generator": "pub",
   "generatorVersion": "2.14.4"
+
 }

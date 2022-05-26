@@ -18,6 +18,7 @@ class Body extends StatelessWidget {
               children: [
                 SizedBox(height: SizeConfig.screenHeight * 0.04),
                 Text(
+<<<<<<< HEAD
                   "Welcome Back",
                   style: TextStyle(
                     color: Colors.black,
@@ -25,13 +26,34 @@ class Body extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+=======
+                  "ĐĂNG NHẬP",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: getProportionateScreenWidth(38),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                /*
+>>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
                 Text(
                   "Sign in with your email and password  \nor continue with social media",
                   textAlign: TextAlign.center,
                 ),
+<<<<<<< HEAD
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
                 SignForm(),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
+=======
+                */
+                SizedBox(height: SizeConfig.screenHeight * 0.08),
+                SignForm(),
+                SizedBox(height: SizeConfig.screenHeight * 0.08),
+                /*
+>>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -49,8 +71,14 @@ class Body extends StatelessWidget {
                     ),
                   ],
                 ),
+<<<<<<< HEAD
                 SizedBox(height: getProportionateScreenHeight(20)),
                 NoAccountText(),
+=======
+                */
+                //SizedBox(height: getProportionateScreenHeight(20)),
+                //NoAccountText(),
+>>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
               ],
             ),
           ),
