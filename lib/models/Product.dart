@@ -38,7 +38,8 @@ List<Product> demoProducts = [
       Color(0xFFDECB9C),
       Colors.white,
     ],
-    title: "Wireless Controller for PS4™ s",
+
+    title: "Wireless Controller for PS4™",
     price: 64.99,
     description: description,
     rating: 4.8,

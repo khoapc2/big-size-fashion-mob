@@ -4,6 +4,7 @@ import 'package:shop_app/components/form_error.dart';
 import 'package:shop_app/helper/keyboard.dart';
 import 'package:shop_app/screens/forgot_password/forgot_password_screen.dart';
 import 'package:shop_app/screens/login_success/login_success_screen.dart';
+import 'package:shop_app/screens/otp/otp_screen.dart';
 
 import '../../../components/default_button.dart';
 import '../../../constants.dart';
@@ -16,6 +17,8 @@ class SignForm extends StatefulWidget {
 
 class _SignFormState extends State<SignForm> {
   final _formKey = GlobalKey<FormState>();
+
+  String? phone;
   String? email;
   String? password;
   bool? remember = false;
@@ -41,12 +44,15 @@ class _SignFormState extends State<SignForm> {
       key: _formKey,
       child: Column(
         children: [
-          buildEmailFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
-          buildPasswordFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+
+          //buildEmailFormField(),
+          buildPhoneFormField(),
+          SizedBox(height: getProportionateScreenHeight(20)),
+          //buildPasswordFormField(),
+          //SizedBox(height: getProportionateScreenHeight(30)),
+          /*
           Row(
-            children: [
+            children: <Widget>[
               Checkbox(
                 value: remember,
                 activeColor: kPrimaryColor,
@@ -68,10 +74,48 @@ class _SignFormState extends State<SignForm> {
               )
             ],
           ),
+          */
           FormError(errors: errors),
-          SizedBox(height: getProportionateScreenHeight(20)),
+          SizedBox(height: getProportionateScreenHeight(50)),
+          ElevatedButton(
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        side: BorderSide(color: kPrimaryColor)))),
+            child: Container(
+              width: 350,
+              height: 60,
+              alignment: Alignment.center,
+              //color: kPrimaryColor,
+              decoration: new BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(100.00),
+                ),
+                color: kPrimaryColor,
+              ),
+              child: Text(
+                "Đăng nhập",
+                style: TextStyle(
+                  fontFamily: "QuickSandBold",
+                  fontSize: 30,
+                ),
+              ),
+            ),
+            onPressed: () => {
+              if (_formKey.currentState!.validate())
+                {
+                  _formKey.currentState!.save(),
+                  // if all are valid then go to success screen
+                  KeyboardUtil.hideKeyboard(context),
+                  Navigator.pushNamed(context, OtpScreen.routeName),
+                }
+            },
+          ),
+          /*
           DefaultButton(
-            text: "Continue",
+            text: "Đăng nhập",
             press: () {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
@@ -81,6 +125,8 @@ class _SignFormState extends State<SignForm> {
               }
             },
           ),
+
+          */
         ],
       ),
     );
@@ -148,6 +194,64 @@ class _SignFormState extends State<SignForm> {
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
+      ),
+    );
+  }
+
+
+  TextFormField buildPhoneFormField() {
+    return TextFormField(
+      keyboardType: TextInputType.phone,
+      onSaved: (newValue) => phone = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kPhoneNumberNullError);
+        } else if (phoneNumberValidatorRegExp.hasMatch(value)) {
+          removeError(error: kInvalidPhoneError);
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          addError(error: kPhoneNumberNullError);
+          return "";
+        } else if (!phoneNumberValidatorRegExp.hasMatch(value)) {
+          addError(error: kInvalidPhoneError);
+          return "";
+        }
+        return null;
+      },
+      style: TextStyle(
+        fontSize: 22,
+        fontFamily: "QuickSandMedium",
+      ),
+      decoration: InputDecoration(
+        labelText: "SĐT",
+        labelStyle: TextStyle(
+          fontFamily: "QuickSandBold",
+          fontSize: 25,
+        ),
+        hintText: "Nhập số điện thoại của bạn",
+        hintStyle: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Phone.svg"),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20.0),
+          borderSide: BorderSide(
+            color: Colors.black,
+            width: 0.5,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20.0),
+          borderSide: BorderSide(
+            color: Colors.blue,
+            width: 1.5,
+          ),
+        ),
       ),
     );
   }

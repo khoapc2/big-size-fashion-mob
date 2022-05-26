@@ -38,6 +38,7 @@ class CartCard extends StatelessWidget {
         Container(
           width: 210.0,
           child: Column(
+
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
@@ -78,4 +79,5 @@ class CartCard extends StatelessWidget {
   void _onSearchButtonPressed() {
     print("icon clicked");
   }
+
 }
