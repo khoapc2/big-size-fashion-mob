@@ -22,7 +22,7 @@ class MyVoucher extends StatelessWidget{
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
-        color: Colors.orange,
+        color: Colors.black,
       ),
       child:
           Container(
