@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/constants.dart';
+import 'package:shop_app/routes.dart';
 import 'package:shop_app/screens/profile/userprofile/components/userprofile_header.dart';
 import 'package:shop_app/screens/profile/userprofile/components/userprofile_info.dart';
+import 'package:shop_app/screens/profile/userprofile_edit/profileedit_screen.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -45,7 +47,10 @@ class Body extends StatelessWidget {
                 ),
               ),
             ),
-            onPressed: () => {},
+            onPressed: () => {
+              Navigator.pushNamed(context, UserProfileEditScreen.routeName),
+              print("Edit")
+            },
           ),
         ],
       ),

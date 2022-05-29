@@ -56,6 +56,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_datetime_picker",
+      "rootUri": "file:///D:/Lap%20trinh/flutter_windows_2.5.0-stable/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_datetime_picker-1.5.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_svg",
       "rootUri": "file:///D:/Lap%20trinh/flutter_windows_2.5.0-stable/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_svg-0.22.0",
       "packageUri": "lib/",
@@ -188,7 +194,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2022-05-25T07:05:26.348798Z",
+  "generated": "2022-05-29T04:27:26.254200Z",
   "generator": "pub",
   "generatorVersion": "2.16.2"
 }

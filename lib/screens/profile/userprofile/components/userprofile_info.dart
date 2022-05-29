@@ -30,6 +30,7 @@ class UserProfileInfo extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
+              RowUP().rowUPRow("Email", "abcdsubcvd@gmail.com", 20),
               SizedBox(
                 height: 10,
               ),
