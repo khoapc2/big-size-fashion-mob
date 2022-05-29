@@ -80,7 +80,7 @@ class _EditProfile extends State<EditProfileForm> {
             style: TextStyle(
               fontFamily: "QuickSandBold",
               fontSize: 25,
-              color: Color(0xFF0085C3),
+              color: Color(0xFF000000),
             ),
           ),
         ),
@@ -95,6 +95,8 @@ class _EditProfile extends State<EditProfileForm> {
               border: myinputborder(),
               enabledBorder: myinputborder(),
               focusedBorder: myfocusborder(),
+              contentPadding:
+                  EdgeInsets.only(top: 25, left: 20, bottom: 25, right: 10),
             ),
             maxLength: 50,
             style: TextStyle(
@@ -113,7 +115,7 @@ class _EditProfile extends State<EditProfileForm> {
             style: TextStyle(
                 fontFamily: "QuickSandBold",
                 fontSize: 25,
-                color: Color(0xFF0085C3)),
+                color: Color(0xFF000000)),
           ),
         ),
         SizedBox(height: size.height * 0.01),
@@ -127,6 +129,8 @@ class _EditProfile extends State<EditProfileForm> {
               border: myinputborder(),
               enabledBorder: myinputborder(),
               focusedBorder: myfocusborder(),
+              contentPadding:
+                  EdgeInsets.only(top: 25, left: 20, bottom: 25, right: 10),
             ),
             maxLength: 100,
             style: TextStyle(
@@ -145,7 +149,7 @@ class _EditProfile extends State<EditProfileForm> {
             style: TextStyle(
                 fontFamily: "QuickSandBold",
                 fontSize: 25,
-                color: Color(0xFF0085C3)),
+                color: Color(0xFF000000)),
           ),
         ),
         SizedBox(height: size.height * 0.01),
@@ -159,6 +163,8 @@ class _EditProfile extends State<EditProfileForm> {
               border: myinputborder(),
               enabledBorder: myinputborder(),
               focusedBorder: myfocusborder(),
+              contentPadding:
+                  EdgeInsets.only(top: 25, left: 20, bottom: 25, right: 10),
             ),
             style: TextStyle(
               fontFamily: "QuickSandMedium",
