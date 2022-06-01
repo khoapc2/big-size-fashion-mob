@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/screens/sign_up/sign_up_screen.dart';
 
+
 // ignore: unused_import
 import '../constants.dart';
 import '../size_config.dart';
@@ -24,6 +25,7 @@ class NoAccountText extends StatelessWidget {
           child: Text(
             "Sign Up",
             style: TextStyle(
+
               fontSize: getProportionateScreenWidth(16),
               fontFamily: "QuickSandBold",
               color: Color.fromARGB(255, 0, 100, 185),

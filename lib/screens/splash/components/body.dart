@@ -1,4 +1,3 @@
-// ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'package:shop_app/constants.dart';
@@ -18,11 +17,13 @@ class _BodyState extends State<Body> {
   int currentPage = 0;
   List<Map<String, String>> splashData = [
     {
+
       "text": "Chào mừng bạn đến với cửa hàng BIG SIZE",
       "image": "assets/images/splash_1.png"
     },
     {
       "text":
+
           "SỨ mệnh của chúng tôi là giúp các bạn mua sắm\ntrên toàn Việt Nam",
       "image": "assets/images/splash_2.png"
     },
@@ -69,6 +70,7 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                     Spacer(flex: 3),
+
                     ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor:
@@ -105,10 +107,12 @@ class _BodyState extends State<Body> {
                     /*
                     DefaultButton(
                       text: "Shopping now",
+>>>>>>> df87855c1ce34b69ff6fe93eafb52b8f4ed9010c
                       press: () {
                         Navigator.pushNamed(context, SignInScreen.routeName);
                       },
                     ),
+
                     */
                     Spacer(),
                   ],

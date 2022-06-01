@@ -17,6 +17,7 @@ class Body extends StatelessWidget {
             children: <Widget>[
               SizedBox(height: SizeConfig.screenHeight * 0.05),
               Text(
+
                 "XÁC THỰC SĐT",
                 style: headingStyle,
               ),

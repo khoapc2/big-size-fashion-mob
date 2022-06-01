@@ -18,6 +18,7 @@ class Body extends StatelessWidget {
               children: [
                 SizedBox(height: SizeConfig.screenHeight * 0.04),
                 Text(
+
                   "ĐĂNG NHẬP",
                   style: TextStyle(
                     color: Colors.black,
@@ -33,6 +34,7 @@ class Body extends StatelessWidget {
                   "Sign in with your email and password  \nor continue with social media",
                   textAlign: TextAlign.center,
                 ),
+
                 */
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
                 SignForm(),
@@ -55,6 +57,7 @@ class Body extends StatelessWidget {
                     ),
                   ],
                 ),
+
                 */
                 //SizedBox(height: getProportionateScreenHeight(20)),
                 //NoAccountText(),

@@ -17,6 +17,7 @@ class SignForm extends StatefulWidget {
 
 class _SignFormState extends State<SignForm> {
   final _formKey = GlobalKey<FormState>();
+
   String? phone;
   String? email;
   String? password;
@@ -43,6 +44,7 @@ class _SignFormState extends State<SignForm> {
       key: _formKey,
       child: Column(
         children: [
+
           //buildEmailFormField(),
           buildPhoneFormField(),
           SizedBox(height: getProportionateScreenHeight(20)),
@@ -123,6 +125,7 @@ class _SignFormState extends State<SignForm> {
               }
             },
           ),
+
           */
         ],
       ),
@@ -194,6 +197,7 @@ class _SignFormState extends State<SignForm> {
       ),
     );
   }
+
 
   TextFormField buildPhoneFormField() {
     return TextFormField(

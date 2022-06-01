@@ -15,23 +15,30 @@ class CartCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        SizedBox(
-          width: 88,
-          child: AspectRatio(
-            aspectRatio: 0.88,
-            child: Container(
-              padding: EdgeInsets.all(getProportionateScreenWidth(10)),
-              decoration: BoxDecoration(
-                color: Color(0xFFF5F6F9),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Image.asset(cart.product.images[0]),
-            ),
+        Container(
+          child: Row(
+            children: [
+              SizedBox(
+                width: 88,
+                child: AspectRatio(
+                  aspectRatio: 0.88,
+                  child: Container(
+                  padding: EdgeInsets.all(getProportionateScreenWidth(10)),
+                  decoration: BoxDecoration(
+                    color: Color(0xFFF5F6F9),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                    child: Image.asset(cart.product.images[0]),
+                  ),
           ),
         ),
         SizedBox(width: 20),
-        Column(
+        Container(
+          width: 210.0,
+          child: Column(
+
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
@@ -53,8 +60,24 @@ class CartCard extends StatelessWidget {
               ),
             )
           ],
-        )
-      ],
+        ),
+        ),
+            ]
+          ),
+        ),
+         Column(
+          children: [
+            IconButton(onPressed: _onSearchButtonPressed, icon: Icon(Icons.add_circle, size: 30,)),
+            IconButton(onPressed: _onSearchButtonPressed, icon: Icon(Icons.remove_circle_outline, color: Colors.grey.shade400, size: 30,))
+          ],
+          )
+        ]
+      ,
     );
   }
+
+  void _onSearchButtonPressed() {
+    print("icon clicked");
+  }
+
 }

@@ -17,6 +17,7 @@ class SplashContent extends StatelessWidget {
       children: <Widget>[
         Spacer(),
         Text(
+
           "BIG SIZE",
           style: TextStyle(
             fontSize: getProportionateScreenWidth(50),
@@ -25,6 +26,7 @@ class SplashContent extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
+
         SizedBox(
           height: 10,
         ),

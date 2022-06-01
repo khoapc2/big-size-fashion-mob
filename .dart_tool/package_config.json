@@ -40,6 +40,15 @@
     {
       "name": "cupertino_icons",
       "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/cupertino_icons-1.0.4",
+<<<<<<< HEAD
+=======
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "dotted_border",
+      "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/dotted_border-2.0.0+1",
+>>>>>>> main
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -56,20 +65,35 @@
       "languageVersion": "2.12"
     },
     {
+<<<<<<< HEAD
       "name": "flutter_datetime_picker",
       "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_datetime_picker-1.5.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
+=======
       "name": "flutter_svg",
       "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_svg-0.22.0",
+>>>>>>> main
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
+<<<<<<< HEAD
+      "name": "flutter_svg",
+      "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_svg-0.22.0",
+=======
       "name": "flutter_test",
       "rootUri": "file:///C:/Users/IT/flutter/packages/flutter_test",
+>>>>>>> main
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+<<<<<<< HEAD
+      "name": "flutter_test",
+      "rootUri": "file:///C:/Users/IT/flutter/packages/flutter_test",
+=======
+      "name": "get_it",
+      "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/get_it-7.2.0",
+>>>>>>> main
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -188,7 +212,11 @@
       "languageVersion": "2.12"
     }
   ],
+<<<<<<< HEAD
   "generated": "2022-06-01T08:32:09.508279Z",
+=======
+  "generated": "2022-06-01T08:31:25.963464Z",
+>>>>>>> main
   "generator": "pub",
   "generatorVersion": "2.14.4"
 }
