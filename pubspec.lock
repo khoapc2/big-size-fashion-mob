@@ -94,8 +94,6 @@ packages:
       name: get_it
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
-=======
     version: "7.2.0"
   matcher:
     dependency: transitive
@@ -103,7 +101,6 @@ packages:
       name: matcher
       url: "https://pub.dartlang.org"
     source: hosted
->>>>>>> main
     version: "0.12.10"
   meta:
     dependency: transitive
