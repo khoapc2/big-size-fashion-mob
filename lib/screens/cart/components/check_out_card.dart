@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop_app/components/default_button.dart';
-import 'package:shop_app/screens/payment/payment.dart';
+import 'package:shop_app/screens/payment/payment_screen.dart';
 
 
 import '../../../constants.dart';
@@ -83,7 +83,7 @@ class CheckoutCard extends StatelessWidget {
                     press: () {
                       Navigator.push(
                         context,
-                      MaterialPageRoute(builder: (context) => const PaymentPage()),
+                      MaterialPageRoute(builder: (context) => PaymentScreen()),
                     );
                     },
 

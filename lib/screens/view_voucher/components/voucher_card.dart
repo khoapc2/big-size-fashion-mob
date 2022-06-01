@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/screens/detail_voucher/detail_voucher_screen.dart';
 
 class MyVoucher extends StatelessWidget{
   final double _marginVertical;
@@ -11,6 +12,11 @@ class MyVoucher extends StatelessWidget{
     return 
     GestureDetector(
       onTap: () {
+          Navigator.push(
+                        context,
+                      MaterialPageRoute(builder: (context) => DetailVoucherPage()),
+                    );
+
       },
       child: Container(    
       height: 80.0,

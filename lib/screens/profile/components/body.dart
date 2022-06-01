@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/screens/oder_status/order_status_screen.dart';
 import 'package:shop_app/screens/profile/userprofile/userprofile_screen.dart';
 import 'package:shop_app/screens/setting/setting_screen.dart';
 import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
@@ -22,6 +23,16 @@ class Body extends StatelessWidget {
             icon: "assets/icons/User Icon.svg",
             press: () =>
                 {Navigator.pushNamed(context, UserProfileScreen.routeName)},
+          ),
+          ProfileMenuForPNG(
+            text: "Order Status",
+            icon: "assets/icons/truck.png",
+            press: () => 
+               Navigator.push(
+                        context,
+                      MaterialPageRoute(builder: (context) => OrderStatusScreen()),
+                    )
+            ,
           ),
           ProfileMenu(
             text: "Notifications",
