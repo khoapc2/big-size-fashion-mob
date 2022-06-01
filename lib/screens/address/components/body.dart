@@ -41,19 +41,10 @@ class _BodyState extends State<Body> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            children: [
-                            Text("Trần Dương Phúc An", style: TextStyle(
+                            Text("[Mặc định]", style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold
                            ),),
-                           Text(" [Mặc định]",
-                           style: TextStyle(
-                             fontSize: 20.0,
-                           )
-                           )
-                          ],),
-                         
                           SizedBox(height: 20,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,7 +60,7 @@ class _BodyState extends State<Body> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                width: 250.0,
+                                width: 230.0,
                                 child: Text("123 Nguyễn Trung Trực, Q. Tân Bình, TPHCM", style: TextStyle(color: Colors.black, fontSize: 18),)
                               ),
                               Icon(Icons.location_on, color: Colors.black)
@@ -107,11 +98,6 @@ class _BodyState extends State<Body> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Trần Dương Phúc An", style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold
-                           ),),
-                          SizedBox(height: 20,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,7 +111,7 @@ class _BodyState extends State<Body> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                width: 250.0,
+                                width: 230.0,
                                 child: Text("123 Đường 265, Q.9,TP. Thủ Đức", style: TextStyle(color: Colors.black, fontSize: 18),)
                               ),
                               Icon(Icons.location_on, color: Colors.black)

@@ -32,6 +32,8 @@ dependencies:
   provider: ^6.0.0 # for State managemen 
   dotted_border: ^2.0.0+1
   get_it: ^7.1.3
+  
+  intl: ^0.17.0
 
   cupertino_icons: ^1.0.3
   # if you are using latest flutter please update your flutter_svg package to ^0.18.*

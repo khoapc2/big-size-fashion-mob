@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/screens/view_voucher/view_voucher_screen.dart';
 
 import '../../../size_config.dart';
 
@@ -9,7 +10,13 @@ class DiscountBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return 
+    GestureDetector(
+      onTap: () { Navigator.push(
+                        context,
+                      MaterialPageRoute(builder: (context) => ViewVoucherScreen()),
+                    );}, 
+      child: Container(
       // height: 90,
       width: double.infinity,
       margin: EdgeInsets.all(getProportionateScreenWidth(20)),
@@ -25,9 +32,9 @@ class DiscountBanner extends StatelessWidget {
         TextSpan(
           style: TextStyle(color: Colors.white),
           children: [
-            TextSpan(text: "A Summer Surpise\n"),
+            TextSpan(text: "Bạn ơi!\n"),
             TextSpan(
-              text: "Cashback 20%",
+              text: "Bạn có 51 mã giảm giá",
               style: TextStyle(
                 fontSize: getProportionateScreenWidth(24),
                 fontWeight: FontWeight.bold,
@@ -36,6 +43,8 @@ class DiscountBanner extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ),
+    )
+    ;
   }
 }

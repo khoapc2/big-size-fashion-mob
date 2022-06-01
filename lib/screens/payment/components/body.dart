@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shop_app/screens/address/address_screen.dart';
 import 'package:shop_app/screens/payment/payment_screen.dart';
-import 'package:shop_app/screens/voucher/voucher_screen.dart';
+import 'package:shop_app/screens/pick_voucher/pick_voucher_screen.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -249,7 +249,7 @@ class _BodyState extends State<Body> {
                     TextButton(
                       onPressed: ()  {Navigator.push(
                         context,
-                     MaterialPageRoute(builder: (context) => VoucherScreen()),
+                     MaterialPageRoute(builder: (context) => PickVoucherScreen()),
                     );
                     }, 
                       child: Text("Add a code")

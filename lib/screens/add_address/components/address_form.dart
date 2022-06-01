@@ -18,7 +18,6 @@ class _AddAddressFormState extends State<AddAddressForm>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(left: 16.0, top: 4.0, bottom: 4.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(5)),
             ),
@@ -28,7 +27,6 @@ class _AddAddressFormState extends State<AddAddressForm>
             ),
           ),
           Container(
-            padding: EdgeInsets.only(left: 16.0, top: 4.0, bottom: 4.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(5)),
             ),
@@ -38,7 +36,6 @@ class _AddAddressFormState extends State<AddAddressForm>
             ),
           ),
           Container(
-            padding: EdgeInsets.only(left: 16.0, top: 4.0, bottom: 4.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(5)),
             ),
@@ -48,7 +45,6 @@ class _AddAddressFormState extends State<AddAddressForm>
             ),
           ),
           Container(
-            padding: EdgeInsets.only(left: 16.0, top: 4.0, bottom: 4.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(5)),
             ),
