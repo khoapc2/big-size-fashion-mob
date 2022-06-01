@@ -14,12 +14,15 @@ class Body extends StatelessWidget {
             EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
         child: SingleChildScrollView(
           child: Column(
-            children: [
+            children: <Widget>[
               SizedBox(height: SizeConfig.screenHeight * 0.05),
               Text(
 
                 "XÁC THỰC SĐT",
                 style: headingStyle,
+              ),
+              SizedBox(
+                height: 10,
               ),
               Text("We sent your code to +1 898 860 ***"),
               buildTimer(),

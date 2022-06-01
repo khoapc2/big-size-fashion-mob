@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.3
   # if you are using latest flutter please update your flutter_svg package to ^0.18.*
   flutter_svg: ^0.22.0 # help us to use SVG in our app
+  flutter_datetime_picker: ^1.5.1
 
 dev_dependencies:
   flutter_test:

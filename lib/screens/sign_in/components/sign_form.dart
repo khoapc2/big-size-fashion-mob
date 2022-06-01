@@ -202,6 +202,7 @@ class _SignFormState extends State<SignForm> {
   TextFormField buildPhoneFormField() {
     return TextFormField(
       keyboardType: TextInputType.phone,
+      maxLength: 10,
       onSaved: (newValue) => phone = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {

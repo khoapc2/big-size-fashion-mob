@@ -50,7 +50,7 @@ class _OtpFormState extends State<OtpForm> {
           SizedBox(height: SizeConfig.screenHeight * 0.15),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+            children: <Widget>[
               SizedBox(
                 width: getProportionateScreenWidth(60),
                 child: TextFormField(
@@ -101,7 +101,6 @@ class _OtpFormState extends State<OtpForm> {
                   onChanged: (value) {
                     if (value.length == 1) {
                       pin4FocusNode!.unfocus();
-                      // Then you need to check is the code is correct or not
                     }
                   },
                 ),
