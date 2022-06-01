@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:shop_app/screens/profile/userprofile/userprofile_screen.dart';
 import 'package:shop_app/screens/setting/setting_screen.dart';
-=======
-
->>>>>>> main
 import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
 
 import 'profile_menu.dart';
 import 'profile_pic.dart';
+
+
 
 class Body extends StatelessWidget {
   @override

@@ -31,13 +31,10 @@ final Map<String, WidgetBuilder> routes = {
   HomeScreen.routeName: (context) => HomeScreen(),
   DetailsScreen.routeName: (context) => DetailsScreen(),
   CartScreen.routeName: (context) => CartScreen(),
-<<<<<<< HEAD
   ProfileScreen.routeName: (context) => ProfileScreen(),
   UserProfileScreen.routeName: (context) => UserProfileScreen(),
   UserProfileEditScreen.routeName: (context) => UserProfileEditScreen(),
   SettingScreen.routeName: (context) => SettingScreen(),
   PincodeScreen.routeName: (context) => PincodeScreen(),
-=======
-  ProfileScreen.routeName: (context) => ProfileScreen()
->>>>>>> main
+
 };
