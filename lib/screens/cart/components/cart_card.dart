@@ -1,20 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:shop_app/checkout_product.dart';
 import 'package:shop_app/models/Cart.dart';
+import 'package:shop_app/screens/cart/cart_controller.dart';
+import 'package:shop_app/screens/cart/components/check_out_card.dart';
 
 import '../../../constants.dart';
+import '../../../locator.dart';
 import '../../../size_config.dart';
 
-class CartCard extends StatelessWidget {
-  const CartCard({
+class CartCard extends StatefulWidget {
+  final CartController _controller = Get.find();
+  final updateTotal;
+   CartCard({
     Key? key,
     required this.cart,
+    this.updateTotal
   }) : super(key: key);
 
   final Cart cart;
+  int _quantity = 1;
+  @override
+  State<StatefulWidget> createState() => _CartCardState();
+  }
 
+  class _CartCardState extends State<CartCard>{
+    var _productsSelected = locator.get<CheckOutProducts>();
   @override
   Widget build(BuildContext context) {
-    return Row(
+     return  
+      Container(
+        child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
@@ -30,7 +46,7 @@ class CartCard extends StatelessWidget {
                     color: Color(0xFFF5F6F9),
                     borderRadius: BorderRadius.circular(15),
                   ),
-                    child: Image.asset(cart.product.images[0]),
+                    child: Image.asset(widget.cart.product.images[0]),
                   ),
           ),
         ),
@@ -42,23 +58,19 @@ class CartCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              cart.product.title,
+              widget.cart.product.title,
               style: TextStyle(color: Colors.black, fontSize: 16),
               maxLines: 2,
             ),
             SizedBox(height: 10),
             Text.rich(
               TextSpan(
-                text: "\$${cart.product.price}",
+                text: "\$${widget.cart.product.price}",
                 style: TextStyle(
                     fontWeight: FontWeight.w600, color: kPrimaryColor),
-                children: [
-                  TextSpan(
-                      text: " x${cart.numOfItem}",
-                      style: Theme.of(context).textTheme.bodyText1),
-                ],
+              
               ),
-            )
+            ),
           ],
         ),
         ),
@@ -67,13 +79,29 @@ class CartCard extends StatelessWidget {
         ),
          Column(
           children: [
-            IconButton(onPressed: _onSearchButtonPressed, icon: Icon(Icons.add_circle, size: 30,)),
-            IconButton(onPressed: _onSearchButtonPressed, icon: Icon(Icons.remove_circle_outline, color: Colors.grey.shade400, size: 30,))
+            IconButton(onPressed: (){
+              setState(() {
+                widget.cart.numOfItem++;
+                widget.updateTotal();
+              });
+            }, icon: Icon(Icons.add_circle, size: 30,)),
+            Text(widget.cart.numOfItem.toString(),style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0)),
+            IconButton(onPressed: (){
+              setState(() {
+                if(widget.cart.numOfItem > 1){
+                widget.cart.numOfItem--;
+                widget.updateTotal();
+                }
+              });
+            }, icon: Icon(Icons.remove_circle_outline, color: Colors.grey.shade400, size: 30,))
           ],
           )
         ]
       ,
-    );
+    ),
+      );
+    
+    
   }
 
   void _onSearchButtonPressed() {

@@ -22,7 +22,7 @@ class UserProfileEditHeader extends StatelessWidget {
           width: 300,
           height: 50,
           child: Text(
-            "Sua thong tin ca nhan",
+            "Thông tin cá nhân",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: "QuickSandBold",

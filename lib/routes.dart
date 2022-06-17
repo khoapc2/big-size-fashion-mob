@@ -1,5 +1,7 @@
 //import 'dart:js';
 
+
+
 import 'package:flutter/widgets.dart';
 import 'package:shop_app/screens/cart/cart_screen.dart';
 import 'package:shop_app/screens/complete_profile/complete_profile_screen.dart';
@@ -12,8 +14,10 @@ import 'package:shop_app/screens/pincode/pincode_screen.dart';
 import 'package:shop_app/screens/profile/profile_screen.dart';
 import 'package:shop_app/screens/profile/userprofile/userprofile_screen.dart';
 import 'package:shop_app/screens/profile/userprofile_edit/profileedit_screen.dart';
+import 'package:shop_app/screens/rating/ratingactivity_screen.dart';
 import 'package:shop_app/screens/setting/setting_screen.dart';
 import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
+import 'package:shop_app/screens/signup_userprofile/signup_profile_screen.dart';
 import 'package:shop_app/screens/splash/splash_screen.dart';
 
 import 'screens/sign_up/sign_up_screen.dart';
@@ -36,5 +40,6 @@ final Map<String, WidgetBuilder> routes = {
   UserProfileEditScreen.routeName: (context) => UserProfileEditScreen(),
   SettingScreen.routeName: (context) => SettingScreen(),
   PincodeScreen.routeName: (context) => PincodeScreen(),
-
+  SignUpUserProfileScreen.routeName: (context) => SignUpUserProfileScreen(),
+  RatingScreen.routeName: (context) => RatingScreen()
 };

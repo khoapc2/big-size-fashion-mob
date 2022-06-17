@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/screens/search_prodoct/search_product_screen.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -25,9 +26,19 @@ class SearchField extends StatelessWidget {
             border: InputBorder.none,
             focusedBorder: InputBorder.none,
             enabledBorder: InputBorder.none,
-            hintText: "Search product",
-            prefixIcon: Icon(Icons.search)),
+            hintText: "Tìm sản phẩm",
+            prefixIcon: new IconButton(
+  icon: new Icon(Icons.search),
+  onPressed: () { 
+    {
+                      Navigator.push(
+                        context,
+                      MaterialPageRoute(builder: (context) => SearchProductScreen()),
+                    );
+                    }
+   },
+),
       ),
-    );
+    ));
   }
 }

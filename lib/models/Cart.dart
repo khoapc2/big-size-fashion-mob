@@ -5,8 +5,8 @@ import 'Product.dart';
 
 class Cart {
   final Product product;
-  final int numOfItem;
-
+  int numOfItem;
+  
   Cart({required this.product, required this.numOfItem});
 }
 

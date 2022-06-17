@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/screens/feedback/feedback_screen.dart';
 
 import '../../models/Product.dart';
 import 'components/body.dart';
@@ -15,7 +16,16 @@ class DetailsScreen extends StatelessWidget {
       backgroundColor: Color(0xFFF5F6F9),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(AppBar().preferredSize.height),
-        child: CustomAppBar(rating: agrs.product.rating),
+        child: 
+        GestureDetector(
+          onTap: ()=>
+                      Navigator.push(
+                        context,
+                      MaterialPageRoute(builder: (context) => ViewFeedback()),
+                    )
+                    ,
+          child: CustomAppBar(rating: agrs.product.rating),
+        )
       ),
       body: Body(product: agrs.product),
     );

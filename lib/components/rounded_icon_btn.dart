@@ -3,7 +3,7 @@ import 'package:shop_app/constants.dart';
 
 import '../size_config.dart';
 
-class RoundedIconBtn extends StatelessWidget {
+class RoundedIconBtn extends StatefulWidget {
   const RoundedIconBtn({
     Key? key,
     required this.icon,
@@ -16,6 +16,11 @@ class RoundedIconBtn extends StatelessWidget {
   final bool showShadow;
 
   @override
+  State<StatefulWidget> createState() => _RoundedIconBtnState();
+}
+
+class _RoundedIconBtnState extends State<RoundedIconBtn>{
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: getProportionateScreenWidth(40),
@@ -23,7 +28,7 @@ class RoundedIconBtn extends StatelessWidget {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         boxShadow: [
-          if (showShadow)
+          if (widget.showShadow)
             BoxShadow(
               offset: Offset(0, 6),
               blurRadius: 10,
@@ -39,8 +44,8 @@ class RoundedIconBtn extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
         ),
-        onPressed: press,
-        child: Icon(icon),
+        onPressed: widget.press,
+        child: Icon(widget.icon),
       ),
     );
   }

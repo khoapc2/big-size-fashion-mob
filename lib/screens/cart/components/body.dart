@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:shop_app/models/Cart.dart';
+import 'package:shop_app/screens/cart/components/check_out_card.dart';
 
 import '../../../size_config.dart';
+import '../cart_controller.dart';
 import 'cart_card.dart';
 
 class Body extends StatefulWidget {
+  final updateTotal;
+  Body(this.updateTotal);
   @override
   _BodyState createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
+  double? _total;
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return 
+      Padding(
       padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
       child: ListView.builder(
@@ -26,6 +33,7 @@ class _BodyState extends State<Body> {
             onDismissed: (direction) {
               setState(() {
                 demoCarts.removeAt(index);
+                widget.updateTotal();
               });
             },
             background: Container(
@@ -41,10 +49,14 @@ class _BodyState extends State<Body> {
                 ],
               ),
             ),
-            child: CartCard(cart: demoCarts[index]),
+            child: 
+            CartCard(cart: demoCarts[index], updateTotal: widget.updateTotal),
           ),
         ),
       ),
     );
+    
   }
+
+ 
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/components/coustom_bottom_nav_bar.dart';
 import 'package:shop_app/screens/payment/components/body.dart';
+
+import '../../enums.dart';
 
 class PaymentScreen extends StatelessWidget{
   @override
@@ -8,6 +11,7 @@ class PaymentScreen extends StatelessWidget{
     return Scaffold(
       appBar: buildAppBar(context),
       body: Body(),
+      bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.message)
     );
   }
 

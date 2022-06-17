@@ -34,13 +34,15 @@ final RegExp phoneNumberValidatorRegExp = RegExp(r"^(?:[+0]9)?[0-9]{10}$");
 //const String kPhoneNullError = "Vui lòng nhập SĐT của bạn";
 const String kEmailNullError = "Please Enter your email";
 const String kInvalidEmailError = "Please Enter Valid Email";
-const String kInvalidPhoneError = "Pleas enter Valid Phone number";
+const String kInvalidPhoneError = "Làm ơn nhập đúng số điện thoại";
 const String kPassNullError = "Please Enter your password";
 const String kShortPassError = "Password is too short";
 const String kMatchPassError = "Passwords don't match";
 const String kNamelNullError = "Please Enter your name";
-const String kPhoneNumberNullError = "Please Enter your phone number";
+const String kPhoneNumberNullError = "Làm ơn nhập số điện thoại";
 const String kAddressNullError = "Please Enter your address";
+const String kInvalidCode = "Nhập sai mã code";
+const String kExpiredTime = "Hết thời gian vui lòng gửi lại mã code";
 
 final otpInputDecoration = InputDecoration(
   contentPadding:

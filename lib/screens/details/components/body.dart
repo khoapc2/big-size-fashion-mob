@@ -5,13 +5,15 @@ import 'package:shop_app/size_config.dart';
 
 import 'color_dots.dart';
 import 'product_description.dart';
+import 'stores.dart';
 import 'top_rounded_container.dart';
 import 'product_images.dart';
 
 class Body extends StatelessWidget {
   final Product product;
+  
 
-  const Body({Key? key, required this.product}) : super(key: key);
+  Body({Key? key, required this.product}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,7 @@ class Body extends StatelessWidget {
                 child: Column(
                   children: [
                     ColorDots(product: product),
+                    Stores(),
                     TopRoundedContainer(
                       color: Colors.white,
                       child: Padding(

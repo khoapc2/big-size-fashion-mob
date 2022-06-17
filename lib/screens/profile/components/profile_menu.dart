@@ -75,7 +75,7 @@ class ProfileMenuForPNG extends StatelessWidget {
         child: Row(
           children: [
             ImageIcon(
-    AssetImage('assets/icons/truck.png'),
+    AssetImage(this.icon),
     color: kPrimaryColor,
     size: 40.0,
   ),

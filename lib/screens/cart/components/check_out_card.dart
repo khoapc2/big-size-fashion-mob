@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:shop_app/components/default_button.dart';
+import 'package:shop_app/screens/cart/cart_controller.dart';
 import 'package:shop_app/screens/payment/payment_screen.dart';
 
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
-
 class CheckoutCard extends StatelessWidget {
-  const CheckoutCard({
-    Key? key,
+   final CartController _controller = Get.find();
+   double? total = 0;
+   CheckoutCard({
+    Key? key,this.total
   }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,38 +41,16 @@ class CheckoutCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(10),
-                  height: getProportionateScreenWidth(40),
-                  width: getProportionateScreenWidth(40),
-                  decoration: BoxDecoration(
-                    color: Color(0xFFF5F6F9),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: SvgPicture.asset("assets/icons/receipt.svg"),
-                ),
-                Spacer(),
-                Text("Add voucher code"),
-                const SizedBox(width: 10),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: 12,
-                  color: kTextColor,
-                )
-              ],
-            ),
             SizedBox(height: getProportionateScreenHeight(20)),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text.rich(
                   TextSpan(
-                    text: "Total:\n",
+                    text: "Tổng cộng:\n",
                     children: [
                       TextSpan(
-                        text: "\$337.15",
+                        text: total.toString(),
                         style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
                     ],
@@ -79,12 +59,14 @@ class CheckoutCard extends StatelessWidget {
                 SizedBox(
                   width: getProportionateScreenWidth(190),
                   child: DefaultButton(
-                    text: "Check Out",
+                    text: "Thanh toán",
                     press: () {
                       Navigator.push(
                         context,
                       MaterialPageRoute(builder: (context) => PaymentScreen()),
                     );
+                    //print(_controller.total.value.toString());
+                      // print(total);
                     },
 
                   ),
@@ -95,5 +77,10 @@ class CheckoutCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String getTotal(){
+    print(_controller.total.value.toString());
+    return _controller.total.value.toString();
   }
 }
