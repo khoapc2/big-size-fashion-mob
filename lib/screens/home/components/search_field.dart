@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/screens/search_prodoct/search_product_screen.dart';
+import 'package:shop_app/view_model/product_view_model.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class SearchField extends StatelessWidget {
-  const SearchField({
+  String? searchValue;
+   SearchField({
     Key? key,
   }) : super(key: key);
 
@@ -18,7 +20,7 @@ class SearchField extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
       ),
       child: TextField(
-        onChanged: (value) => print(value),
+        onChanged: (value) => searchValue = value,
         decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(
                 horizontal: getProportionateScreenWidth(20),
@@ -29,11 +31,14 @@ class SearchField extends StatelessWidget {
             hintText: "Tìm sản phẩm",
             prefixIcon: new IconButton(
   icon: new Icon(Icons.search),
-  onPressed: () { 
+  onPressed: () async { 
     {
+      print(searchValue);
+      var productResponseModel = await ProductViewModel.getListProductByNameSearch(searchValue);
+
                       Navigator.push(
                         context,
-                      MaterialPageRoute(builder: (context) => SearchProductScreen()),
+                      MaterialPageRoute(builder: (context) => SearchProductScreen(content: productResponseModel.content)),
                     );
                     }
    },

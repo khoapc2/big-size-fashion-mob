@@ -1,7 +1,9 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shop_app/constants.dart';
 import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
+import 'package:shop_app/screens/waiting_home/splash_screen.dart';
 import 'package:shop_app/size_config.dart';
 
 // This is the best practice
@@ -14,6 +16,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  
   int currentPage = 0;
   List<Map<String, String>> splashData = [
     {
@@ -74,7 +77,7 @@ class _BodyState extends State<Body> {
                     ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.black),
+                              MaterialStateProperty.all<Color>(kPrimaryColor),
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
@@ -90,7 +93,6 @@ class _BodyState extends State<Body> {
                           borderRadius: BorderRadius.all(
                             Radius.circular(100.00),
                           ),
-                          color: kPrimaryColor,
                         ),
                         child: Text(
                           "Mua sắm ngay",
@@ -100,8 +102,12 @@ class _BodyState extends State<Body> {
                           ),
                         ),
                       ),
-                      onPressed: () => {
-                        Navigator.pushNamed(context, SignInScreen.routeName)
+                      onPressed: () async  {
+                        Navigator.pushNamed(context, SignInScreen.routeName);
+                    //     Navigator.push(
+                    //     context,
+                    //   MaterialPageRoute(builder: (context) => WaitngHomeScreen()),
+                    // );
                       },
                     ),
                     /*

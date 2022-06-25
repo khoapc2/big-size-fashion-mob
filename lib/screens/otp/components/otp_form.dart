@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/form_error.dart';
+import 'package:shop_app/models/customer_account/login_response_model.dart';
 
 import 'package:shop_app/screens/login_success/login_success_screen.dart';
-import 'package:shop_app/screens/signup_userprofile/signup_profile_screen.dart';
+import 'package:shop_app/screens/sign_up%20copy/sign_up_screen.dart';
 import 'package:shop_app/size_config.dart';
+import 'package:shop_app/view_model/login_view_model.dart';
 import 'package:twilio_phone_verify/twilio_phone_verify.dart';
 
 import '../../../constants.dart';
 import '../../../locator.dart';
+import '../../../token.dart';
 import '../../../twilio_verify.dart';
 
 class OtpForm extends StatefulWidget {
@@ -20,8 +24,11 @@ class OtpForm extends StatefulWidget {
   _OtpFormState createState() => _OtpFormState();
 }
 
+LoginResponseModel? response;
+
 class _OtpFormState extends State<OtpForm> {
   final _formKey = GlobalKey<FormState>();
+  final _storage = const FlutterSecureStorage();
   String? _number1;
   String? _number2;
   String? _number3;
@@ -35,6 +42,7 @@ class _OtpFormState extends State<OtpForm> {
   FocusNode? pin5FocusNode;
   FocusNode? pin6FocusNode;
   var _twilio = locator.get<TwilioVerify>();
+  var _token = locator.get<Token>();
   final List<String?> errors = [];
 
   void addError({String? error}) {
@@ -151,7 +159,28 @@ class _OtpFormState extends State<OtpForm> {
           DefaultButton(
             text: "Continue",
             press: () async {
-              Navigator.pushNamed(context, SignUpUserProfileScreen.routeName);
+              LoginViewModel loginViewModel = new LoginViewModel();
+              LoginRequestModel loginRequestModel= new LoginRequestModel(_twilio.getPhone()!);
+              // loginViewModel.getLoginResponse(loginRequestModel).then((value) {
+              //   print("Giá trị của loginRequestModel trả về trong otpform"+value!.isNewCustomer.toString());
+              //   response = value;} );
+              LoginResponseModel? loginResponse = await loginViewModel.getLoginResponse(loginRequestModel);
+              if(loginResponse!.isNewCustomer == true){
+                
+               Navigator.push(
+                        context,
+                      MaterialPageRoute(builder: (context) => SignUpScreen()),
+                    );
+                //Navigator.pushNamed(context, SignUpUserProfileScreen.routeName);
+              }
+              else{
+                _storage.write(key: "token", value: loginResponse.token);
+                _storage.write(key: "phoneNumber", value: _twilio.getPhone());
+                
+                Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+            }
+
+              //Navigator.pushNamed(context, SignUpUserProfileScreen.routeName);
               // if (_formKey.currentState!.validate()) {
               //   _formKey.currentState!.save();
               //   var twilioPhoneVerify = _twilio.getTwilioPhoneVerify();

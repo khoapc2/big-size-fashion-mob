@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/size_config.dart';
 
 
-const kPrimaryColor = Color.fromARGB(255, 0, 0, 0);
+const kPrimaryColor = Color(0xFFFF7643);
+//const kPrimaryColor = Color.fromARGB(255, 0, 0, 0);
 const kPrimaryLightColor = Color(0xFFFFECDF);
 const kPrimaryGradientColor = LinearGradient(
   begin: Alignment.topLeft,
@@ -32,17 +33,19 @@ final RegExp emailValidatorRegExp =
     RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 final RegExp phoneNumberValidatorRegExp = RegExp(r"^(?:[+0]9)?[0-9]{10}$");
 //const String kPhoneNullError = "Vui lòng nhập SĐT của bạn";
-const String kEmailNullError = "Please Enter your email";
+const String kNameNullError = "Vui lòng nhập tên";
 const String kInvalidEmailError = "Please Enter Valid Email";
 const String kInvalidPhoneError = "Làm ơn nhập đúng số điện thoại";
-const String kPassNullError = "Please Enter your password";
-const String kShortPassError = "Password is too short";
+const String kPassNullError = "Vui lòng nhập cân nặng";
+const String kInvalidHeght = "Vui lòng nhập chiều cao";
+const String kShortPassError = "Vui lòng nhập đúng chiều cao";
 const String kMatchPassError = "Passwords don't match";
 const String kNamelNullError = "Please Enter your name";
 const String kPhoneNumberNullError = "Làm ơn nhập số điện thoại";
 const String kAddressNullError = "Please Enter your address";
 const String kInvalidCode = "Nhập sai mã code";
 const String kExpiredTime = "Hết thời gian vui lòng gửi lại mã code";
+const String kGenderNullError = "Vui lòng nhập giới tính";
 
 final otpInputDecoration = InputDecoration(
   contentPadding:

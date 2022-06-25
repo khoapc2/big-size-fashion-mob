@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/models/Cart.dart';
+import 'package:shop_app/models/product_model.dart';
 
 import 'components/body.dart';
 
 class SearchProductScreen extends StatelessWidget {
   static String routeName = "/cart";
   @override
+  SearchProductScreen({required this.content});
+  final List<Content>? content;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: Body(),
+      body: Body(contents: content),
     );
   }
 

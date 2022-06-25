@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shop_app/screens/oder_history/oder_history_screen.dart';
 import 'package:shop_app/screens/orders/process_timeline_screen.dart';
 import 'package:shop_app/screens/profile/userprofile/userprofile_screen.dart';
@@ -11,6 +12,7 @@ import 'profile_pic.dart';
 
 
 class Body extends StatelessWidget {
+  final storage = const FlutterSecureStorage();
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -63,11 +65,12 @@ class Body extends StatelessWidget {
             text: "Log Out",
             icon: "assets/icons/Log out.svg",
 
-            press: () => {
+            press: () async  {
+              await storage.deleteAll();
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (_) => SignInScreen()),
-                  (route) => false),
+                  (route) => false);
             },
           ),
         ],

@@ -60,9 +60,9 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
             keyboardType: TextInputType.emailAddress,
             onSaved: (newValue) => email = newValue,
             onChanged: (value) {
-              if (value.isNotEmpty && errors.contains(kEmailNullError)) {
+              if (value.isNotEmpty && errors.contains(kGenderNullError)) {
                 setState(() {
-                  errors.remove(kEmailNullError);
+                  errors.remove(kGenderNullError);
                 });
               } else if (emailValidatorRegExp.hasMatch(value) &&
                   errors.contains(kInvalidEmailError)) {
@@ -73,9 +73,9 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
               return null;
             },
             validator: (value) {
-              if (value!.isEmpty && !errors.contains(kEmailNullError)) {
+              if (value!.isEmpty && !errors.contains(kGenderNullError)) {
                 setState(() {
-                  errors.add(kEmailNullError);
+                  errors.add(kGenderNullError);
                 });
               } else if (!emailValidatorRegExp.hasMatch(value) &&
                   !errors.contains(kInvalidEmailError)) {

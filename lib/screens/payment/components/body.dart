@@ -233,30 +233,6 @@ class _BodyState extends State<Body> {
                   )
                 ]
               ),
-              SizedBox(height: 30,),
-              Container(
-                height: 50,
-                padding: EdgeInsets.only(left: 20,),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Offers", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),),
-                    TextButton(
-                      onPressed: ()  {Navigator.push(
-                        context,
-                     MaterialPageRoute(builder: (context) => PickVoucherScreen()),
-                    );
-                    }, 
-                      child: Text("Add a code")
-                    )
-                  ],
-                ),
-              ),
               SizedBox(height: 20,),
                Container(
                 height: 50,

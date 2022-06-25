@@ -44,6 +44,7 @@ dependencies:
   flutter_rating_bar: ^4.0.0
   get: 4.0.0
   csc_picker: ^0.2.6
+  flutter_secure_storage: ^5.0.2
 
 dev_dependencies:
   flutter_test:

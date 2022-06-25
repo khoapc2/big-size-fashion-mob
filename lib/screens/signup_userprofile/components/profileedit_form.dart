@@ -4,7 +4,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:shop_app/models/customer_account/register_account_model.dart';
 import 'package:shop_app/screens/login_success/login_success_screen.dart';
+import 'package:shop_app/view_model/register_view_model.dart';
 
 // ignore: must_be_immutable
 class EditProfileForm extends StatefulWidget {
@@ -33,6 +35,7 @@ class _EditProfile extends State<EditProfileForm> {
   TextEditingController heighP = TextEditingController();
   TextEditingController weightP = TextEditingController();
   TextEditingController emailP = TextEditingController();
+  TextEditingController genderP = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +84,7 @@ class _EditProfile extends State<EditProfileForm> {
         SizedBox(height: size.height * 0.01),
         Container(
           alignment: Alignment.center,
+          height: 70.0,
           margin: EdgeInsets.only(left: 20, right: 20),
           child: TextField(
             controller: nameP,
@@ -102,6 +106,7 @@ class _EditProfile extends State<EditProfileForm> {
         SizedBox(height: size.height * 0.015),
         Container(
           alignment: Alignment.centerLeft,
+          height: 70.0,
           margin: EdgeInsets.only(left: 20),
           //color: Colors.blue,
           child: Text(
@@ -116,6 +121,7 @@ class _EditProfile extends State<EditProfileForm> {
         SizedBox(height: size.height * 0.01),
         Container(
           alignment: Alignment.center,
+          height: 70.0,
           margin: EdgeInsets.only(left: 20, right: 20),
           child: TextField(
       keyboardType: TextInputType.number,
@@ -152,6 +158,7 @@ class _EditProfile extends State<EditProfileForm> {
         SizedBox(height: size.height * 0.01),
         Container(
           alignment: Alignment.center,
+          height: 70.0,
           margin: EdgeInsets.only(left: 20, right: 20),
           child: TextField(
       keyboardType: TextInputType.number,
@@ -187,9 +194,44 @@ class _EditProfile extends State<EditProfileForm> {
         SizedBox(height: size.height * 0.01),
         Container(
           alignment: Alignment.center,
+          height: 70.0,
           margin: EdgeInsets.only(left: 20, right: 20),
           child: TextField(
             controller: emailP,
+            decoration: InputDecoration(
+              //labelText: "Hostel address",
+              border: myinputborder(),
+              enabledBorder: myinputborder(),
+              focusedBorder: myfocusborder(),
+              contentPadding:
+                  EdgeInsets.only(top: 25, left: 20, bottom: 25, right: 10),
+            ),
+            maxLength: 100,
+            style: TextStyle(
+              fontFamily: "QuickSandMedium",
+              fontSize: 20,
+            ),
+          ),
+        ),
+        Container(
+          alignment: Alignment.centerLeft,
+          margin: EdgeInsets.only(left: 20),
+          //color: Colors.blue,
+          child: Text(
+            "Giới tính",
+            style: TextStyle(
+                fontFamily: "QuickSandBold",
+                fontSize: 25,
+                color: Color(0xFF000000)),
+          ),
+        ),
+        SizedBox(height: size.height * 0.01),
+        Container(
+          alignment: Alignment.center,
+          height: 70.0,
+          margin: EdgeInsets.only(left: 20, right: 20),
+          child: TextField(
+            controller: genderP,
             decoration: InputDecoration(
               //labelText: "Hostel address",
               border: myinputborder(),
@@ -219,7 +261,21 @@ class _EditProfile extends State<EditProfileForm> {
             padding: const EdgeInsets.all(0),
             child: 
             GestureDetector(
-              onTap: () => Navigator.pushNamed(context, LoginSuccessScreen.routeName),
+              onTap: () async {
+               var registerRequestVM = RegisterAccountRequest(
+                  email: emailP.text,
+                  fullname: nameP.text,
+                  gender: genderP.text,
+                  heigth: int.parse(heighP.text),
+                  phoneNumber: phone,
+                  weigth: int.parse(weightP.text),
+                  );
+                RegisterViewModel? registerViewModel = new RegisterViewModel();
+                var response = await registerViewModel.getRegisterResponse(registerRequestVM);
+                var token = response!.content!.token;
+
+                Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+              } ,
               child: Container(
               alignment: Alignment.center,
               height: 50.0,

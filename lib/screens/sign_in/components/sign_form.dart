@@ -3,10 +3,12 @@ import 'package:shop_app/components/custom_surfix_icon.dart';
 import 'package:shop_app/components/form_error.dart';
 import 'package:shop_app/helper/keyboard.dart';
 import 'package:shop_app/locator.dart';
+import 'package:shop_app/models/customer_account/login_response_model.dart';
 import 'package:shop_app/screens/forgot_password/forgot_password_screen.dart';
 import 'package:shop_app/screens/login_success/login_success_screen.dart';
 import 'package:shop_app/screens/otp/otp_screen.dart';
 import 'package:shop_app/twilio_verify.dart';
+import 'package:shop_app/view_model/login_view_model.dart';
 import 'package:twilio_phone_verify/twilio_phone_verify.dart';
 
 import '../../../components/default_button.dart';
@@ -83,7 +85,7 @@ class _SignFormState extends State<SignForm> {
           SizedBox(height: getProportionateScreenHeight(50)),
           ElevatedButton(
             style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                backgroundColor: MaterialStateProperty.all<Color>(kPrimaryColor),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -97,7 +99,7 @@ class _SignFormState extends State<SignForm> {
                 borderRadius: BorderRadius.all(
                   Radius.circular(100.00),
                 ),
-                color: kPrimaryColor,
+                //color: kPrimaryColor,
               ),
               child: Text(
                 "Đăng nhập",
@@ -113,10 +115,11 @@ class _SignFormState extends State<SignForm> {
                   _formKey.currentState!.save();
                   // if all are valid then go to success screen
                   KeyboardUtil.hideKeyboard(context);
-                  _twilio.setPhone("+84"+phone!);
+                  _twilio.setPhone(phone!);
                   var twilioPhoneVerify = _twilio.getTwilioPhoneVerify();
           //await twilioPhoneVerify.sendSmsCode("+84"+phone!);
-                    
+                 
+                //print(response!.token);
     // print(twilioResponse.statusCode!);
       //code sent
    
@@ -182,7 +185,7 @@ class _SignFormState extends State<SignForm> {
       onSaved: (newValue) => email = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
-          removeError(error: kEmailNullError);
+          removeError(error: kGenderNullError);
         } else if (emailValidatorRegExp.hasMatch(value)) {
           removeError(error: kInvalidEmailError);
         }
@@ -190,7 +193,7 @@ class _SignFormState extends State<SignForm> {
       },
       validator: (value) {
         if (value!.isEmpty) {
-          addError(error: kEmailNullError);
+          addError(error: kGenderNullError);
           return "";
         } else if (!emailValidatorRegExp.hasMatch(value)) {
           addError(error: kInvalidEmailError);

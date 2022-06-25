@@ -19,6 +19,7 @@ import 'package:shop_app/screens/setting/setting_screen.dart';
 import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
 import 'package:shop_app/screens/signup_userprofile/signup_profile_screen.dart';
 import 'package:shop_app/screens/splash/splash_screen.dart';
+import 'package:shop_app/screens/waiting_home/splash_screen.dart';
 
 import 'screens/sign_up/sign_up_screen.dart';
 
@@ -41,5 +42,6 @@ final Map<String, WidgetBuilder> routes = {
   SettingScreen.routeName: (context) => SettingScreen(),
   PincodeScreen.routeName: (context) => PincodeScreen(),
   SignUpUserProfileScreen.routeName: (context) => SignUpUserProfileScreen(),
-  RatingScreen.routeName: (context) => RatingScreen()
+  RatingScreen.routeName: (context) => RatingScreen(),
+  WaitngHomeScreen.routeName: (context) => WaitngHomeScreen()
 };
