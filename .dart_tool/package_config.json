@@ -266,6 +266,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "string_to_hex",
+      "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/string_to_hex-0.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "term_glyph",
       "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/term_glyph-1.2.0",
       "packageUri": "lib/",
@@ -308,7 +314,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2022-06-22T02:44:13.489472Z",
+  "generated": "2022-06-27T13:25:21.159468Z",
   "generator": "pub",
   "generatorVersion": "2.14.4"
 }

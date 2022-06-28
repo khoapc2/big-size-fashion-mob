@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/models/Cart.dart';
-import 'package:shop_app/screens/orders/process_timeline_screen.dart';
+import 'package:shop_app/screens/orders_status/process_timeline_screen.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -19,7 +19,7 @@ class CartCard extends StatelessWidget {
     GestureDetector(
       onTap: () => Navigator.push(
                         context,
-                      MaterialPageRoute(builder: (context) => ProcessTimelinePage()),
+                      MaterialPageRoute(builder: (context) => ProcessTimelinePage(1)),
                     ),
                     child:  Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

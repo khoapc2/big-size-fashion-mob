@@ -1,6 +1,7 @@
 
 import 'package:shop_app/api/api_get_product_service.dart';
 import 'package:shop_app/models/product_model.dart';
+import 'package:shop_app/models/detail_product_id_model.dart';
 
 class ProductViewModel {
 static Future<ProductResponseModel> getListProductByNameSearch(String? searchValue) async {
@@ -14,4 +15,10 @@ static Future<ProductResponseModel> getListProductByNameSearch(String? searchVal
     var result = await service.getAllProducts();
     return result;
   }
+
+  // static Future<GetQuantityReponse> getQuantity(GetQuantityRequest request) async {
+  //   ProductService service = new ProductService();
+  //   var result = await service.getQuantity(request);
+  //   return result;
+  // }
 }

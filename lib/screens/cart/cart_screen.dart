@@ -1,36 +1,79 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:shop_app/list_cart.dart';
 import 'package:shop_app/models/Cart.dart';
+import 'package:shop_app/models/cart_model.dart';
+import 'package:shop_app/view_model/cart_view_model.dart';
 
-import 'cart_controller.dart';
+import '../../locator.dart';
 import 'components/body.dart';
 import 'components/check_out_card.dart';
 
 class CartScreen extends StatefulWidget {
  static String routeName = "/cart";
- final CartController _controller = Get.put(CartController());
  double total = 0;
+ var listCart = CartViewModel.getListCart();
+ bool initState = true;
+ 
+  var currentListCart = locator.get<ListCart>();
  @override
   State<StatefulWidget> createState() => CartScreenState();
 }
 
 class CartScreenState extends State<CartScreen>{
-  @override
-  void initState() {
-    // TODO: implement initState
-    updateTotal();
-  }
+
   @override
   Widget build(BuildContext context) {
+    return
+    FutureBuilder(
+      future: widget.listCart,
+      builder: (BuildContext context, AsyncSnapshot<ListCartResponse> snapshot){
+        if(snapshot.hasData){
+          if(widget.currentListCart.getListCart() == null){
+            widget.currentListCart.setListCart(snapshot.data!.content);
+            widget.currentListCart.setTotal();
+            
+          }
+          if(widget.initState == true){
+              widget.total = widget.currentListCart.total;
+              widget.initState = false;
+          }
+           
     return Scaffold(
       appBar: buildAppBar(context),
       body:  Body(updateTotal),
       bottomNavigationBar: CheckoutCard(total: widget.total),                                                                                                                                                                                                                                                    
-    );
+    );}
+    else{
+      print("đen là do thằng này nè");
+      return Scaffold(
+      appBar: buildAppBar(context),
+      body:  Container());
+    }
+    });
   }
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
+      leading: 
+      IconButton(icon: Icon(Icons.arrow_back),
+      onPressed: (){
+        CartViewModel response = CartViewModel();
+        widget.currentListCart.total = widget.total;
+        
+        var currentListCart = widget.currentListCart.listCart!;
+
+        List<AddToCarRequest> listCart = <AddToCarRequest>[];
+
+        currentListCart.forEach
+        ((element) { 
+          AddToCarRequest cart = AddToCarRequest();
+          cart.productDetailId = element.productDetailId;
+          cart.quantity = element.quantity;
+          listCart.add(cart);
+        });
+        response.addListCart(listCart);
+        Navigator.pop(context);
+      }),
       title: Column(
         children: [
           Text(
@@ -49,7 +92,7 @@ class CartScreenState extends State<CartScreen>{
    void updateTotal(){
     setState(() {
       widget.total = 0;
-      demoCarts.forEach((cart) { widget.total += (cart.numOfItem*cart.product.price);});
+      widget.currentListCart.getListCart()!.forEach((cart) { widget.total += (cart.quantity!*cart.productPrice!);});
       print("Total đã đc cập nhật");
     });
   }

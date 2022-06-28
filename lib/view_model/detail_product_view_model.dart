@@ -1,5 +1,6 @@
 import 'package:shop_app/api/api_get_detail_product_service.dart';
 import 'package:shop_app/api/api_get_product_service.dart';
+import 'package:shop_app/models/detail_product_id_model.dart';
 import 'package:shop_app/models/detail_product_model.dart';
 import 'package:shop_app/models/product_model.dart';
 
@@ -25,6 +26,12 @@ static Future<DetailProductResponse> getListProductById(int productId) async {
     result.setlistColor(listColor);
     result.setlistSize(listSize);
 
+    return result;
+  }
+
+  static Future<GetProductDetailResponse> getProductDetailId(GetProductDetailIdRequest request) async {
+    DetailProductService service = new DetailProductService();
+    var result = await service.getProductDetailId(request);
     return result;
   }
 

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/components/rounded_icon_btn.dart';
 import 'package:shop_app/models/Product.dart';
+import 'package:shop_app/models/detail_product_model.dart';
+import 'package:shop_app/models/detail_product_id_model.dart';
+import 'package:string_to_hex/string_to_hex.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -8,11 +11,14 @@ import '../../../size_config.dart';
 class ColorDots extends StatefulWidget {
   ColorDots({
     Key? key,
-   
+   required this.listColor,
+   this.getQuantityRequest
+
   }) : super(key: key);
+  List<Colour>? listColor;
+  GetProductDetailIdRequest? getQuantityRequest;
 
   Color? _colorSelected;
-  int _quantity = 1 ;
   @override
   State<StatefulWidget> createState() => _ColorDotsState();
 }
@@ -31,21 +37,21 @@ class _ColorDotsState extends State<ColorDots>{
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
       child: Row(
         children: [
-          // ...List.generate(
-          //   widget.product.colors.length,
-          //   (index) => 
-          //   // ColorDot(
-          //   //   color: product.colors[index],
-          //   // ),
-          //     buildSmallColorDot(widget.product.colors[index])
-          // ),
+          ...List.generate(
+            widget.listColor!.length,
+            (index) => 
+            // ColorDot(
+            //   color: product.colors[index],
+            // ),
+              buildSmallColorDot(widget.listColor!.elementAt(index))
+          ),
           Spacer(),
           RoundedIconBtn(
             icon: Icons.remove,
             press: () {
               setState(() {
-                if(widget._quantity > 1){
-                  widget._quantity --;
+                if(widget.getQuantityRequest!.quantity > 1){
+                  widget.getQuantityRequest!.quantity --;
                 }
                 
               });
@@ -53,14 +59,14 @@ class _ColorDotsState extends State<ColorDots>{
             },
           ),
           SizedBox(width: getProportionateScreenWidth(20)),
-          Text(widget._quantity.toString(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),),
+          Text(widget.getQuantityRequest!.quantity.toString(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),),
           SizedBox(width: getProportionateScreenWidth(20)),
           RoundedIconBtn(
             icon: Icons.add,
             showShadow: true,
             press: () {
               setState(() {
-                widget._quantity ++;
+                widget.getQuantityRequest!.quantity++;
               });
             },
           ),
@@ -69,10 +75,14 @@ class _ColorDotsState extends State<ColorDots>{
     );
   }
 
-  GestureDetector buildSmallColorDot(Color color) {
+  GestureDetector buildSmallColorDot(Colour colour) {
+    var myNiceColor = StringToHex.toColor(colour.colourCode);
     return GestureDetector(
       onTap: () => {setState(() {
-        widget._colorSelected = color;
+        print("cliked");
+        widget._colorSelected = Color(myNiceColor);
+        widget.getQuantityRequest!.colourId = colour.colourId;
+        
       })},
       child: Container(
       margin: EdgeInsets.only(right: 2),
@@ -82,12 +92,12 @@ class _ColorDotsState extends State<ColorDots>{
       decoration: BoxDecoration(
         color: Colors.transparent,
         border:
-            Border.all(color: widget._colorSelected == color ? kPrimaryColor : Colors.transparent),
+            Border.all(color: widget._colorSelected == Color(myNiceColor) ? kPrimaryColor : Colors.transparent),
         shape: BoxShape.circle,
       ),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: color,
+          color: Color(myNiceColor),
           shape: BoxShape.circle,
         ),
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop_app/checkout_product.dart';
 import 'package:shop_app/models/Cart.dart';
+import 'package:shop_app/models/cart_model.dart';
 import 'package:shop_app/screens/cart/cart_controller.dart';
 import 'package:shop_app/screens/cart/components/check_out_card.dart';
 
@@ -10,7 +11,6 @@ import '../../../locator.dart';
 import '../../../size_config.dart';
 
 class CartCard extends StatefulWidget {
-  final CartController _controller = Get.find();
   final updateTotal;
    CartCard({
     Key? key,
@@ -18,7 +18,7 @@ class CartCard extends StatefulWidget {
     this.updateTotal
   }) : super(key: key);
 
-  final Cart cart;
+  final Content cart;
   int _quantity = 1;
   @override
   State<StatefulWidget> createState() => _CartCardState();
@@ -46,7 +46,7 @@ class CartCard extends StatefulWidget {
                     color: Color(0xFFF5F6F9),
                     borderRadius: BorderRadius.circular(15),
                   ),
-                    child: Image.asset(widget.cart.product.images[0]),
+                    child: Image.network(widget.cart.productImage!),
                   ),
           ),
         ),
@@ -58,14 +58,14 @@ class CartCard extends StatefulWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              widget.cart.product.title,
+              widget.cart.productName!,
               style: TextStyle(color: Colors.black, fontSize: 16),
               maxLines: 2,
             ),
             SizedBox(height: 10),
             Text.rich(
               TextSpan(
-                text: "\$${widget.cart.product.price}",
+                text: "\$${widget.cart.productPrice}",
                 style: TextStyle(
                     fontWeight: FontWeight.w600, color: kPrimaryColor),
               
@@ -81,16 +81,19 @@ class CartCard extends StatefulWidget {
           children: [
             IconButton(onPressed: (){
               setState(() {
-                widget.cart.numOfItem++;
+                var currentQuantity = widget.cart.quantity! + 1;
+                widget.cart.setQuantity(currentQuantity);
+                print("Số lượng sau khi tăng "+ currentQuantity.toString());
                 widget.updateTotal();
               });
             }, icon: Icon(Icons.add_circle, size: 30,)),
-            Text(widget.cart.numOfItem.toString(),style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0)),
+            Text(widget.cart.quantity!.toString(),style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0)),
             IconButton(onPressed: (){
               setState(() {
-                if(widget.cart.numOfItem > 1){
-                widget.cart.numOfItem--;
-                widget.updateTotal();
+                if(widget.cart.quantity! > 1){
+                  var currentQuantity = widget.cart.quantity! - 1;
+                  widget.cart.setQuantity(currentQuantity);
+                  widget.updateTotal();
                 }
               });
             }, icon: Icon(Icons.remove_circle_outline, color: Colors.grey.shade400, size: 30,))

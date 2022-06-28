@@ -9,7 +9,6 @@ import 'package:shop_app/screens/payment/payment_screen.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 class CheckoutCard extends StatelessWidget {
-   final CartController _controller = Get.find();
    double? total = 0;
    CheckoutCard({
     Key? key,this.total
@@ -79,8 +78,5 @@ class CheckoutCard extends StatelessWidget {
     );
   }
 
-  String getTotal(){
-    print(_controller.total.value.toString());
-    return _controller.total.value.toString();
-  }
+ 
 }
