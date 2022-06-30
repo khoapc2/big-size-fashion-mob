@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/models/get_fit_product_by_category_model.dart';
+import 'package:shop_app/view_model/product_view_model.dart';
 
 import '../../../size_config.dart';
 import 'section_title.dart';
@@ -10,13 +12,18 @@ class SpecialOffers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    var FitProductByCategoryResponse = ProductViewModel.getFitProductByCategory();
+    return FutureBuilder(
+      future: FitProductByCategoryResponse,
+      builder: (BuildContext context, AsyncSnapshot<GetFitProductByCategoryResponse> snapshot){
+        if(snapshot.hasData){
+      return Column(
       children: [
         Padding(
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: SectionTitle(
-            title: "Special for you",
+            title: "Sản phẩm phù hợp",
             press: () {},
           ),
         ),
@@ -25,24 +32,52 @@ class SpecialOffers extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              SpecialOfferCard(
-                image: "assets/images/Image Banner 2.png",
-                category: "Smartphone",
-                numOfBrands: 18,
+               SpecialOfferCard(
+                image: "assets/images/dam v2.jpg",
+                category: "Sơ mi",
+                numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 5,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
                 press: () {},
               ),
-              SpecialOfferCard(
+               SpecialOfferCard(
                 image: "assets/images/Image Banner 3.png",
-                category: "Fashion",
+                category: "Áo thun",
                 numOfBrands: 24,
                 press: () {},
               ),
+              SpecialOfferCard(
+                image: "assets/images/short v2.jpg",
+                category: "Quần dài",
+                numOfBrands: 24,
+                press: () {},
+              ),
+              
+              SpecialOfferCard(
+                
+                image: "assets/images/quan dai v2.jpg",
+                category: "Quần short",
+                numOfBrands: 24,
+                press: () {},
+              ),
+              SpecialOfferCard(
+                image: "assets/images/Ao thun v2.jpg",
+                category: "Đầm",
+                numOfBrands: 18,
+                press: () {},
+              ),
+             
               SizedBox(width: getProportionateScreenWidth(20)),
             ],
           ),
         ),
       ],
     );
+    
+        }
+        else{
+      return Container();
+    }
+    });
+    
   }
 }
 
@@ -104,7 +139,7 @@ class SpecialOfferCard extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        TextSpan(text: "$numOfBrands Brands")
+                        TextSpan(text: "$numOfBrands Sản phẩm")
                       ],
                     ),
                   ),

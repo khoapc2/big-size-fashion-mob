@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:shop_app/screens/address/address_screen.dart';
+import 'package:shop_app/screens/address_copy/address_copy_screen.dart';
 import 'package:shop_app/screens/payment/payment_screen.dart';
 import 'package:shop_app/screens/pick_voucher/pick_voucher_screen.dart';
 
@@ -14,7 +14,6 @@ class _BodyState extends State<Body> {
   int activeCard = 0;
   bool _isLoading = false;
   late Timer _timer;
-  String _couponName = "Thêm mã giảm giá";
  pay() {
    setState(() {
       _isLoading = true;
@@ -42,20 +41,22 @@ class _BodyState extends State<Body> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               activeCard == 0?
-                AnimatedOpacity(
+              AnimatedOpacity(
                 duration: Duration(milliseconds: 500),
                 opacity: activeCard == 0 ? 1 : 0,
                 child: Container(
                   width: double.infinity,
                   height: 200,
-                  padding: EdgeInsets.all(20.0),
+                  padding: EdgeInsets.all(30.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
+                    // color: Colors.grey.shade200
                     gradient: LinearGradient(
                       colors: [
-                        Colors.orange,
-                        Colors.yellow.shade800,
-                        Colors.yellow.shade900,
+                        Colors.grey.shade200,
+                        Colors.grey.shade100,
+                        Colors.grey.shade200,
+                        Colors.grey.shade300,
                       ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -63,19 +64,18 @@ class _BodyState extends State<Body> {
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Credit Card", style: TextStyle(color: Colors.white),),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("**** **** **** 7890", style: TextStyle(color: Colors.white, fontSize: 30),),
-                          SizedBox(height: 5,),
+                          Icon(Icons.wallet_giftcard_rounded, size: 70.0, color: Colors.black)
+                          ,
+                          SizedBox(height: 30,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Text("theflutterlover", style: TextStyle(color: Colors.white),),
-                              Image.network('https://img.icons8.com/color/2x/mastercard-logo.png', height: 50),
+                              Text("Trả sau", style: TextStyle(color: Colors.black, fontSize: 18),)
                             ],
                           )
                         ],
@@ -134,16 +134,14 @@ class _BodyState extends State<Body> {
                 child: Container(
                   width: double.infinity,
                   height: 200,
-                  padding: EdgeInsets.all(30.0),
+                  padding: EdgeInsets.all(20.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    // color: Colors.grey.shade200
                     gradient: LinearGradient(
                       colors: [
-                        Colors.grey.shade200,
-                        Colors.grey.shade100,
-                        Colors.grey.shade200,
-                        Colors.grey.shade300,
+                        Colors.orange,
+                        Colors.yellow.shade800,
+                        Colors.yellow.shade900,
                       ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -151,18 +149,19 @@ class _BodyState extends State<Body> {
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      Text("Credit Card", style: TextStyle(color: Colors.white),),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Icon(Icons.wallet_giftcard_rounded, size: 70.0, color: Colors.black)
-                          ,
-                          SizedBox(height: 30,),
+                          Text("**** **** **** 7890", style: TextStyle(color: Colors.white, fontSize: 30),),
+                          SizedBox(height: 5,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Text("Postpayment", style: TextStyle(color: Colors.black, fontSize: 18),)
+                              Text("theflutterlover", style: TextStyle(color: Colors.white),),
+                              Image.network('https://img.icons8.com/color/2x/mastercard-logo.png', height: 50),
                             ],
                           )
                         ],
@@ -170,14 +169,15 @@ class _BodyState extends State<Body> {
                     ]
                   ),
                 ),
-              ),
+              )
+              ,
               SizedBox(height: 50,),
-              Text("Payment Method", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Text("Phương thức thanh toán", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               
                 SizedBox(height: 20,),
                  Row(
                   children: [
-                  GestureDetector(
+                    GestureDetector(
                     onTap: () {
                       setState(() {
                         activeCard = 0;
@@ -192,9 +192,10 @@ class _BodyState extends State<Body> {
                         border: activeCard == 0 ? Border.all(color: Colors.grey.shade300, width: 1) 
                           : Border.all(color: Colors.grey.shade300.withOpacity(0), width: 1),
                       ),
-                      child: Image.network('https://img.icons8.com/color/2x/mastercard-logo.png', height: 50,),
+                      child: Icon(Icons.wallet_giftcard_rounded, size: 50.0, color: Colors.black)
                     ),
                   ),
+                  
                   GestureDetector(
                     onTap: () {
                       setState(() {
@@ -228,9 +229,9 @@ class _BodyState extends State<Body> {
                         border: activeCard == 2 ? Border.all(color: Colors.grey.shade300, width: 1) 
                           : Border.all(color: Colors.grey.shade300.withOpacity(0), width: 1),
                       ),
-                      child: Icon(Icons.wallet_giftcard_rounded, size: 50.0, color: Colors.black)
+                      child: Image.network('https://img.icons8.com/color/2x/mastercard-logo.png', height: 50,),
                     ),
-                  )
+                  ),
                 ]
               ),
               SizedBox(height: 20,),
@@ -245,7 +246,7 @@ class _BodyState extends State<Body> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Address", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),),
+                    Text("Địa chỉ", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),),
                     TextButton(
                       onPressed: () {
                 Navigator.push(
@@ -263,36 +264,7 @@ class _BodyState extends State<Body> {
                   ],
                 ),
               ),
-              SizedBox(height: 100,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Total Payment", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
-                  Text("\$240.00", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
-                ],
-              ),
-              SizedBox(height: 30),
-                MaterialButton(
-                  onPressed: _isLoading ? null : () { pay();  },
-                  height: 50,
-                  elevation: 0,
-                  splashColor: Colors.yellow[700],
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)
-                  ),
-                  color: Colors.black,
-                  child: Center(
-                    child: _isLoading ? Container(
-                      width: 20,
-                      height: 20,
-                      child: CircularProgressIndicator(
-                        backgroundColor: Colors.white, 
-                        strokeWidth: 3,
-                        color: Colors.black,
-                      ),
-                    ) : Text("Pay", style: TextStyle(color: Colors.white, fontSize: 18),),
-                  ),
-                ),
+              
             ],
           ),
         ),

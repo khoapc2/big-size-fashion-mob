@@ -50,9 +50,8 @@ GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdReque
                 child: Column(
                   children: [
                     ColorDots( listColor: snapshot.data!.listColor, getQuantityRequest: getDetailProductRequest),
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
                     SizeDots(listSize: snapshot.data!.listSize, getQuantityRequest: getDetailProductRequest),
-                    Stores(),
                     TopRoundedContainer(
                       color: Colors.white,
                       child: Padding(

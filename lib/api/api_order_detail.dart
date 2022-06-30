@@ -6,7 +6,7 @@ import 'package:shop_app/models/order_detail_model.dart';
 class OrderDetailService{
    Future<OrderDetailResponse> getOrderDetail(int orderId) async {
     String link = "https://20.211.17.194/";
-    String url = link + "api/v1/orders-s/detail/"+orderId.toString();
+    String url = link + "api/v1/orders/detail/"+orderId.toString();
 
     OrderDetailResponse orderDetailResponseModel;  
 

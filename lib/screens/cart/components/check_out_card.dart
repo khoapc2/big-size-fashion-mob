@@ -10,8 +10,10 @@ import '../../../constants.dart';
 import '../../../size_config.dart';
 class CheckoutCard extends StatelessWidget {
    double? total = 0;
+   final updateCart;
    CheckoutCard({
-    Key? key,this.total
+    Key? key,this.total, this.updateCart
+    
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -60,6 +62,7 @@ class CheckoutCard extends StatelessWidget {
                   child: DefaultButton(
                     text: "Thanh toán",
                     press: () {
+                      updateCart();
                       Navigator.push(
                         context,
                       MaterialPageRoute(builder: (context) => PaymentScreen()),

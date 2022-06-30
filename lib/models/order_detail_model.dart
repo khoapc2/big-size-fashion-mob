@@ -31,20 +31,20 @@ class Content {
   int? orderId;
   int? customerId;
   String? customerName;
-  Null? deliveryAddress;
+  DeliveryAddress? deliveryAddress;
   Store? store;
   int? staffId;
-  String? staffName;
+  Null? staffName;
   String? createDate;
   List<ProductList>? productList;
   double? totalPrice;
   double? totalPriceAfterDiscount;
   String? paymentMethod;
   String? orderType;
-  String? approvalDate;
-  String? packagedDate;
-  String? deliveryDate;
-  String? receivedDate;
+  Null? approvalDate;
+  Null? packagedDate;
+  Null? deliveryDate;
+  Null? receivedDate;
   Null? rejectedDate;
   String? status;
 
@@ -73,7 +73,9 @@ class Content {
     orderId = json['order_id'];
     customerId = json['customer_id'];
     customerName = json['customer_name'];
-    deliveryAddress = json['delivery_address'];
+    deliveryAddress = json['delivery_address'] != null
+        ? new DeliveryAddress.fromJson(json['delivery_address'])
+        : null;
     store = json['store'] != null ? new Store.fromJson(json['store']) : null;
     staffId = json['staff_id'];
     staffName = json['staff_name'];
@@ -101,7 +103,9 @@ class Content {
     data['order_id'] = this.orderId;
     data['customer_id'] = this.customerId;
     data['customer_name'] = this.customerName;
-    data['delivery_address'] = this.deliveryAddress;
+    if (this.deliveryAddress != null) {
+      data['delivery_address'] = this.deliveryAddress!.toJson();
+    }
     if (this.store != null) {
       data['store'] = this.store!.toJson();
     }
@@ -125,16 +129,56 @@ class Content {
   }
 }
 
+class DeliveryAddress {
+  int? addressId;
+  int? customerId;
+  String? receiverName;
+  String? receiverPhone;
+  String? receiveAddress;
+
+  DeliveryAddress(
+      {this.addressId,
+      this.customerId,
+      this.receiverName,
+      this.receiverPhone,
+      this.receiveAddress});
+
+  DeliveryAddress.fromJson(Map<String, dynamic> json) {
+    addressId = json['address_id'];
+    customerId = json['customer_id'];
+    receiverName = json['receiver_name'];
+    receiverPhone = json['receiver_phone'];
+    receiveAddress = json['receive_address'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['address_id'] = this.addressId;
+    data['customer_id'] = this.customerId;
+    data['receiver_name'] = this.receiverName;
+    data['receiver_phone'] = this.receiverPhone;
+    data['receive_address'] = this.receiveAddress;
+    return data;
+  }
+}
+
 class Store {
   int? storeId;
+  Null? managerName;
   String? storeAddress;
   String? storePhone;
   bool? status;
 
-  Store({this.storeId, this.storeAddress, this.storePhone, this.status});
+  Store(
+      {this.storeId,
+      this.managerName,
+      this.storeAddress,
+      this.storePhone,
+      this.status});
 
   Store.fromJson(Map<String, dynamic> json) {
     storeId = json['store_id'];
+    managerName = json['manager_name'];
     storeAddress = json['store_address'];
     storePhone = json['store_phone'];
     status = json['status'];
@@ -143,6 +187,7 @@ class Store {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['store_id'] = this.storeId;
+    data['manager_name'] = this.managerName;
     data['store_address'] = this.storeAddress;
     data['store_phone'] = this.storePhone;
     data['status'] = this.status;
@@ -160,8 +205,8 @@ class ProductList {
   String? productImageUrl;
   double? pricePerOne;
   double? price;
-  Null? discountPricePerOne;
-  Null? discountPrice;
+  double? discountPricePerOne;
+  double? discountPrice;
   int? quantity;
 
   ProductList(

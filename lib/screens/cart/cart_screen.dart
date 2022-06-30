@@ -11,6 +11,7 @@ import 'components/check_out_card.dart';
 class CartScreen extends StatefulWidget {
  static String routeName = "/cart";
  double total = 0;
+ int quantity = 0;
  var listCart = CartViewModel.getListCart();
  bool initState = true;
  
@@ -28,11 +29,13 @@ class CartScreenState extends State<CartScreen>{
       future: widget.listCart,
       builder: (BuildContext context, AsyncSnapshot<ListCartResponse> snapshot){
         if(snapshot.hasData){
+          widget.quantity = snapshot.data!.content!.length;
           if(widget.currentListCart.getListCart() == null){
             widget.currentListCart.setListCart(snapshot.data!.content);
             widget.currentListCart.setTotal();
             
           }
+
           if(widget.initState == true){
               widget.total = widget.currentListCart.total;
               widget.initState = false;
@@ -41,7 +44,7 @@ class CartScreenState extends State<CartScreen>{
     return Scaffold(
       appBar: buildAppBar(context),
       body:  Body(updateTotal),
-      bottomNavigationBar: CheckoutCard(total: widget.total),                                                                                                                                                                                                                                                    
+      bottomNavigationBar: CheckoutCard(total: widget.total,updateCart: updateCart,),                                                                                                                                                                                                                                                    
     );}
     else{
       print("đen là do thằng này nè");
@@ -57,6 +60,27 @@ class CartScreenState extends State<CartScreen>{
       leading: 
       IconButton(icon: Icon(Icons.arrow_back),
       onPressed: (){
+        updateCart();
+        widget.currentListCart.setListCart(null);
+        widget.currentListCart.total = 0;
+        Navigator.pop(context);
+      }),
+      title: Column(
+        children: [
+          Text(
+            "Giỏ hàng",
+            style: TextStyle(color: Colors.black),
+          ),
+          Text(
+            "${widget.quantity} sản phẩm",
+            style: Theme.of(context).textTheme.caption,
+          ),
+        ],
+      ),
+    );
+    }
+
+    void updateCart(){
         CartViewModel response = CartViewModel();
         widget.currentListCart.total = widget.total;
         
@@ -72,21 +96,6 @@ class CartScreenState extends State<CartScreen>{
           listCart.add(cart);
         });
         response.addListCart(listCart);
-        Navigator.pop(context);
-      }),
-      title: Column(
-        children: [
-          Text(
-            "Giỏ hàng",
-            style: TextStyle(color: Colors.black),
-          ),
-          Text(
-            "${demoCarts.length} sản phẩm",
-            style: Theme.of(context).textTheme.caption,
-          ),
-        ],
-      ),
-    );
     }
 
    void updateTotal(){
