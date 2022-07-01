@@ -5,6 +5,9 @@ import 'package:shop_app/screens/address_copy/address_copy_screen.dart';
 import 'package:shop_app/screens/payment/payment_screen.dart';
 import 'package:shop_app/screens/pick_voucher/pick_voucher_screen.dart';
 
+import '../../../location.dart';
+import '../../../locator.dart';
+
 class Body extends StatefulWidget {
   @override
   _BodyState createState() => _BodyState();
@@ -14,6 +17,7 @@ class _BodyState extends State<Body> {
   int activeCard = 0;
   bool _isLoading = false;
   late Timer _timer;
+  var locationSelected = locator.get<Location>();
  pay() {
    setState(() {
       _isLoading = true;
@@ -256,7 +260,7 @@ class _BodyState extends State<Body> {
                       }, 
                       child: Row(
                         children: [
-                          Text("E-75, Diamond Dis..."),
+                          Text(locationSelected.locationId ==null ? "Chọn địa chỉ" :locationSelected.location!.substring(0,15)+"..."),
                           Icon(Icons.keyboard_arrow_right, size: 20,)
                         ],
                       )

@@ -7,11 +7,13 @@ import 'package:shop_app/screens/home/home_screen.dart';
 import 'package:shop_app/view_model/order_view_model.dart';
 
 import '../../list_cart.dart';
+import '../../location.dart';
 import '../../locator.dart';
 import '../../size_config.dart';
 
 class PaymentButton extends StatelessWidget{
   var currentListCart = locator.get<ListCart>();
+   var locationSelected = locator.get<Location>();
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -49,6 +51,7 @@ class PaymentButton extends StatelessWidget{
                                 _showToast(context);
                                 currentListCart.setListCart(null);
                                 currentListCart.total = 0;
+                                locationSelected.setLocationId(null);
                                 Navigator.pushNamed(context, HomeScreen.routeName);
                           },
                         ),],)

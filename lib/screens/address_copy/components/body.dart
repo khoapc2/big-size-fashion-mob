@@ -1,15 +1,21 @@
 
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/models/get_address_model.dart';
 import 'package:shop_app/models/orders_model.dart';
 import 'package:shop_app/screens/add_address/add_address_screen.dart';
 import 'package:shop_app/screens/orders_status/process_timeline_screen.dart';
+import 'package:shop_app/screens/payment/payment_screen.dart';
 import 'package:shop_app/view_model/address_view_model.dart';
 
 import '../../../constants.dart';
+import '../../../locator.dart';
+import '../../../location.dart';
+
 
 class Body extends StatelessWidget{
+  var locationSelected = locator.get<Location>();
   @override
   Widget build(BuildContext context) {
     var getAddresses = AddressViewModel.getAddress();
@@ -24,7 +30,7 @@ class Body extends StatelessWidget{
           padding: EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-             children: listAddress(snapshot.data!)
+             children: listAddress(snapshot.data!, context)
             // [
                 
             //     Container(
@@ -150,8 +156,21 @@ class Body extends StatelessWidget{
     
   }
 
-  List<Widget> listAddress(GetAddressesResponse data){
-    return List.generate(data.content!.length, (index) => Container(
+  List<Widget> listAddress(GetAddressesResponse data, BuildContext context){
+    return List.generate(data.content!.length, (index) =>
+    GestureDetector(
+      onTap:() {
+          print(data.content![index].receiveAddress!);
+          locationSelected.setLocation(data.content![index].receiveAddress!);
+          print(locationSelected.location);
+          locationSelected.setLocationId(data.content![index].addressId!);
+          Navigator.push(
+                        context,
+                      MaterialPageRoute(builder: (context) => PaymentScreen()),
+                    );
+      } ,
+      child: 
+      Container(
                   margin: EdgeInsets.only(bottom: 10.0),
                   width: double.infinity,
                   padding: EdgeInsets.all(30.0),
@@ -220,7 +239,10 @@ class Body extends StatelessWidget{
                     ]
                   ),
                   
-                ));
+                ))
+    );
+
+    
   }
 }
 
