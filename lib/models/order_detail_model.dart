@@ -34,7 +34,7 @@ class Content {
   DeliveryAddress? deliveryAddress;
   Store? store;
   int? staffId;
-  Null? staffName;
+  String? staffName;
   String? createDate;
   List<ProductList>? productList;
   double? totalPrice;

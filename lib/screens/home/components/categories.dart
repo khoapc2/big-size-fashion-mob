@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shop_app/screens/search_product_by_category/search_product_by_category_screen.dart';
+import 'package:shop_app/view_model/product_view_model.dart';
 
 import '../../../size_config.dart';
 
@@ -23,7 +25,13 @@ class Categories extends StatelessWidget {
           (index) => CategoryCard(
             icon: categories[index]["icon"],
             text: categories[index]["text"],
-            press: () {},
+            press: () async {
+              var productResponseModel = await ProductViewModel.getProductsByCategory(categories[index]["text"]);
+              Navigator.push(
+                        context,
+                      MaterialPageRoute(builder: (context) => SearchProductsByCategoryScreen(content: productResponseModel.content)),
+                    );
+            },
           ),
         ),
       ),

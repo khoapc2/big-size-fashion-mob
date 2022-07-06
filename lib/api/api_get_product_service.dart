@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shop_app/models/get_fit_product_by_category_model.dart';
+import 'package:shop_app/models/get_list_product_by_category_model.dart';
 import 'package:shop_app/models/get_popular_product.dart';
 import 'package:shop_app/models/product_model.dart';
 
@@ -107,6 +108,25 @@ Future<GetFitProductByCategoryResponse> getFitProductsByCategory() async {
 
     if(response.statusCode == 200){
       productResponseModel = GetFitProductByCategoryResponse.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(Exception);
+    }
+    return productResponseModel;
+  }
+
+  Future<GetListProductByCategoryResponse> getListProductByCategory(String? categoryName) async {
+    String link = "https://20.211.17.194/";
+    String url = link + "api/v1/products"+"?Category="+categoryName!+"&Status=true";
+
+    GetListProductByCategoryResponse productResponseModel;  
+
+    final response = await http.get(Uri.parse(url),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8'
+        });
+
+    if(response.statusCode == 200){
+      productResponseModel = GetListProductByCategoryResponse.fromJson(json.decode(response.body));
     } else {
       throw Exception(Exception);
     }

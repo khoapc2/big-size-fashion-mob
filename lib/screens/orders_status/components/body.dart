@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shop_app/constants.dart';
 import 'package:shop_app/models/order_detail_model.dart';
 import 'package:shop_app/screens/orders_status/components/order_detail.dart';
@@ -92,6 +93,7 @@ class _BezierPainter extends CustomPainter {
 }
 
 class Body extends StatelessWidget{
+  
   int _processIndex = 0;
   int _orderId;
   Body(this._orderId);
@@ -108,6 +110,7 @@ class Body extends StatelessWidget{
   }
   @override
   Widget build(BuildContext context) {
+    
     // TODO: implement build
     var orderDetailResponse = OrderDetailViewModel.getOrderDetail(_orderId);
     return FutureBuilder(

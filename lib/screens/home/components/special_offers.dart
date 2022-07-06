@@ -41,13 +41,13 @@ class SpecialOffers extends StatelessWidget {
                SpecialOfferCard(
                 image: "assets/images/Image Banner 3.png",
                 category: "Áo thun",
-                numOfBrands: 24,
+                numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 6,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
                 press: () {},
               ),
               SpecialOfferCard(
                 image: "assets/images/short v2.jpg",
                 category: "Quần dài",
-                numOfBrands: 24,
+                numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 7,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
                 press: () {},
               ),
               
@@ -55,13 +55,13 @@ class SpecialOffers extends StatelessWidget {
                 
                 image: "assets/images/quan dai v2.jpg",
                 category: "Quần short",
-                numOfBrands: 24,
+                numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 8,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
                 press: () {},
               ),
               SpecialOfferCard(
                 image: "assets/images/Ao thun v2.jpg",
                 category: "Đầm",
-                numOfBrands: 18,
+                numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 9,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
                 press: () {},
               ),
              
