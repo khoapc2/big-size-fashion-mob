@@ -101,9 +101,14 @@ class CartScreenState extends State<CartScreen>{
    void updateTotal(){
     setState(() {
       widget.total = 0;
-      widget.currentListCart.getListCart()!.forEach((cart) { widget.total += (cart.quantity!*cart.productPrice!);});
+      widget.currentListCart.getListCart()!.forEach((cart) { 
+        if(cart.productPromotion == null){
+            widget.total += (cart.quantity!*cart.productPrice!);
+        }else{
+          widget.total += (cart.quantity! * cart.productPromotion!);
+        }
+        });
       print("Total đã đc cập nhật");
     });
   }
-
 }

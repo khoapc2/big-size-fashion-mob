@@ -8,14 +8,17 @@ import 'package:shop_app/screens/add_address/add_address_screen.dart';
 import 'package:shop_app/screens/orders_status/process_timeline_screen.dart';
 import 'package:shop_app/screens/payment/payment_screen.dart';
 import 'package:shop_app/view_model/address_view_model.dart';
+import 'package:shop_app/view_model/store_view_model.dart';
 
 import '../../../constants.dart';
+import '../../../list_cart.dart';
 import '../../../locator.dart';
 import '../../../location.dart';
 
 
 class Body extends StatelessWidget{
   var locationSelected = locator.get<Location>();
+  var currentListCart = locator.get<ListCart>();
   @override
   Widget build(BuildContext context) {
     var getAddresses = AddressViewModel.getAddress();
@@ -159,11 +162,17 @@ class Body extends StatelessWidget{
   List<Widget> listAddress(GetAddressesResponse data, BuildContext context){
     return List.generate(data.content!.length, (index) =>
     GestureDetector(
-      onTap:() {
+      onTap:() async {
           print(data.content![index].receiveAddress!);
           locationSelected.setLocation(data.content![index].receiveAddress!);
           print(locationSelected.location);
           locationSelected.setLocationId(data.content![index].addressId!);
+          print(locationSelected.locationId);
+          var storeVM = new StoreViewModel();
+        var response =  await storeVM.getNearestStores(data.content![index].receiveAddress!);
+        currentListCart.setShippingFee(response.content!.shippingFee!);
+        currentListCart.setStoreId(response.content!.storeId);
+          print("Tiền phí vận chuyển là:"+currentListCart.shippingFee.toString());
           Navigator.push(
                         context,
                       MaterialPageRoute(builder: (context) => PaymentScreen()),

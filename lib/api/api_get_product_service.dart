@@ -18,7 +18,7 @@ class ProductService {
 
   Future<ProductResponseModel> getListProductByName(String? searchValue) async {
     String link = "https://20.211.17.194/";
-    String url = link + "api/v1/products"+"?ProductName="+searchValue!;
+    String url = link + "api/v1/products"+"?ProductName="+searchValue!+"&Status=true";
 
     ProductResponseModel productResponseModel;  
 
@@ -37,7 +37,7 @@ class ProductService {
 
   Future<ProductResponseModel> getAllProducts() async {
     String link = "https://20.211.17.194/";
-    String url = link + "api/v1/products";
+    String url = link + "api/v1/products"+"?Status=true";
 
     ProductResponseModel productResponseModel;  
 

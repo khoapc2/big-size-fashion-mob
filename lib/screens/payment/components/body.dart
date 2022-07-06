@@ -5,6 +5,8 @@ import 'package:shop_app/screens/address_copy/address_copy_screen.dart';
 import 'package:shop_app/screens/payment/payment_screen.dart';
 import 'package:shop_app/screens/pick_voucher/pick_voucher_screen.dart';
 
+import '../../../constants.dart';
+import '../../../list_cart.dart';
 import '../../../location.dart';
 import '../../../locator.dart';
 
@@ -18,6 +20,7 @@ class _BodyState extends State<Body> {
   bool _isLoading = false;
   late Timer _timer;
   var locationSelected = locator.get<Location>();
+  var currentListCart = locator.get<ListCart>();
  pay() {
    setState(() {
       _isLoading = true;
@@ -241,7 +244,7 @@ class _BodyState extends State<Body> {
               SizedBox(height: 20,),
                Container(
                 height: 50,
-                padding: EdgeInsets.only(left: 20,),
+                padding: EdgeInsets.only(left: 5.0,),
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
@@ -250,7 +253,12 @@ class _BodyState extends State<Body> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    Container(
+                      child: Row(children: [
+                        Icon(Icons.location_on, color: kPrimaryColor),
                     Text("Địa chỉ", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),),
+                      ],),
+                    ),
                     TextButton(
                       onPressed: () {
                 Navigator.push(
@@ -268,6 +276,37 @@ class _BodyState extends State<Body> {
                   ],
                 ),
               ),
+               Container(
+                height: 50,
+                padding: EdgeInsets.only(left: 5.0,),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: Row(children: [
+                        Icon(Icons.fact_check_rounded, color: kPrimaryColor),
+                    Text("Chi tiết thanh toán", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),),
+                      ],),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(left: 15.0,),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Tổng tiền hàng ${currentListCart.total}"),
+                    Text("Tổng tiền vận chuyển: ${currentListCart.shippingFee}"),
+                    Text("Tổng thanh toán: ${currentListCart.total + currentListCart.shippingFee}")
+                  ],
+                ),
+              )
               
             ],
           ),

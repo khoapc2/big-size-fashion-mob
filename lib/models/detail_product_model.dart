@@ -47,8 +47,8 @@ class Content {
   int? productDetailId;
   String? productName;
   double? price;
-  Null? promotionPrice;
-  Null? promotionValue;
+  double? promotionPrice;
+  String? promotionValue;
   String? category;
   List<ProductDetailList>? productDetailList;
   String? gender;

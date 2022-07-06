@@ -35,8 +35,8 @@ class Content {
   int? productId;
   String? productName;
   double? price;
-  Null? promotionPrice;
-  Null? promotionValue;
+  double? promotionPrice;
+  String? promotionValue;
   String? imageUrl;
   bool? status;
 

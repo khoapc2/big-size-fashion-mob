@@ -7,6 +7,8 @@ import 'package:shop_app/screens/cart/components/cart_card.dart';
 import 'package:shop_app/screens/details%20copy/details_screen.dart';
 import 'package:shop_app/screens/home/components/section_title.dart';
 import 'package:shop_app/view_model/product_view_model.dart';
+import 'package:intl/intl.dart';
+
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -93,6 +95,7 @@ class CartCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var formatter = NumberFormat('#,###,000');
     return 
     GestureDetector(
       onTap: () {
@@ -139,20 +142,26 @@ class CartCard extends StatelessWidget {
             SizedBox(height: 10),
             Text.rich(
               TextSpan(
-                text: "\$${content!.price!}",
+                text: content!.promotionPrice == null?"\đ${formatter.format(content!.price!)}":"\đ${formatter.format(content!.promotionPrice)}",
                 style: TextStyle(
                     fontWeight: FontWeight.w600, color: kPrimaryColor)
               ),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 5),
             content!.promotionValue != null?
-            Text.rich(
-              TextSpan(
-                text: "-${content!.promotionValue!}",
-                style: TextStyle(
-                    fontWeight: FontWeight.w600, color: kPrimaryColor)
-              ),
-            ):Container()
+            Container(
+              child:
+              Row(
+                children: [
+                  Text("\đ${formatter.format(content!.price!)}", style: TextStyle(decoration: TextDecoration.lineThrough),),
+                  Container(
+                    margin: EdgeInsets.only(left: 15.0),
+                    color: kPrimaryColor,
+                    child: Text("-${content!.promotionValue}"),)
+                ],
+              )
+            )
+            :Container()
           ],
         ),
         ),

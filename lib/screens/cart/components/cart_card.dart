@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:shop_app/checkout_product.dart';
 import 'package:shop_app/models/Cart.dart';
 import 'package:shop_app/models/cart_model.dart';
@@ -28,6 +29,7 @@ class CartCard extends StatefulWidget {
     var _productsSelected = locator.get<CheckOutProducts>();
   @override
   Widget build(BuildContext context) {
+    var formatter = NumberFormat('#,###,000');
      return  
       Container(
         child: Row(
@@ -65,12 +67,16 @@ class CartCard extends StatefulWidget {
             SizedBox(height: 10),
             Text.rich(
               TextSpan(
-                text: "\$${widget.cart.productPrice}",
+                text: widget.cart.productPromotion != null?"\đ${formatter.format(widget.cart.productPromotion!)}":"\đ${formatter.format(widget.cart.productPrice)}",
                 style: TextStyle(
                     fontWeight: FontWeight.w600, color: kPrimaryColor),
               
               ),
             ),
+            SizedBox(height: 5),
+            widget.cart.productPromotion != null?
+            Text("\đ${formatter.format(widget.cart.productPrice)}", style: TextStyle(decoration: TextDecoration.lineThrough),)
+            :Container(),
           ],
         ),
         ),

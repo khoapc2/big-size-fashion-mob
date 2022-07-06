@@ -19,7 +19,7 @@ class PaymentButton extends StatelessWidget{
     // TODO: implement build
     return Container(
       
-                      height:136.0,
+                      height:137.0,
                         padding: EdgeInsets.only(
                           left: 20,
                           right: 20,
@@ -31,21 +31,23 @@ class PaymentButton extends StatelessWidget{
                           Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Total Payment", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
-                  Text("\$"+currentListCart.total.toString(), style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
+                  Text("Tổng tiền", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
+                  Text("\$${currentListCart.total + currentListCart.shippingFee}", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
                 ],
               ),
               SizedBox(height: 10),
                          DefaultButton(
-                          text: "Pay",
+                          text: "Thanh toán",
                           press: () async {
 
                               var request = new PaymentResquest(
-                                deliveryAddress: 1,
+                                deliveryAddress: locationSelected.locationId,
                                 orderType: true,
                                 paymentMethod:"Trả sau",
                                 promotionPrice: 0,
-                                totalPrice: currentListCart.total
+                                totalPrice: currentListCart.total,
+                                shippingFee: currentListCart.shippingFee,
+                                storeId: currentListCart.storeId
                                 );
                                 OrderViewModel.addOrder(request);
                                 _showToast(context);

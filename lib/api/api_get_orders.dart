@@ -53,7 +53,9 @@ class OrderService {
         "total_price": request.totalPrice,
         "promotion_price": request.promotionPrice,
         "order_type": request.orderType,
-        "payment_method": request.paymentMethod
+        "payment_method": request.paymentMethod,
+        "shipping_fee": request.shippingFee,
+        "store_id": request.storeId
       }),
     );
 
