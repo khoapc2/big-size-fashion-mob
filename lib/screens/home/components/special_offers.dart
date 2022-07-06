@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/models/get_fit_product_by_category_model.dart';
+import 'package:shop_app/screens/search_fit_products_by_category/search_fit_product_by_category_screen.dart';
 import 'package:shop_app/view_model/product_view_model.dart';
 
 import '../../../size_config.dart';
@@ -36,19 +37,37 @@ class SpecialOffers extends StatelessWidget {
                 image: "assets/images/dam v2.jpg",
                 category: "Sơ mi",
                 numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 5,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
-                press: () {},
+                press: () async {
+                  var listProductResponse = await ProductViewModel.getFitProductsByCategory("Sơ mi");
+                  Navigator.push(
+                        context,
+                      MaterialPageRoute(builder: (context) => SearchFitProductsByCategoryScreen(content: listProductResponse.content)),
+                    );
+                },
               ),
                SpecialOfferCard(
                 image: "assets/images/Image Banner 3.png",
                 category: "Áo thun",
                 numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 6,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
-                press: () {},
+                press: () async {
+                  var listProductResponse = await ProductViewModel.getFitProductsByCategory("Áo thun");
+                  Navigator.push(
+                        context,
+                      MaterialPageRoute(builder: (context) => SearchFitProductsByCategoryScreen(content: listProductResponse.content)),
+                    );
+                },
               ),
               SpecialOfferCard(
                 image: "assets/images/short v2.jpg",
                 category: "Quần dài",
                 numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 7,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
-                press: () {},
+                press: () async {
+                  var listProductResponse = await ProductViewModel.getFitProductsByCategory("Quần dài");
+                  Navigator.push(
+                        context,
+                      MaterialPageRoute(builder: (context) => SearchFitProductsByCategoryScreen(content: listProductResponse.content)),
+                    );
+                },
               ),
               
               SpecialOfferCard(
@@ -56,13 +75,25 @@ class SpecialOffers extends StatelessWidget {
                 image: "assets/images/quan dai v2.jpg",
                 category: "Quần short",
                 numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 8,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
-                press: () {},
+                press: () async {
+                  var listProductResponse = await ProductViewModel.getFitProductsByCategory("Quần short");
+                  Navigator.push(
+                        context,
+                      MaterialPageRoute(builder: (context) => SearchFitProductsByCategoryScreen(content: listProductResponse.content)),
+                    );
+                },
               ),
               SpecialOfferCard(
                 image: "assets/images/Ao thun v2.jpg",
                 category: "Đầm",
                 numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 9,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
-                press: () {},
+                press: () async {
+                  var listProductResponse = await ProductViewModel.getFitProductsByCategory("Đầm");
+                  Navigator.push(
+                        context,
+                      MaterialPageRoute(builder: (context) => SearchFitProductsByCategoryScreen(content: listProductResponse.content)),
+                    );
+                },
               ),
              
               SizedBox(width: getProportionateScreenWidth(20)),
