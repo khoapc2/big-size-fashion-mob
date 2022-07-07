@@ -10,7 +10,7 @@ class ChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.message)
+      bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.notification)
     );
   }
 

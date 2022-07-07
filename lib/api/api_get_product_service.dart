@@ -37,9 +37,9 @@ class ProductService {
     return productResponseModel;
   }
 
-  Future<ProductResponseModel> getAllProducts() async {
+  Future<ProductResponseModel> getAllProducts(int page) async {
     String link = "https://20.211.17.194/";
-    String url = link + "api/v1/products"+"?Status=true";
+    String url = link + "api/v1/products"+"?Status=true"+"&PageNumber="+page.toString();
 
     ProductResponseModel productResponseModel;  
 
@@ -134,9 +134,9 @@ Future<GetFitProductByCategoryResponse> getFitProductsByCategory() async {
     return productResponseModel;
   }
 
-  Future<GetListFitProductByCategoryResponse> getListFitProductByCategory(String? categoryName) async {
+  Future<GetListFitProductByCategoryResponse> getListFitProductByCategory(String? categoryName, int page) async {
     String link = "https://20.211.17.194/";
-    String url = link + "api/v1/products/fit-with-customer"+"?CategoryName="+categoryName!;
+    String url = link + "api/v1/products/fit-with-customer"+"?CategoryName="+categoryName!+"&PageNumber="+ page.toString();
 
     GetListFitProductByCategoryResponse productResponseModel;  
 

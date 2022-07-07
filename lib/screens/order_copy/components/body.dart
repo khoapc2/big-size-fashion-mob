@@ -22,15 +22,22 @@ class Body extends StatelessWidget{
               physics: const NeverScrollableScrollPhysics(),
               itemCount: snapshot.data!.content!.length,
               itemBuilder: (context, int i) {
-              return new GestureDetector(
+              return 
+              GestureDetector(
                 child: Card(
                   color: Color(0xFFF5F6F9),
-                  child: ListTile(
+                  child: 
+                  Column(children: [
+ListTile(
                     enabled: snapshot.data!.content![i].status.toString() != "Đã nhận hàng",
                     title: Text("Mã đơn hàng: "+snapshot.data!.content![i].orderId.toString()),
+                    //leading: Text("Ngày đặt: "+snapshot.data!.content![i].createDate!),
                     subtitle: Text('Tổng số tiền:'+ snapshot.data!.content![i].totalPrice.toString()),
                     trailing: Text('Trạng thái:'+ snapshot.data!.content![i].status.toString())
                   ),
+                  Text("Ngày đặt: "+ snapshot.data!.content![i].createDate!)
+                  ],)
+                  
                 ),
                 onTap: () 
                   //Navigator.push(context, MaterialPageRoute(builder: (context) => OrderDetailsPage(orders[i])));

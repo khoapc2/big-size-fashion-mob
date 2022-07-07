@@ -5,6 +5,7 @@ import 'package:shop_app/models/payment_request_model.dart';
 import 'package:shop_app/screens/details%20copy/components/top_rounded_container.dart';
 import 'package:shop_app/screens/home/home_screen.dart';
 import 'package:shop_app/view_model/order_view_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../list_cart.dart';
 import '../../location.dart';
@@ -40,21 +41,22 @@ class PaymentButton extends StatelessWidget{
                           text: "Thanh toán",
                           press: () async {
 
-                              var request = new PaymentResquest(
-                                deliveryAddress: locationSelected.locationId,
-                                orderType: true,
-                                paymentMethod:"Trả sau",
-                                promotionPrice: 0,
-                                totalPrice: currentListCart.total,
-                                shippingFee: currentListCart.shippingFee,
-                                storeId: currentListCart.storeId
-                                );
-                                OrderViewModel.addOrder(request);
-                                _showToast(context);
-                                currentListCart.setListCart(null);
-                                currentListCart.total = 0;
-                                locationSelected.setLocationId(null);
-                                Navigator.pushNamed(context, HomeScreen.routeName);
+                              // var request = new PaymentResquest(
+                              //   deliveryAddress: locationSelected.locationId,
+                              //   orderType: true,
+                              //   paymentMethod:"Trả sau",
+                              //   promotionPrice: 0,
+                              //   totalPrice: currentListCart.total,
+                              //   shippingFee: currentListCart.shippingFee,
+                              //   storeId: currentListCart.storeId
+                              //   );
+                              //   OrderViewModel.addOrder(request);
+                              //   _showToast(context);
+                              //   currentListCart.setListCart(null);
+                              //   currentListCart.total = 0;
+                              //   locationSelected.setLocationId(null);
+                              //   Navigator.pushNamed(context, HomeScreen.routeName);
+                            launch('https://sbgateway.zalopay.vn/openinapp?order=eyJ6cHRyYW5zdG9rZW4iOiIyMjA3MDcwMDAwMDU1Nzl1OHp5M084IiwiYXBwaWQiOjI1NTR9');
                           },
                         ),],)
                        

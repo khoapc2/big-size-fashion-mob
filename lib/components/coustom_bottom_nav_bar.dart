@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop_app/screens/chat/chat_screen.dart';
 import 'package:shop_app/screens/home/home_screen.dart';
+import 'package:shop_app/screens/order_copy/list_order_screen.dart';
 import 'package:shop_app/screens/profile/profile_screen.dart';
 
 import '../constants.dart';
@@ -50,19 +51,31 @@ class CustomBottomNavBar extends StatelessWidget {
                     Navigator.pushNamed(context, HomeScreen.routeName),
               ),
               IconButton(
-                icon: SvgPicture.asset("assets/icons/Heart Icon.svg"),
-                onPressed: () {},
+                icon: ImageIcon(
+                  AssetImage("assets/icons/orderHistory.png"),
+                  color: MenuState.history == selectedMenu
+                    ? kPrimaryColor
+                    : inActiveIconColor,
+                  size: 25.0,
+                ),
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ListOrderScreen()),
+                )
               ),
               IconButton(
-                icon: SvgPicture.asset("assets/icons/Chat bubble Icon.svg"),
-                color: MenuState.message == selectedMenu
-                      ? kPrimaryColor
-                      : inActiveIconColor,
+                icon: ImageIcon(
+                  AssetImage("assets/icons/ringing.png"),
+                  color: MenuState.notification == selectedMenu
+                    ? kPrimaryColor
+                    : inActiveIconColor,
+                  size: 25.0,
+                ),
                 onPressed: () {
-                   Navigator.push(
-                        context,
-                      MaterialPageRoute(builder: (context) => ChatScreen()),
-                    );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ChatScreen()),
+                  );
                 },
               ),
               IconButton(

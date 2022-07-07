@@ -14,9 +14,9 @@ static Future<ProductResponseModel> getListProductByNameSearch(String? searchVal
     return result;
   }
 
-  static Future<ProductResponseModel> getAllProducts() async {
+  static Future<ProductResponseModel> getAllProducts(int page) async {
     ProductService service = new ProductService();
-    var result = await service.getAllProducts();
+    var result = await service.getAllProducts(page);
     return result;
   }
 
@@ -38,9 +38,9 @@ static Future<ProductResponseModel> getListProductByNameSearch(String? searchVal
     return result;
   }
 
-  static Future<GetListFitProductByCategoryResponse> getFitProductsByCategory(String categoryName) async {
+  static Future<GetListFitProductByCategoryResponse> getFitProductsByCategory(String categoryName, int page) async {
     ProductService service = new ProductService();
-    var result = await service.getListFitProductByCategory(categoryName);
+    var result = await service.getListFitProductByCategory(categoryName, page);
     return result;
   }
 }

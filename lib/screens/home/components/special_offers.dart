@@ -38,10 +38,10 @@ class SpecialOffers extends StatelessWidget {
                 category: "Sơ mi",
                 numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 5,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
                 press: () async {
-                  var listProductResponse = await ProductViewModel.getFitProductsByCategory("Sơ mi");
+                  //var listProductResponse = await ProductViewModel.getFitProductsByCategory("Sơ mi");
                   Navigator.push(
                         context,
-                      MaterialPageRoute(builder: (context) => SearchFitProductsByCategoryScreen(content: listProductResponse.content)),
+                      MaterialPageRoute(builder: (context) => SearchFitProductsByCategoryScreen(category: "Sơ mi")),
                     );
                 },
               ),
@@ -50,10 +50,9 @@ class SpecialOffers extends StatelessWidget {
                 category: "Áo thun",
                 numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 6,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
                 press: () async {
-                  var listProductResponse = await ProductViewModel.getFitProductsByCategory("Áo thun");
                   Navigator.push(
                         context,
-                      MaterialPageRoute(builder: (context) => SearchFitProductsByCategoryScreen(content: listProductResponse.content)),
+                      MaterialPageRoute(builder: (context) => SearchFitProductsByCategoryScreen(category: "Áo thun")),
                     );
                 },
               ),
@@ -62,10 +61,10 @@ class SpecialOffers extends StatelessWidget {
                 category: "Quần dài",
                 numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 7,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
                 press: () async {
-                  var listProductResponse = await ProductViewModel.getFitProductsByCategory("Quần dài");
+                  //var listProductResponse = await ProductViewModel.getFitProductsByCategory("Quần dài");
                   Navigator.push(
                         context,
-                      MaterialPageRoute(builder: (context) => SearchFitProductsByCategoryScreen(content: listProductResponse.content)),
+                      MaterialPageRoute(builder: (context) => SearchFitProductsByCategoryScreen(category: "Quần dài")),
                     );
                 },
               ),
@@ -76,10 +75,10 @@ class SpecialOffers extends StatelessWidget {
                 category: "Quần short",
                 numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 8,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
                 press: () async {
-                  var listProductResponse = await ProductViewModel.getFitProductsByCategory("Quần short");
+                 // var listProductResponse = await ProductViewModel.getFitProductsByCategory("Quần short");
                   Navigator.push(
                         context,
-                      MaterialPageRoute(builder: (context) => SearchFitProductsByCategoryScreen(content: listProductResponse.content)),
+                      MaterialPageRoute(builder: (context) => SearchFitProductsByCategoryScreen(category: "Quần short")),
                     );
                 },
               ),
@@ -88,10 +87,10 @@ class SpecialOffers extends StatelessWidget {
                 category: "Đầm",
                 numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 9,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
                 press: () async {
-                  var listProductResponse = await ProductViewModel.getFitProductsByCategory("Đầm");
+                 // var listProductResponse = await ProductViewModel.getFitProductsByCategory("Đầm");
                   Navigator.push(
                         context,
-                      MaterialPageRoute(builder: (context) => SearchFitProductsByCategoryScreen(content: listProductResponse.content)),
+                      MaterialPageRoute(builder: (context) => SearchFitProductsByCategoryScreen(category: "Đầm")),
                     );
                 },
               ),

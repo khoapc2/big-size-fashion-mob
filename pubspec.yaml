@@ -46,6 +46,8 @@ dependencies:
   csc_picker: ^0.2.6
   flutter_secure_storage: ^5.0.2
   string_to_hex: ^0.2.2
+  flutter_zalopay_sdk: ^0.1.12
+  url_launcher: ^6.1.2
 
 dev_dependencies:
   flutter_test:

@@ -140,6 +140,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_zalopay_sdk",
+      "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_zalopay_sdk-0.1.12",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "font_awesome_flutter",
       "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/font_awesome_flutter-9.2.0",
       "packageUri": "lib/",
@@ -296,6 +302,54 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "url_launcher",
+      "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/url_launcher-6.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "url_launcher_android",
+      "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/url_launcher_android-6.0.14",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "url_launcher_ios",
+      "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/url_launcher_ios-6.0.14",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "url_launcher_linux",
+      "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/url_launcher_linux-3.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "url_launcher_macos",
+      "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/url_launcher_macos-3.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "url_launcher_platform_interface",
+      "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/url_launcher_platform_interface-2.0.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "url_launcher_web",
+      "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/url_launcher_web-2.0.7",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "url_launcher_windows",
+      "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/url_launcher_windows-3.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "vector_math",
       "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/vector_math-2.1.0",
       "packageUri": "lib/",
@@ -314,7 +368,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2022-06-27T13:25:21.159468Z",
+  "generated": "2022-07-07T04:31:00.436715Z",
   "generator": "pub",
   "generatorVersion": "2.14.4"
 }

@@ -1,5 +1,3 @@
- import 'package:get/get_state_manager/src/rx_flutter/rx_getx_widget.dart';
-
 class OrdersResponse {
   int? currentPage;
   int? totalPages;
@@ -62,6 +60,7 @@ class OrdersResponse {
 
 class Content {
   int? orderId;
+  String? createDate;
   double? totalPrice;
   double? totalPriceAfterDiscount;
   String? orderType;
@@ -69,6 +68,7 @@ class Content {
 
   Content(
       {this.orderId,
+      this.createDate,
       this.totalPrice,
       this.totalPriceAfterDiscount,
       this.orderType,
@@ -76,6 +76,7 @@ class Content {
 
   Content.fromJson(Map<String, dynamic> json) {
     orderId = json['order_id'];
+    createDate = json['create_date'];
     totalPrice = json['total_price'];
     totalPriceAfterDiscount = json['total_price_after_discount'];
     orderType = json['order_type'];
@@ -85,6 +86,7 @@ class Content {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['order_id'] = this.orderId;
+    data['create_date'] = this.createDate;
     data['total_price'] = this.totalPrice;
     data['total_price_after_discount'] = this.totalPriceAfterDiscount;
     data['order_type'] = this.orderType;

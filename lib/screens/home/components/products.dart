@@ -13,23 +13,13 @@ import 'package:intl/intl.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
-class Products extends StatefulWidget {
-  Products();
-  @override
-  _ProductsState createState() => _ProductsState();
-}
-
-class _ProductsState extends State<Products> {
-  
+class Products extends StatelessWidget{
+  Products(this.listProducts);
+  final List<Content> listProducts;
   @override
   Widget build(BuildContext context) {
-    var products = ProductViewModel.getAllProducts();
     return 
-    FutureBuilder(
-      future: products,
-      builder: (BuildContext context,  AsyncSnapshot<ProductResponseModel> snapshot) {
-          if(snapshot.hasData){
-            return Column(
+           Column(
       children: [
         Padding(
           padding:
@@ -41,16 +31,19 @@ class _ProductsState extends State<Products> {
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
       child: 
       Column(
-        children: List.generate(snapshot.data!.content!.length, (index) => 
-        Padding(
+        children: List.generate(listProducts.length + 1 , (index) {
+             if (index == listProducts.length){
+            return _buildProgressIndicator();
+        }else{
+           return Padding(
           padding: EdgeInsets.symmetric(vertical: 10),
           child: Dismissible(
-            key: Key(snapshot.data!.content![index].productId.toString()),
+            key: Key(listProducts[index].productId.toString()),
             direction: DismissDirection.endToStart,
             onDismissed: (direction) {
-              setState(() {
-                demoCarts.removeAt(index);
-              });
+              // setState(() {
+              //   demoCarts.removeAt(index);
+              // });
             },
             background: Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
@@ -66,24 +59,29 @@ class _ProductsState extends State<Products> {
               ),
             ),
             child: 
-            CartCard(content: snapshot.data!.content![index]),
+            CartCard(content: listProducts[index]),
           ),
-        )
+        );
+        }
+        } 
+       
+        
         ),)
       ,
       )],
     );
           }
-          else{
-            return Container();
-          }
-    } ,);
-    
-    
-  }
 
- 
-}
+          Widget _buildProgressIndicator() {
+    return new Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: new Center(
+        child:  CircularProgressIndicator(),
+        ),
+    );
+  }
+         
+    } 
 
 class CartCard extends StatelessWidget {
   const CartCard({

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:shop_app/screens/address_copy/address_copy_screen.dart';
 import 'package:shop_app/screens/payment/payment_screen.dart';
 import 'package:shop_app/screens/pick_voucher/pick_voucher_screen.dart';
@@ -119,14 +120,14 @@ class _BodyState extends State<Body> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Image.network('https://img.icons8.com/ios/2x/mac-os.png', height: 50),
+                          Image.asset('assets/images/zalo_page.png', height: 50),
                           SizedBox(height: 30,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Text("The Flutter Lover", style: TextStyle(color: Colors.black, fontSize: 18),),
-                              Image.network('https://img.icons8.com/ios/2x/sim-card-chip.png', height: 35,),
+                              Text("Thanh toán bằng zalo pay", style: TextStyle(color: Colors.black, fontSize: 18),),
+                              //Image.network('https://img.icons8.com/ios/2x/sim-card-chip.png', height: 35,),
                             ],
                           )
                         ],
@@ -218,7 +219,14 @@ class _BodyState extends State<Body> {
                         border: activeCard == 1 ? Border.all(color: Colors.grey.shade300, width: 1) 
                           : Border.all(color: Colors.grey.shade300.withOpacity(0), width: 1),
                       ),
-                      child: Image.network('https://img.icons8.com/ios-filled/2x/apple-pay.png', height: 50,),
+                      child:  
+                      Container(
+                        height: 50.0,
+                          child: SvgPicture.asset(
+              "assets/icons/zalo_pay.svg",
+              width: 70,
+            ),
+                      )
                     ),
                   ),
                   GestureDetector(
