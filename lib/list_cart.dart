@@ -5,6 +5,11 @@ class ListCart{
   double total = 0;
   double shippingFee = 0;
   int? storeId = 0;
+  int paymentMethod = 0;
+
+  void setPaymentMethod(int paymentMethod){
+    this.paymentMethod = paymentMethod;
+  }
 
   List<Content>? getListCart(){
     return this.listCart;

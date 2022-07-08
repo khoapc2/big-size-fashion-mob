@@ -5,9 +5,9 @@ import 'package:shop_app/models/orders_model.dart';
 import 'package:shop_app/models/payment_request_model.dart';
 
 class OrderViewModel {
-  static Future<OrdersResponse> getListOrder() async {
+  static Future<OrdersResponse> getListOrder(int page) async {
     OrderService service = new OrderService();
-    var result = await service.getListOrder();
+    var result = await service.getListOrder(page);
     return result;
   }
 

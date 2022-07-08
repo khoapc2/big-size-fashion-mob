@@ -7,12 +7,12 @@ import 'components/body.dart';
 class SearchProductsByCategoryScreen extends StatelessWidget {
   static String routeName = "/cart";
   @override
-  SearchProductsByCategoryScreen({required this.content});
-  final List<Content>? content;
+  SearchProductsByCategoryScreen({required this.category});
+  String category;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: Body(contents: content),
+      body: Body(contents: category),
     );
   }
 

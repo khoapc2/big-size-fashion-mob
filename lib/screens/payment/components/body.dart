@@ -189,7 +189,8 @@ class _BodyState extends State<Body> {
                     onTap: () {
                       setState(() {
                         activeCard = 0;
-                      });
+                        currentListCart.setPaymentMethod(0);
+                        });
                     },
                     child: AnimatedContainer(
                       duration: Duration(milliseconds: 300),
@@ -208,6 +209,7 @@ class _BodyState extends State<Body> {
                     onTap: () {
                       setState(() {
                         activeCard = 1;
+                        currentListCart.setPaymentMethod(0);
                       });
                     },
                     child: AnimatedContainer(

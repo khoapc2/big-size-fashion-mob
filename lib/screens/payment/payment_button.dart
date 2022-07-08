@@ -40,23 +40,23 @@ class PaymentButton extends StatelessWidget{
                          DefaultButton(
                           text: "Thanh toán",
                           press: () async {
-
-                              // var request = new PaymentResquest(
-                              //   deliveryAddress: locationSelected.locationId,
-                              //   orderType: true,
-                              //   paymentMethod:"Trả sau",
-                              //   promotionPrice: 0,
-                              //   totalPrice: currentListCart.total,
-                              //   shippingFee: currentListCart.shippingFee,
-                              //   storeId: currentListCart.storeId
-                              //   );
-                              //   OrderViewModel.addOrder(request);
-                              //   _showToast(context);
-                              //   currentListCart.setListCart(null);
-                              //   currentListCart.total = 0;
-                              //   locationSelected.setLocationId(null);
-                              //   Navigator.pushNamed(context, HomeScreen.routeName);
-                            launch('https://sbgateway.zalopay.vn/openinapp?order=eyJ6cHRyYW5zdG9rZW4iOiIyMjA3MDcwMDAwMDU1Nzl1OHp5M084IiwiYXBwaWQiOjI1NTR9');
+                              var paymentMethod = currentListCart.paymentMethod;
+                              var request = new PaymentResquest(
+                                deliveryAddress: locationSelected.locationId,
+                                orderType: true,
+                                paymentMethod: paymentMethod == 0 ? "Trả sau" : "Zalopay",
+                                promotionPrice: 0,
+                                totalPrice: currentListCart.total,
+                                shippingFee: currentListCart.shippingFee,
+                                storeId: currentListCart.storeId
+                                );
+                                OrderViewModel.addOrder(request);
+                                currentListCart.setListCart(null);
+                                currentListCart.total = 0;
+                                locationSelected.setLocationId(null);
+                                Navigator.pushNamed(context, HomeScreen.routeName);
+                            paymentMethod == 0 ? launch('https://sbgateway.zalopay.vn/openinapp?order=eyJ6cHRyYW5zdG9rZW4iOiIyMjA3MDcwMDAwMDU1Nzl1OHp5M084IiwiYXBwaWQiOjI1NTR9') : print("Trả sau");
+                          _showToast(context);
                           },
                         ),],)
                        

@@ -29,10 +29,10 @@ class Categories extends StatelessWidget {
             icon: categories[index]["icon"],
             text: categories[index]["text"],
             press: () async {
-              var productResponseModel = await ProductViewModel.getProductsByCategory(categories[index]["text"]);
+              //var productResponseModel = await ProductViewModel.getProductsByCategory(categories[index]["text"]);
               Navigator.push(
                         context,
-                      MaterialPageRoute(builder: (context) => SearchProductsByCategoryScreen(content: productResponseModel.content)),
+                      MaterialPageRoute(builder: (context) => SearchProductsByCategoryScreen(category: categories[index]["text"])),
                     );
             },
           ),

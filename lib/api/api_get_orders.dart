@@ -8,9 +8,9 @@ import 'package:shop_app/models/payment_request_model.dart';
 class OrderService {
    final storage = const FlutterSecureStorage();
    
-  Future<OrdersResponse> getListOrder() async {
+  Future<OrdersResponse> getListOrder(int page) async {
     String link = "https://20.211.17.194/";
-    String url = link + "api/v1/orders/customer";
+    String url = link + "api/v1/orders/customer"+"?PageNumber="+page.toString();
 
      OrdersResponse listCartResponse = new OrdersResponse();  
 

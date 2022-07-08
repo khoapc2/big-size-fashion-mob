@@ -8,9 +8,9 @@ import 'package:shop_app/models/product_model.dart';
 import 'package:shop_app/models/detail_product_id_model.dart';
 
 class ProductViewModel {
-static Future<ProductResponseModel> getListProductByNameSearch(String? searchValue) async {
+static Future<ProductResponseModel> getListProductByNameSearch(String? searchValue, int page) async {
     ProductService service = new ProductService();
-    var result = await service.getListProductByName(searchValue);
+    var result = await service.getListProductByName(searchValue, page);
     return result;
   }
 
@@ -32,9 +32,9 @@ static Future<ProductResponseModel> getListProductByNameSearch(String? searchVal
     return result;
   }
 
-  static Future<GetListProductByCategoryResponse> getProductsByCategory(String categoryName) async {
+  static Future<GetListProductByCategoryResponse> getProductsByCategory(String categoryName, int page) async {
     ProductService service = new ProductService();
-    var result = await service.getListProductByCategory(categoryName);
+    var result = await service.getListProductByCategory(categoryName, page);
     return result;
   }
 

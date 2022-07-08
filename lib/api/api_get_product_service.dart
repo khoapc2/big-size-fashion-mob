@@ -18,9 +18,9 @@ class ProductService {
    var _twilio = locator.get<TwilioVerify>();
    final storage = const FlutterSecureStorage();
 
-  Future<ProductResponseModel> getListProductByName(String? searchValue) async {
+  Future<ProductResponseModel> getListProductByName(String? searchValue, int page) async {
     String link = "https://20.211.17.194/";
-    String url = link + "api/v1/products"+"?ProductName="+searchValue!+"&Status=true";
+    String url = link + "api/v1/products"+"?ProductName="+searchValue!+"&Status=true"+"&PageNumber="+page.toString();
 
     ProductResponseModel productResponseModel;  
 
@@ -115,9 +115,9 @@ Future<GetFitProductByCategoryResponse> getFitProductsByCategory() async {
     return productResponseModel;
   }
 
-  Future<GetListProductByCategoryResponse> getListProductByCategory(String? categoryName) async {
+  Future<GetListProductByCategoryResponse> getListProductByCategory(String? categoryName, int page) async {
     String link = "https://20.211.17.194/";
-    String url = link + "api/v1/products"+"?Category="+categoryName!+"&Status=true";
+    String url = link + "api/v1/products"+"?Category="+categoryName!+"&Status=true"+"&PageNumber="+page.toString();
 
     GetListProductByCategoryResponse productResponseModel;  
 

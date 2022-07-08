@@ -15,10 +15,11 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  static int page = 1;
+  int page = 1;
   ScrollController _sc = new ScrollController();
   bool isLoading = false;
   List products = <Content>[];
+  int testValue = 1;
 
 
   void initState() {

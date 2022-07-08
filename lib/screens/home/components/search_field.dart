@@ -34,11 +34,11 @@ class SearchField extends StatelessWidget {
   onPressed: () async { 
     {
       print(searchValue);
-      var productResponseModel = await ProductViewModel.getListProductByNameSearch(searchValue);
+      //var productResponseModel = await ProductViewModel.getListProductByNameSearch(searchValue);
 
                       Navigator.push(
                         context,
-                      MaterialPageRoute(builder: (context) => SearchProductScreen(content: productResponseModel.content)),
+                      MaterialPageRoute(builder: (context) => SearchProductScreen(searchValue: searchValue!)),
                     );
                     }
    },

@@ -4,24 +4,68 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/models/orders_model.dart';
 import 'package:shop_app/screens/orders_status/process_timeline_screen.dart';
 import 'package:shop_app/view_model/order_view_model.dart';
+import 'package:shop_app/view_model/product_view_model.dart';
 
-class Body extends StatelessWidget{
+class Body extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() => _StateBody();
+}
+
+class _StateBody extends State<Body>{
+  int page = 1;
+  ScrollController _sc = new ScrollController();
+  bool isLoading = false;
+  List products = <Content>[];
+  int testValue = 1;
+
+
+  void initState() {
+    this._getMoreData(page);
+    super.initState();
+    _sc.addListener(() {
+      if (_sc.position.pixels ==
+          _sc.position.maxScrollExtent) {
+        _getMoreData(page);
+      }
+    });
+  }
+
+  void _getMoreData(int index) async {
+    if (!isLoading) {
+      setState(() {
+        isLoading = true;
+      });
+     //call api
+      var response = await OrderViewModel.getListOrder(page);
+      setState(() {
+        isLoading = false;
+        products.addAll(response.content!.toList());
+        page++;
+      });
+    }
+  }
+
+   void dispose() {
+    _sc.dispose();
+    
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    var orders = OrderViewModel.getListOrder();
-    return 
-    FutureBuilder(
-      future: orders,
-      builder: (BuildContext context, AsyncSnapshot<OrdersResponse> snapshot){
-          if(snapshot.hasData){
-           return SingleChildScrollView(
+    //var orders = OrderViewModel.getListOrder();
+    return SingleChildScrollView(
+      controller: _sc,
             padding: EdgeInsets.only(top: 10.0),
             child:ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: snapshot.data!.content!.length,
-              itemBuilder: (context, int i) {
+              itemCount: products.length + 1,
+              itemBuilder: (context, int index) {
+                if(index == products.length){
+            return _buildProgressIndicator();
+          }
+          else{
               return 
               GestureDetector(
                 child: Card(
@@ -29,13 +73,13 @@ class Body extends StatelessWidget{
                   child: 
                   Column(children: [
 ListTile(
-                    enabled: snapshot.data!.content![i].status.toString() != "Đã nhận hàng",
-                    title: Text("Mã đơn hàng: "+snapshot.data!.content![i].orderId.toString()),
+                    enabled: products[index].status.toString() != "Đã nhận hàng",
+                    title: Text("Mã đơn hàng: "+products[index].orderId.toString()),
                     //leading: Text("Ngày đặt: "+snapshot.data!.content![i].createDate!),
-                    subtitle: Text('Tổng số tiền:'+ snapshot.data!.content![i].totalPrice.toString()),
-                    trailing: Text('Trạng thái:'+ snapshot.data!.content![i].status.toString())
+                    subtitle: Text('Tổng số tiền:'+ products[index].totalPrice.toString()),
+                    trailing: Text('Trạng thái:'+ products[index].status.toString())
                   ),
-                  Text("Ngày đặt: "+ snapshot.data!.content![i].createDate!)
+                  Text("Ngày đặt: "+ products[index].createDate!)
                   ],)
                   
                 ),
@@ -43,18 +87,24 @@ ListTile(
                   //Navigator.push(context, MaterialPageRoute(builder: (context) => OrderDetailsPage(orders[i])));
                    => Navigator.push(
                         context,
-                      MaterialPageRoute(builder: (context) => ProcessTimelinePage(snapshot.data!.content![i].orderId!)),
+                      MaterialPageRoute(builder: (context) => ProcessTimelinePage(products[index].orderId!)),
                     ),
                 
-              );
+              );}
             }),
           );
           }
-          else{
-            return Container();
-          }
-    });
-    
+
+          Widget _buildProgressIndicator() {
+    return new Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: new Center(
+        child: new Opacity(
+          opacity: isLoading ? 1.0 : 00,
+          child: new CircularProgressIndicator(),
+        ),
+      ),
+    );
   }
-}
+    }
 
