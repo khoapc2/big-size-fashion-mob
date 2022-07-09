@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shop_app/constants.dart';
 import 'package:shop_app/models/order_detail_model.dart';
+import 'package:shop_app/screens/my_feedback/my_feedback_screen.dart';
+import 'package:shop_app/screens/rating/ratingactivity_screen.dart';
 
 import '../../../list_cart.dart';
 import '../../../locator.dart';
@@ -83,8 +86,48 @@ class _OrderDetailState extends State<OrderDetail> {
               ),
             ),
             child: 
-            CartCard(cart: widget._orderDetailResponse.content!.productList![index]),
+            Column(
+              children: [
+                CartCard(cart: widget._orderDetailResponse.content!.productList![index]),
+                Divider(
+                  thickness: 1.0,
+                  color: Colors.black,
+                ),
+                GestureDetector(onTap: (){
+                 Navigator.push(
+                        context,
+                      MaterialPageRoute(builder: (context) => RatingScreen(FeedBackPara(widget._orderDetailResponse.content!.productList![index].productId, widget._orderDetailResponse.content!.productList![index].productImageUrl,
+                      widget._orderDetailResponse.content!.productList![index].productName
+                      ))),
+                    );
+                }, 
+                child: 
+                    Container(
+                      margin: EdgeInsets.only(left: 200),
+                      
+                      height: 40,
+                      width: 100,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: kPrimaryColor,
+                      ),
+                      child: Center(
+                        child:Text("Nhận xét",style: TextStyle(
+            fontSize: getProportionateScreenWidth(18),
+            color: Colors.white)),
+                        ),
+                    )
+                )
+              ],
+            ),
           ),
         ),);
   }
+  }
+
+  class FeedBackPara{
+    int? productId;
+    String? urlImg;
+    String? productName;
+    FeedBackPara(this.productId, this.urlImg, this.productName);
   }

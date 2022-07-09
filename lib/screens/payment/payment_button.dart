@@ -6,6 +6,7 @@ import 'package:shop_app/models/payment_request_model.dart';
 import 'package:shop_app/screens/details%20copy/components/top_rounded_container.dart';
 import 'package:shop_app/screens/home/home_screen.dart';
 import 'package:shop_app/view_model/order_view_model.dart';
+import 'package:shop_app/view_model/zalo_view_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../list_cart.dart';
@@ -52,12 +53,23 @@ class PaymentButton extends StatelessWidget{
                                 shippingFee: currentListCart.shippingFee,
                                 storeId: currentListCart.storeId
                                 );
-                                OrderViewModel.addOrder(request);
-                                currentListCart.setListCart(null);
+                                
+                                
+                            if(paymentMethod != 0){
+                              var zaloPayResponse = await ZaloPayViewModel.createOrderFromZaloPay(currentListCart.total);
+                              launch(zaloPayResponse.content!.orderUrl!);
+
+                            }
+                            else{
+                                await OrderViewModel.addOrder(request);
+                            }
+                            currentListCart.setListCart(null);
                                 currentListCart.total = 0;
                                 locationSelected.setLocationId(null);
+                                currentListCart.setPaymentMethod(0);
                                 Navigator.pushNamed(context, HomeScreen.routeName);
-                            paymentMethod == 0 ? launch('https://sbgateway.zalopay.vn/openinapp?order=eyJ6cHRyYW5zdG9rZW4iOiIyMjA3MDcwMDAwMDU1Nzl1OHp5M084IiwiYXBwaWQiOjI1NTR9') : print("Trả sau");
+                             
+                            print("Trả sau");
                           _showToast(context);
                           },
                         ),],)

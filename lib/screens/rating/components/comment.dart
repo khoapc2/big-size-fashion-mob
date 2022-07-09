@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/screens/rating/components/body.dart';
 
 class Comment extends StatelessWidget {
+  Comment(this.createFeedback);
+  final CreateFeedback createFeedback;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,6 +24,9 @@ class Comment extends StatelessWidget {
             //   textAlign: TextAlign.right,
             // ),
             TextField(
+              onChanged: (value) {
+                createFeedback.setContext(value);
+              },
               decoration: InputDecoration(
                 hintText: 'Cùng nhau chia sẻ trải nghiệm đặt sân tại đây với mọi người nhé',
                 hintStyle: TextStyle(

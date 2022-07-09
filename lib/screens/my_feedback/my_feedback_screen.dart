@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/screens/my_feedback/components/update_feedback_button.dart';
+import 'package:shop_app/screens/orders_status/components/order_detail.dart';
 
 import 'components/body.dart';
 
 
 
 class MyFeedback extends StatelessWidget {
-  const MyFeedback({Key? key}) : super(key: key);
-
+  const MyFeedback({Key? key, this.para}) : super(key: key);
+  final FeedBackPara? para;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

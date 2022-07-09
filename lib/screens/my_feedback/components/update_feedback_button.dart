@@ -11,10 +11,10 @@ class UpdateFeedbackButton extends StatelessWidget{
     // TODO: implement build
    return  GestureDetector(
               onTap: () {
-                      Navigator.push(
-                        context,
-                      MaterialPageRoute(builder: (context) => RatingScreen()),
-                    );
+                    //   Navigator.push(
+                    //     context,
+                    //   MaterialPageRoute(builder: (context) => RatingScreen()),
+                    // );
                     },
               child: Container(
               alignment: Alignment.center,

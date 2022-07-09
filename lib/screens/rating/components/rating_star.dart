@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
+import 'body.dart';
+
 
 class RatingStar extends StatelessWidget {
+  RatingStar(this.productName, this.createFeedback);
+  final String productName;
+  final CreateFeedback createFeedback;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -10,7 +15,7 @@ class RatingStar extends StatelessWidget {
             padding: EdgeInsets.all(20.0),
             child: Column(
           children: [
-            Text('Tay cầm chơi game', style: TextStyle(fontWeight: FontWeight.bold)),
+            Text(productName, style: TextStyle(fontWeight: FontWeight.bold)),
             RatingBar.builder(
               initialRating: 3,
               minRating: 1,
@@ -24,6 +29,7 @@ class RatingStar extends StatelessWidget {
                     color: Colors.amber,
                   ),
               onRatingUpdate: (rating) {
+                createFeedback.setRating(rating);
               },)
           ],
         )

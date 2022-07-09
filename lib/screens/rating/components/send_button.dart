@@ -1,18 +1,24 @@
 
 
 import 'package:flutter/cupertino.dart';
+import 'package:shop_app/models/create_feedback_request_model.dart';
+import 'package:shop_app/screens/rating/components/body.dart';
+import 'package:shop_app/view_model/feedback_view_model.dart';
 
 class SendButton extends StatelessWidget{
+  SendButton(this.createFeedback);
+  final CreateFeedback createFeedback;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return GestureDetector(
-              // onTap: () {
-              //         Navigator.push(
-              //           context,
-              //         MaterialPageRoute(builder: (context) => RatingScreen()),
-              //       );
-              //       },
+              onTap: () {
+                CreateFeedbackRequest request = new CreateFeedbackRequest();
+                request.content = createFeedback.context;
+                request.productId = createFeedback.productId;
+                request.rate = createFeedback.rating!.round();
+                      new FeedbackViewModel().createFeedback(request);
+                    },
               child: Container(
               alignment: Alignment.center,
               height: 50.0,

@@ -53,9 +53,8 @@ class CartCard extends StatefulWidget {
         ),
         SizedBox(width: 20),
         Container(
-          width: 160.0,
+          width: 200.0,
           child: Column(
-
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
@@ -64,6 +63,18 @@ class CartCard extends StatefulWidget {
               maxLines: 2,
             ),
             SizedBox(height: 10),
+            Container(
+              child:
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    child: Text("Size "+ widget.cart.size.toString()+", màu "+widget.cart.colour.toString()),
+                  ),
+            Text("X"+widget.cart.quantity.toString())
+                ],
+              )
+            ),
             Text.rich(
               TextSpan(
                 text: widget.cart.discountPrice != null?"${formatter.format(widget.cart.discountPrice)} VNĐ":"${formatter.format(widget.cart.price)} VNĐ",

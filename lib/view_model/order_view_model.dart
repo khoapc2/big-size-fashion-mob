@@ -1,5 +1,6 @@
 import 'package:shop_app/api/api_get_list_cart.dart';
 import 'package:shop_app/api/api_get_orders.dart';
+import 'package:shop_app/models/add_order_response_model.dart';
 import 'package:shop_app/models/cart_model.dart';
 import 'package:shop_app/models/orders_model.dart';
 import 'package:shop_app/models/payment_request_model.dart';
@@ -11,9 +12,9 @@ class OrderViewModel {
     return result;
   }
 
-  static Future<bool> addOrder(PaymentResquest resquest) async {
+  static Future<AddOrderResponse> addOrder(PaymentResquest resquest) async {
     OrderService service = new OrderService();
-    bool result = false;
+    AddOrderResponse result = new AddOrderResponse();
     try{
        result = await service.addOrder(resquest);
     return result;

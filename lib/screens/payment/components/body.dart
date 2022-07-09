@@ -211,7 +211,7 @@ class _BodyState extends State<Body> {
                     onTap: () {
                       setState(() {
                         activeCard = 1;
-                        currentListCart.setPaymentMethod(0);
+                        currentListCart.setPaymentMethod(1);
                       });
                     },
                     child: AnimatedContainer(
@@ -313,9 +313,35 @@ class _BodyState extends State<Body> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Tổng tiền hàng ${formatter.format(currentListCart.total)} VNĐ"),
-                    Text("Tổng tiền vận chuyển: ${formatter.format(currentListCart.shippingFee)} VNĐ"),
-                    Text("Tổng thanh toán: ${formatter.format(currentListCart.total + currentListCart.shippingFee)} VNĐ")
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Tổng tiền hàng"),
+                          Text(formatter.format(currentListCart.total))
+                        ],
+                      ),
+                    ),
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Tổng tiền vận chuyển:"),
+                          Text(formatter.format(currentListCart.shippingFee))
+                        ],
+                      ),
+                    ),
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Tổng thanh toán: "),
+                          Text(formatter.format(currentListCart.total + currentListCart.shippingFee))
+                        ],
+                      ),
+                    )
+                    // Text("Tổng tiền hàng ${formatter.format(currentListCart.total)} VNĐ"),
+                    
                   ],
                 ),
               )
