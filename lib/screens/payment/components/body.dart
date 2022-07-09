@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:shop_app/screens/address_copy/address_copy_screen.dart';
 import 'package:shop_app/screens/payment/payment_screen.dart';
 import 'package:shop_app/screens/pick_voucher/pick_voucher_screen.dart';
@@ -17,6 +18,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  var formatter = NumberFormat('#,###,000');
   int activeCard = 0;
   bool _isLoading = false;
   late Timer _timer;
@@ -311,9 +313,9 @@ class _BodyState extends State<Body> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Tổng tiền hàng ${currentListCart.total}"),
-                    Text("Tổng tiền vận chuyển: ${currentListCart.shippingFee}"),
-                    Text("Tổng thanh toán: ${currentListCart.total + currentListCart.shippingFee}")
+                    Text("Tổng tiền hàng ${formatter.format(currentListCart.total)} VNĐ"),
+                    Text("Tổng tiền vận chuyển: ${formatter.format(currentListCart.shippingFee)} VNĐ"),
+                    Text("Tổng thanh toán: ${formatter.format(currentListCart.total + currentListCart.shippingFee)} VNĐ")
                   ],
                 ),
               )

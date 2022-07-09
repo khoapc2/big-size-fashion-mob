@@ -66,7 +66,7 @@ class CartCard extends StatefulWidget {
             SizedBox(height: 10),
             Text.rich(
               TextSpan(
-                text: widget.cart.discountPrice != null?"\$${formatter.format(widget.cart.discountPrice)}":"\$${formatter.format(widget.cart.price)}",
+                text: widget.cart.discountPrice != null?"${formatter.format(widget.cart.discountPrice)} VNĐ":"${formatter.format(widget.cart.price)} VNĐ",
                 style: TextStyle(
                     fontWeight: FontWeight.w600, color: kPrimaryColor),
               

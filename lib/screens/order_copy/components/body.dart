@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shop_app/models/orders_model.dart';
 import 'package:shop_app/screens/orders_status/process_timeline_screen.dart';
 import 'package:shop_app/view_model/order_view_model.dart';
@@ -52,6 +53,7 @@ class _StateBody extends State<Body>{
   }
   @override
   Widget build(BuildContext context) {
+    var formatter = NumberFormat('#,###,000');
     // TODO: implement build
     //var orders = OrderViewModel.getListOrder();
     return SingleChildScrollView(
@@ -76,7 +78,7 @@ ListTile(
                     enabled: products[index].status.toString() != "Đã nhận hàng",
                     title: Text("Mã đơn hàng: "+products[index].orderId.toString()),
                     //leading: Text("Ngày đặt: "+snapshot.data!.content![i].createDate!),
-                    subtitle: Text('Tổng số tiền:'+ products[index].totalPrice.toString()),
+                    subtitle: Text('Tổng số tiền:'+ formatter.format(products[index].totalPrice)),
                     trailing: Text('Trạng thái:'+ products[index].status.toString())
                   ),
                   Text("Ngày đặt: "+ products[index].createDate!)

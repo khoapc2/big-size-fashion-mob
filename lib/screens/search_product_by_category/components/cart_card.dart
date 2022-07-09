@@ -58,7 +58,7 @@ class CartCard extends StatelessWidget {
             SizedBox(height: 10),
             Text.rich(
               TextSpan(
-                text: content!.promotionPrice == null?"\đ${formatter.format(content!.price!)}":"\đ${formatter.format(content!.promotionPrice)}",
+                text: content!.promotionPrice == null?"${formatter.format(content!.price!)} VNĐ":"${formatter.format(content!.promotionPrice)} VNĐ",
                 style: TextStyle(
                     fontWeight: FontWeight.w600, color: kPrimaryColor)
               ),
@@ -69,7 +69,7 @@ class CartCard extends StatelessWidget {
               child:
               Row(
                 children: [
-                  Text("\đ${formatter.format(content!.price!)}", style: TextStyle(decoration: TextDecoration.lineThrough),),
+                  Text("${formatter.format(content!.price!)} VNĐ", style: TextStyle(decoration: TextDecoration.lineThrough),),
                   Container(
                     margin: EdgeInsets.only(left: 15.0),
                     color: kPrimaryColor,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/screens/cart/cart_controller.dart';
 import 'package:shop_app/screens/payment/payment_screen.dart';
@@ -17,6 +18,7 @@ class CheckoutCard extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    var formatter = NumberFormat('#,###,000');
     return Container(
       padding: EdgeInsets.symmetric(
         vertical: getProportionateScreenWidth(15),
@@ -51,7 +53,7 @@ class CheckoutCard extends StatelessWidget {
                     text: "Tổng cộng:\n",
                     children: [
                       TextSpan(
-                        text: total.toString(),
+                        text: formatter.format(total)+" VNĐ",
                         style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
                     ],

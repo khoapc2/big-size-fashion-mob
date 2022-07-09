@@ -67,7 +67,7 @@ class CartCard extends StatefulWidget {
             SizedBox(height: 10),
             Text.rich(
               TextSpan(
-                text: widget.cart.productPromotion != null?"\đ${formatter.format(widget.cart.productPromotion!)}":"\đ${formatter.format(widget.cart.productPrice)}",
+                text: widget.cart.productPromotion != null?"${formatter.format(widget.cart.productPromotion!)} VNĐ":"${formatter.format(widget.cart.productPrice)} VNĐ",
                 style: TextStyle(
                     fontWeight: FontWeight.w600, color: kPrimaryColor),
               
@@ -75,7 +75,7 @@ class CartCard extends StatefulWidget {
             ),
             SizedBox(height: 5),
             widget.cart.productPromotion != null?
-            Text("\đ${formatter.format(widget.cart.productPrice)}", style: TextStyle(decoration: TextDecoration.lineThrough),)
+            Text("${formatter.format(widget.cart.productPrice)} VNĐ", style: TextStyle(decoration: TextDecoration.lineThrough),)
             :Container(),
           ],
         ),

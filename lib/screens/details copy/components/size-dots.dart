@@ -23,6 +23,12 @@ class SizeDots extends StatefulWidget {
 
 class _SizeDotsState extends State<SizeDots>{
   @override
+  void initState() {
+    // TODO: implement initState
+    widget._sizeSelected = widget.listSize![0].sizeName;
+    widget.getQuantityRequest!.sizeId = widget.listSize![0].sizeId;
+  }
+  @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Row(

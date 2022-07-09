@@ -62,7 +62,7 @@ GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdReque
                           top: getProportionateScreenWidth(15),
                         ),
                         child: DefaultButton(
-                          text: "Add To Cart",
+                          text: "Thêm vào giỏ hàng",
                           press: () async {
                               getDetailProductRequest!.productId = productId;
                               //print(quantityRequest!.colourId);
@@ -89,10 +89,24 @@ GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdReque
       ],
     );
       }else{
-        return Container();
+        return Container(
+          child: _buildProgressIndicator(),
+        );
       }
     });
    
+  }
+
+  Widget _buildProgressIndicator() {
+    return new Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: new Center(
+        child: new Opacity(
+          opacity: 1.0,
+          child: new CircularProgressIndicator(),
+        ),
+      ),
+    );
   }
 }
 

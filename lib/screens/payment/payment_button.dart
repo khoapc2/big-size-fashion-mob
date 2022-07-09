@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/models/payment_request_model.dart';
 import 'package:shop_app/screens/details%20copy/components/top_rounded_container.dart';
@@ -17,6 +18,7 @@ class PaymentButton extends StatelessWidget{
    var locationSelected = locator.get<Location>();
   @override
   Widget build(BuildContext context) {
+    var formatter = NumberFormat('#,###,000');
     // TODO: implement build
     return Container(
       
@@ -33,7 +35,7 @@ class PaymentButton extends StatelessWidget{
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("Tổng tiền", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
-                  Text("\$${currentListCart.total + currentListCart.shippingFee}", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
+                  Text("${formatter.format(currentListCart.total + currentListCart.shippingFee)} VNĐ", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
                 ],
               ),
               SizedBox(height: 10),

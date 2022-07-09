@@ -27,6 +27,9 @@ class _ColorDotsState extends State<ColorDots>{
   @override
   void initState() {
     // TODO: implement initState 
+    var myNiceColor = StringToHex.toColor(widget.listColor![0].colourCode);
+    widget._colorSelected = Color(myNiceColor);
+    widget.getQuantityRequest!.colourId = widget.listColor![0].colourId;
   }
   @override
   Widget build(BuildContext context) {

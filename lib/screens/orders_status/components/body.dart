@@ -272,13 +272,26 @@ class Body extends StatelessWidget{
         ],
       );
         }else{
-          return Container();
+          return Container(
+            child: _buildProgressIndicator(),
+          );
         }
        
       },
     );
       
   
+  }
+  Widget _buildProgressIndicator() {
+    return new Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: new Center(
+        child: new Opacity(
+          opacity: 1.0,
+          child: new CircularProgressIndicator(),
+        ),
+      ),
+    );
   }
 }
 final _processes = [

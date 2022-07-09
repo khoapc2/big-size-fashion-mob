@@ -50,7 +50,9 @@ class CartScreenState extends State<CartScreen>{
       print("đen là do thằng này nè");
       return Scaffold(
       appBar: buildAppBar(context),
-      body:  Container());
+      body:  Container(
+        child: _buildProgressIndicator(),
+      ));
     }
     });
   }
@@ -79,6 +81,18 @@ class CartScreenState extends State<CartScreen>{
       ),
     );
     }
+
+    Widget _buildProgressIndicator() {
+    return new Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: new Center(
+        child: new Opacity(
+          opacity: 1.0,
+          child: new CircularProgressIndicator(),
+        ),
+      ),
+    );
+  }
 
     void updateCart(){
         CartViewModel response = CartViewModel();
