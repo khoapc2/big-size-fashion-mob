@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_zalopay_sdk/flutter_zalopay_sdk.dart';
 import 'package:intl/intl.dart';
 import 'package:shop_app/components/default_button.dart';
+import 'package:shop_app/models/cart_model.dart';
 import 'package:shop_app/models/payment_request_model.dart';
 import 'package:shop_app/screens/details%20copy/components/top_rounded_container.dart';
 import 'package:shop_app/screens/home/home_screen.dart';
+import 'package:shop_app/view_model/cart_view_model.dart';
 import 'package:shop_app/view_model/order_view_model.dart';
 import 'package:shop_app/view_model/zalo_view_model.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -17,6 +21,9 @@ import '../../size_config.dart';
 class PaymentButton extends StatelessWidget{
   var currentListCart = locator.get<ListCart>();
    var locationSelected = locator.get<Location>();
+   String? payResult; 
+     
+
   @override
   Widget build(BuildContext context) {
     var formatter = NumberFormat('#,###,000');
@@ -57,11 +64,31 @@ class PaymentButton extends StatelessWidget{
                                 
                             if(paymentMethod != 0){
                               var zaloPayResponse = await ZaloPayViewModel.createOrderFromZaloPay(currentListCart.total);
-                              launch(zaloPayResponse.content!.orderUrl!);
-
+                             
+                              FlutterZaloPaySdk.payOrder(zpToken: zaloPayResponse.content!.zpTransToken!).listen((event) async {
+                              //launch(zaloPayResponse.content!.orderUrl!);
+                              switch (event) {
+                  case FlutterZaloPayStatus.cancelled:
+                    _showToast(context, "Khách hàng Huỷ Thanh Toán");
+                    break;
+                  case FlutterZaloPayStatus.success:
+                    await OrderViewModel.addOrder(request);
+                    _showToast(context, "Thanh toán bằng zalopay thành công");
+                    updateCart();
+                    break;
+                  case FlutterZaloPayStatus.failed:
+                   _showToast(context, "Thanh toán thất bại");
+                    break;
+                  default:
+                    _showToast(context, "Thanh toán thất bại");
+                    break;
+                }
+                              });
                             }
                             else{
                                 await OrderViewModel.addOrder(request);
+                                updateCart();
+                                _showToast(context, "Thanh toán thành công");
                             }
                             currentListCart.setListCart(null);
                                 currentListCart.total = 0;
@@ -69,21 +96,27 @@ class PaymentButton extends StatelessWidget{
                                 currentListCart.setPaymentMethod(0);
                                 Navigator.pushNamed(context, HomeScreen.routeName);
                              
-                            print("Trả sau");
-                          _showToast(context);
+                          
                           },
                         ),],)
                        
                       );
   }
 
-   void _showToast(BuildContext context) {
+   void _showToast(BuildContext context, String payResult) {
     final scaffold = ScaffoldMessenger.of(context);
     scaffold.showSnackBar(
       SnackBar(
-        content: const Text('Thanh toán thành công'),
+        content: Text(payResult),
         action: SnackBarAction(label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
   }
+
+  void updateCart(){
+    List<AddToCarRequest> listCart = [];
+    CartViewModel respone = CartViewModel();
+    respone.addListCart(listCart);
+  }
+
 }

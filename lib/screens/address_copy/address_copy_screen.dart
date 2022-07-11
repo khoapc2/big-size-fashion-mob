@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:shop_app/constants.dart';
+import 'package:shop_app/screens/add_address1/add_address_screen.dart';
 
 import 'components/body.dart';
 
@@ -31,9 +32,14 @@ class AddressScreen extends StatelessWidget {
           padding: EdgeInsets.only(
             right: 20.0
           ),
-          child: IconButton(onPressed: () => null, icon: Icon(Icons.add, color: kPrimaryColor)),
+          child: IconButton(onPressed: ()  {
+              Navigator.push(
+                        context,
+                      MaterialPageRoute(builder: (context) => AddddressScreen()),
+                    );
+          } , icon: Icon(Icons.add, color: kPrimaryColor)),
         )
-        
+       //AddddressScreen 
       ],
     );
   }

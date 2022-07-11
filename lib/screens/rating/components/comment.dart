@@ -28,7 +28,7 @@ class Comment extends StatelessWidget {
                 createFeedback.setContext(value);
               },
               decoration: InputDecoration(
-                hintText: 'Cùng nhau chia sẻ trải nghiệm đặt sân tại đây với mọi người nhé',
+                hintText: 'Cùng nhau chia sẻ trải nghiệm mua hàng tại big size shop',
                 hintStyle: TextStyle(
                   color: Colors.grey, // <-- Change this
                   fontSize: 10.0,

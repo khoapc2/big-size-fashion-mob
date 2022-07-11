@@ -20,16 +20,7 @@ class DetailsScreen extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(AppBar().preferredSize.height),
         child: 
-        GestureDetector(
-          onTap: ()=>
-                      Navigator.push(
-                        context,
-                      MaterialPageRoute(builder: (context) => ViewFeedback()),
-                    )
-                    ,
-          child: Icon(Icons.ac_unit_outlined) 
-          //CustomAppBar(rating: agrs.product.rating),
-        )
+        CustomAppBar(productId: productId),
       ),
       body: Body(productId:productId),
     );

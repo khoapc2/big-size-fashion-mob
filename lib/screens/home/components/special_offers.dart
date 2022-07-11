@@ -34,7 +34,7 @@ class SpecialOffers extends StatelessWidget {
           child: Row(
             children: [
                SpecialOfferCard(
-                image: "assets/images/dam v2.jpg",
+                image: "assets/images/so mi.jpg",
                 category: "Sơ mi",
                 numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 5,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
                 press: () async {
@@ -46,7 +46,7 @@ class SpecialOffers extends StatelessWidget {
                 },
               ),
                SpecialOfferCard(
-                image: "assets/images/Image Banner 3.png",
+                image: "assets/images/Ao thun.jpg",
                 category: "Áo thun",
                 numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 6,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
                 press: () async {
@@ -57,7 +57,7 @@ class SpecialOffers extends StatelessWidget {
                 },
               ),
               SpecialOfferCard(
-                image: "assets/images/short v2.jpg",
+                image: "assets/images/short.jpg",
                 category: "Quần dài",
                 numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 7,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
                 press: () async {
@@ -71,7 +71,7 @@ class SpecialOffers extends StatelessWidget {
               
               SpecialOfferCard(
                 
-                image: "assets/images/quan dai v2.jpg",
+                image: "assets/images/short (2).jpg",
                 category: "Quần short",
                 numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 8,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
                 press: () async {
@@ -83,7 +83,7 @@ class SpecialOffers extends StatelessWidget {
                 },
               ),
               SpecialOfferCard(
-                image: "assets/images/Ao thun v2.jpg",
+                image: "assets/images/dam.jpg",
                 category: "Đầm",
                 numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 9,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
                 press: () async {
@@ -132,7 +132,7 @@ class SpecialOfferCard extends StatelessWidget {
         onTap: press,
         child: SizedBox(
           width: getProportionateScreenWidth(242),
-          height: getProportionateScreenWidth(100),
+          height: getProportionateScreenWidth(250),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Stack(

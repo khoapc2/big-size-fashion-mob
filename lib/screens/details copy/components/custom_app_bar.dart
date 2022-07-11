@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop_app/constants.dart';
+import 'package:shop_app/models/rating_response_model.dart';
+import 'package:shop_app/screens/feedback/feedback_screen.dart';
+import 'package:shop_app/view_model/feedback_view_model.dart';
 
 import '../../../size_config.dart';
 
 class CustomAppBar extends StatelessWidget {
-  final double rating;
+  final int? productId;
 
-  CustomAppBar({required this.rating});
+  CustomAppBar({required this.productId, });
 
   @override
   // AppBar().preferredSize.height provide us the height that appy on our app bar
@@ -15,7 +18,13 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    var rating = FeedbackViewModel.getRating(productId!);
+    return 
+    FutureBuilder(
+      future: rating,
+      builder: (BuildContext context, AsyncSnapshot<RatingResponse> snapshot){
+          if(snapshot.hasData){
+            return SafeArea(
       child: Padding(
         padding:
             EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
@@ -41,7 +50,12 @@ class CustomAppBar extends StatelessWidget {
               ),
             ),
             Spacer(),
-            Container(
+            GestureDetector(
+              onTap: () => Navigator.push(
+                        context,
+                      MaterialPageRoute(builder: (context) => ViewFeedback()),
+                    ),
+              child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -50,7 +64,7 @@ class CustomAppBar extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    "$rating",
+                    snapshot.data!.content.toString(),
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -61,9 +75,16 @@ class CustomAppBar extends StatelessWidget {
                 ],
               ),
             )
+            )
           ],
         ),
       ),
     );
+          }
+          else{
+            return Container();
+          }
+      });
+    
   }
 }

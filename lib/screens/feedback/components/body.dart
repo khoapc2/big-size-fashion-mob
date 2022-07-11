@@ -5,12 +5,16 @@ import 'image_banner.dart';
 import 'rating_feedback.dart';
 
 class Body extends StatelessWidget{
+
+  Body({required this.urlImage, this.productId});
+  final String? urlImage;
+  final int? productId;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return ListView(
         children: [
-        ImageBanner("assets/images/Image Popular Product 1.png", Colors.grey),
+        Image.network(urlImage!, color: Colors.grey[100],),
         ListFeedBack()
       ]
     );

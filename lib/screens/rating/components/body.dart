@@ -10,10 +10,11 @@ import 'comment.dart';
 
 class Body extends StatelessWidget{
   final FeedBackPara para;
-  var createFeedBack = new CreateFeedback();
-  Body(this.para){
+  final CreateFeedback createFeedBack;
+  Body(this.para, this.createFeedBack){
     createFeedBack.productId = para.productId;
   }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build

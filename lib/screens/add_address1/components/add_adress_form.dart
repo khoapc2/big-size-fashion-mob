@@ -5,6 +5,9 @@ import 'dart:ui';
 import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:shop_app/models/add_address_request_model.dart';
+
+import 'confirm.dart';
 
 // ignore: must_be_immutable
 class AddAdressForm extends StatefulWidget {
@@ -18,15 +21,22 @@ class AddAdressForm extends StatefulWidget {
 class _AddAddress extends State<AddAdressForm> {
 
   _AddAddress();
+  
    String countryValue = "";
   String stateValue = "";
   String cityValue = "";
   String address = "";
 
+  TextEditingController receiver = TextEditingController();
+  String receiverValue= "";
+  TextEditingController phoneNumber = TextEditingController();
+  String phoneNumberValue = "";
   TextEditingController addressText = TextEditingController();
+  String addressTextValue= "";
   TextEditingController street = TextEditingController();
-  TextEditingController city = TextEditingController();
+  String streetValue= "";
   TextEditingController province = TextEditingController();
+  String provinceValue= "";
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +73,78 @@ class _AddAddress extends State<AddAdressForm> {
           margin: EdgeInsets.only(left: 20),
           //color: Colors.blue,
           child: Text(
+            "Người nhận",
+            style: TextStyle(
+              fontFamily: "QuickSandBold",
+              fontSize: 25,
+              color: Color(0xFF000000),
+            ),
+          ),
+        ),
+        SizedBox(height: size.height * 0.01),
+        Container(
+          alignment: Alignment.center,
+          height:60.0,
+          margin: EdgeInsets.only(left: 20, right: 20),
+          child: TextField(
+            onChanged: (value)=> receiverValue= value,
+            controller: receiver,
+            decoration: InputDecoration(
+              //labelText: "Hostel name",
+              border: myinputborder(),
+              enabledBorder: myinputborder(),
+              focusedBorder: myfocusborder(),
+              contentPadding:
+                  EdgeInsets.only(top: 25, left: 20, bottom: 25, right: 10),
+            ),
+            maxLength: 50,
+            style: TextStyle(
+              fontFamily: "QuickSandMedium",
+              fontSize: 20,
+            ),
+          ),
+        ),
+        Container(
+          alignment: Alignment.centerLeft,
+          margin: EdgeInsets.only(left: 20),
+          //color: Colors.blue,
+          child: Text(
+            "Số điện thoại",
+            style: TextStyle(
+              fontFamily: "QuickSandBold",
+              fontSize: 25,
+              color: Color(0xFF000000),
+            ),
+          ),
+        ),
+        SizedBox(height: size.height * 0.01),
+        Container(
+          alignment: Alignment.center,
+          height:60.0,
+          margin: EdgeInsets.only(left: 20, right: 20),
+          child: TextField(
+            onChanged: (value)=> phoneNumberValue= value,
+            controller: phoneNumber,
+            decoration: InputDecoration(
+              //labelText: "Hostel name",
+              border: myinputborder(),
+              enabledBorder: myinputborder(),
+              focusedBorder: myfocusborder(),
+              contentPadding:
+                  EdgeInsets.only(top: 25, left: 20, bottom: 25, right: 10),
+            ),
+            maxLength: 50,
+            style: TextStyle(
+              fontFamily: "QuickSandMedium",
+              fontSize: 20,
+            ),
+          ),
+        ),
+        Container(
+          alignment: Alignment.centerLeft,
+          margin: EdgeInsets.only(left: 20),
+          //color: Colors.blue,
+          child: Text(
             "Số nhà",
             style: TextStyle(
               fontFamily: "QuickSandBold",
@@ -78,6 +160,7 @@ class _AddAddress extends State<AddAdressForm> {
           margin: EdgeInsets.only(left: 20, right: 20),
           child: TextField(
             controller: addressText,
+            onChanged: (value) => addressTextValue = value,
             decoration: InputDecoration(
               //labelText: "Hostel name",
               border: myinputborder(),
@@ -113,6 +196,7 @@ class _AddAddress extends State<AddAdressForm> {
           margin: EdgeInsets.only(left: 20, right: 20),
           child: TextField(
             controller: street,
+            onChanged: (value) => streetValue= value,
             decoration: InputDecoration(
               //labelText: "Hostel name",
               border: myinputborder(),
@@ -244,6 +328,7 @@ class _AddAddress extends State<AddAdressForm> {
                       setState(() {
                         //store value in state variable
                         if (value != null) stateValue = value;
+                        print("Số điện thoại: "+phoneNumberValue);
                       });
                     },
                     //triggers once city selected in dropdown
@@ -257,41 +342,10 @@ class _AddAddress extends State<AddAdressForm> {
         ),
         
         SizedBox(height: size.height * 0.01),
-        Container(
-          alignment: Alignment.center,
-          margin: EdgeInsets.symmetric(horizontal: 40, vertical: 5),
-          child: RaisedButton(
-            onPressed: () => {
-              //Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()))
-            },
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(80.0)),
-            textColor: Colors.white,
-            padding: const EdgeInsets.all(0),
-            child: Container(
-              alignment: Alignment.center,
-              height: 50.0,
-              width: size.width * 0.5,
-              decoration: new BoxDecoration(
-                  borderRadius: BorderRadius.circular(80.0),
-                  gradient: new LinearGradient(colors: [
-                    Color.fromARGB(255, 0, 0, 0),
-                    Color.fromARGB(150, 0, 0, 0)
-                  ])),
-              padding: const EdgeInsets.all(0),
-              child: Text(
-                "XAC NHAN",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontFamily: "QuickSandBold",
-                  fontSize: 30,
-                ),
-              ),
-            ),
-          ),
-        ),
-        SizedBox(height: size.height * 0.05)
+        PaymentButton(receiver: receiverValue,address: addressTextValue+", "
+        +streetValue+", "+ cityValue+", "+stateValue,phoneNumber: phoneNumberValue)
+        // PaymentButton(receiver: "",address: addressTextValue+", "
+        // +""+", "+ ""+", "+"",phoneNumber: phoneNumberValue),
       ],
     );
   }

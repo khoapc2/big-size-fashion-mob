@@ -7,6 +7,7 @@ import 'components/send_button.dart';
 class RatingScreen extends StatelessWidget{
   static const String routeName = '/feedback';
   RatingScreen(this.para);
+  var createFeedBack = new CreateFeedback();
   final FeedBackPara para;
   @override
   Widget build(BuildContext context) {
@@ -17,9 +18,9 @@ class RatingScreen extends StatelessWidget{
               Text('Nhận xét sản phẩm',style: TextStyle(color: Colors.black.withOpacity(1)))],
             ),
       ),
-      body: Body(para),
+      body: Body(para,createFeedBack),
         bottomNavigationBar:
-        SendButton()
+        SendButton(createFeedBack)
     );
     }
   }

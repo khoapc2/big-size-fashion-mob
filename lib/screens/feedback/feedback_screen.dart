@@ -5,13 +5,14 @@ import 'components/body.dart';
 
 
 class ViewFeedback extends StatelessWidget {
-  const ViewFeedback({Key? key}) : super(key: key);
-
+  const ViewFeedback({Key? key, this.productId, this.urlImage}) : super(key: key);
+  final String? urlImage;
+  final int? productId;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: Body());
+      body: Body(urlImage: urlImage, productId: productId));
   }
 }
 

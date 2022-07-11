@@ -41,11 +41,11 @@ class Content {
   double? totalPriceAfterDiscount;
   String? paymentMethod;
   String? orderType;
-  Null? approvalDate;
-  Null? packagedDate;
-  Null? deliveryDate;
-  Null? receivedDate;
-  Null? rejectedDate;
+  String? approvalDate;
+  String? packagedDate;
+  String? deliveryDate;
+  String? receivedDate;
+  String? rejectedDate;
   String? status;
 
   Content(

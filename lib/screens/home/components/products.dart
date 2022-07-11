@@ -59,7 +59,13 @@ class Products extends StatelessWidget{
               ),
             ),
             child: 
+            Column(children: [
+                
             CartCard(content: listProducts[index]),
+            Divider(thickness: 2.0,
+            color: Colors.grey[100],)
+            ],)
+
           ),
         );
         }

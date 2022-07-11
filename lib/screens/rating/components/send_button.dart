@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:shop_app/models/create_feedback_request_model.dart';
 import 'package:shop_app/screens/rating/components/body.dart';
 import 'package:shop_app/view_model/feedback_view_model.dart';
@@ -18,6 +19,7 @@ class SendButton extends StatelessWidget{
                 request.productId = createFeedback.productId;
                 request.rate = createFeedback.rating!.round();
                       new FeedbackViewModel().createFeedback(request);
+                      _showToast(context);
                     },
               child: Container(
               alignment: Alignment.center,
@@ -41,5 +43,15 @@ class SendButton extends StatelessWidget{
               ),
             ),
             );
+  }
+
+   void _showToast(BuildContext context) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: const Text('Đã bình luận thành công'),
+        action: SnackBarAction(label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
+      ),
+    );
   }
 }
