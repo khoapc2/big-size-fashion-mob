@@ -8,6 +8,7 @@ import 'package:shop_app/models/create_feedback_request_model.dart';
 import 'package:shop_app/models/create_feedback_response_model.dart';
 import 'package:shop_app/models/customer_account/login_response_model.dart';
 import 'package:shop_app/models/customer_account/register_account_model.dart';
+import 'package:shop_app/models/get_list_feedback_model.dart';
 import 'package:shop_app/models/rating_response_model.dart';
 
 class FeedbackService {
@@ -63,5 +64,24 @@ class FeedbackService {
       throw Exception(Exception);
     }
     return detailProductResponseModel;
+  }
+
+  Future<GetListFeedback> getListFeedback(int page, int productId) async {
+    String link = "https://20.211.17.194/";
+    String url = link + "api/v1/feedbacks/"+productId.toString()+"?PageNumber="+page.toString();
+
+    GetListFeedback productResponseModel;  
+
+    final response = await http.get(Uri.parse(url),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8'
+        });
+
+    if(response.statusCode == 200){
+      productResponseModel = GetListFeedback.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(Exception);
+    }
+    return productResponseModel;
   }
 }

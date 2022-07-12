@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'get_star.dart';
 
 class RatingAndFeedback extends StatelessWidget {
-  const RatingAndFeedback({Key? key}) : super(key: key);
-
+  const RatingAndFeedback({Key? key, this.averageRating}) : super(key: key);
+  final double? averageRating;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,11 +21,11 @@ class RatingAndFeedback extends StatelessWidget {
         ),
         Column(
           children: [
-            Text("5,0", style: TextStyle(fontSize: 50)),
+            Text(averageRating.toString(), style: TextStyle(fontSize: 50)),
             Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: getAllStars(5)),
-            Text("có 3.999 bình luận")
+                children: getAllStars(averageRating!.round())),
+            //Text("có 3.999 bình luận")
           ],
         ),
       ]),

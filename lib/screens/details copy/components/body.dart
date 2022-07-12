@@ -6,6 +6,7 @@ import 'package:shop_app/models/detail_product_model.dart';
 import 'package:shop_app/models/product_model.dart';
 import 'package:shop_app/models/detail_product_id_model.dart';
 import 'package:shop_app/screens/details%20copy/components/size-dots.dart';
+import 'package:shop_app/screens/details%20copy/details_screen.dart';
 import 'package:shop_app/size_config.dart';
 import 'package:shop_app/view_model/cart_view_model.dart';
 import 'package:shop_app/view_model/detail_product_view_model.dart';
@@ -19,10 +20,11 @@ import 'product_images.dart';
 
 class Body extends StatelessWidget {
   final int productId;
+  final InputForViewingFeedback? inputForViewingFeedback;
   
 GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdRequest();
 
-  Body({Key? key, required this.productId}) : super(key: key);
+  Body({Key? key, required this.productId, this.inputForViewingFeedback}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,7 @@ GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdReque
       future: detailResponse,
       builder: (BuildContext context, AsyncSnapshot<DetailProductResponse> snapshot){
       if(snapshot.hasData){
+        inputForViewingFeedback!.urlImage = snapshot.data!.content!.images![0].imageUrl!;
              return 
     ListView(
       children: [
@@ -68,13 +71,17 @@ GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdReque
                               //print(quantityRequest!.colourId);
                               
                               var response = await DetailProductViewModel.getProductDetailId(getDetailProductRequest!);
+                              if(response.content == 0){
+                                _showToast(context,"Hết hàng rồi bạn ơi vui lòng chọn thuộc tính khác");
+                                return;
+                              }
                              // print("Số lượng quantity mà người dùng chọn"+getDetailProductRequest!.quantity.toString());
                               var addToCartRequest = new AddToCarRequest(
                                   productDetailId: response.content,
                                   quantity: getDetailProductRequest!.quantity
                               );
                               CartViewModel().addToCart(addToCartRequest);
-                              _showToast(context);
+                              _showToast(context,"Thêm vào giỏ hàng thành công");
 
                           },
                         ),
@@ -110,11 +117,11 @@ GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdReque
   }
 }
 
- void _showToast(BuildContext context) {
+ void _showToast(BuildContext context, String content) {
     final scaffold = ScaffoldMessenger.of(context);
     scaffold.showSnackBar(
       SnackBar(
-        content: const Text('Thêm vào giỏ hàng thành công'),
+        content: Text(content),
         action: SnackBarAction(label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );

@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop_app/constants.dart';
 import 'package:shop_app/models/rating_response_model.dart';
+import 'package:shop_app/screens/details%20copy/details_screen.dart';
 import 'package:shop_app/screens/feedback/feedback_screen.dart';
 import 'package:shop_app/view_model/feedback_view_model.dart';
 
 import '../../../size_config.dart';
 
 class CustomAppBar extends StatelessWidget {
-  final int? productId;
+  final InputForViewingFeedback? inputForViewingFeedback;
 
-  CustomAppBar({required this.productId, });
+  CustomAppBar({required this.inputForViewingFeedback});
 
   @override
   // AppBar().preferredSize.height provide us the height that appy on our app bar
@@ -18,12 +19,13 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var rating = FeedbackViewModel.getRating(productId!);
+    var rating = FeedbackViewModel.getRating(inputForViewingFeedback!.productId!);
     return 
     FutureBuilder(
       future: rating,
       builder: (BuildContext context, AsyncSnapshot<RatingResponse> snapshot){
           if(snapshot.hasData){
+            inputForViewingFeedback!.averageRating = snapshot.data!.content;
             return SafeArea(
       child: Padding(
         padding:
@@ -53,7 +55,7 @@ class CustomAppBar extends StatelessWidget {
             GestureDetector(
               onTap: () => Navigator.push(
                         context,
-                      MaterialPageRoute(builder: (context) => ViewFeedback()),
+                      MaterialPageRoute(builder: (context) => ViewFeedback(productId: inputForViewingFeedback!.productId, urlImage: inputForViewingFeedback!.urlImage,avarageRating: inputForViewingFeedback!.averageRating)),
                     ),
               child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
