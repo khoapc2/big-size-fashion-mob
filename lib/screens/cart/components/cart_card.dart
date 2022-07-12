@@ -65,6 +65,17 @@ class CartCard extends StatefulWidget {
               maxLines: 2,
             ),
             SizedBox(height: 10),
+            Container(
+              child:
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    child: Text("Size "+ widget.cart.size.toString()+", màu "+widget.cart.color.toString()),
+                  )
+                ],
+              )
+            ),
             Text.rich(
               TextSpan(
                 text: widget.cart.productPromotion != null?"${formatter.format(widget.cart.productPromotion!)} VNĐ":"${formatter.format(widget.cart.productPrice)} VNĐ",
@@ -88,7 +99,7 @@ class CartCard extends StatefulWidget {
             IconButton(onPressed: (){
               setState(() {
                 var currentQuantity = widget.cart.quantity! + 1;
-                widget.cart.setQuantity(currentQuantity);
+                widget.cart.quantity =currentQuantity;
                 print("Số lượng sau khi tăng "+ currentQuantity.toString());
                 widget.updateTotal();
               });
@@ -98,7 +109,7 @@ class CartCard extends StatefulWidget {
               setState(() {
                 if(widget.cart.quantity! > 1){
                   var currentQuantity = widget.cart.quantity! - 1;
-                  widget.cart.setQuantity(currentQuantity);
+                  widget.cart.quantity =currentQuantity;
                   widget.updateTotal();
                 }
               });

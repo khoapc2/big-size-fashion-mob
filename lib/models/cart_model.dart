@@ -34,18 +34,18 @@ class ListCartResponse {
 class Content {
   String? productName;
   int? productDetailId;
+  String? color;
+  String? size;
   double? productPrice;
   double? productPromotion;
   String? productImage;
   int? quantity;
 
-  void setQuantity(int quantity){
-    this.quantity = quantity;
-  }
-
   Content(
       {this.productName,
       this.productDetailId,
+      this.color,
+      this.size,
       this.productPrice,
       this.productPromotion,
       this.productImage,
@@ -54,6 +54,8 @@ class Content {
   Content.fromJson(Map<String, dynamic> json) {
     productName = json['product_name'];
     productDetailId = json['product_detail_id'];
+    color = json['color'];
+    size = json['size'];
     productPrice = json['product_price'];
     productPromotion = json['product_promotion'];
     productImage = json['product_image'];
@@ -64,6 +66,8 @@ class Content {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['product_name'] = this.productName;
     data['product_detail_id'] = this.productDetailId;
+    data['color'] = this.color;
+    data['size'] = this.size;
     data['product_price'] = this.productPrice;
     data['product_promotion'] = this.productPromotion;
     data['product_image'] = this.productImage;
