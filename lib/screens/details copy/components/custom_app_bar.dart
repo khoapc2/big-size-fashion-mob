@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop_app/constants.dart';
 import 'package:shop_app/models/rating_response_model.dart';
+import 'package:shop_app/screens/cart/cart_screen.dart';
 import 'package:shop_app/screens/details%20copy/details_screen.dart';
 import 'package:shop_app/screens/feedback/feedback_screen.dart';
+import 'package:shop_app/screens/home/components/icon_btn_with_counter.dart';
 import 'package:shop_app/view_model/feedback_view_model.dart';
 
 import '../../../size_config.dart';
@@ -52,6 +54,10 @@ class CustomAppBar extends StatelessWidget {
               ),
             ),
             Spacer(),
+            IconBtnWithCounter(
+            svgSrc: "assets/icons/Cart Icon.svg",
+            press: () => Navigator.pushNamed(context, CartScreen.routeName),
+          ),
             GestureDetector(
               onTap: () => Navigator.push(
                         context,

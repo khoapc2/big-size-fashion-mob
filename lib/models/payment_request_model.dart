@@ -1,6 +1,7 @@
 class PaymentResquest {
   int? deliveryAddress;
   double? totalPrice;
+  double? totalAfterDiscount;
   double? promotionPrice;
   bool? orderType;
   String? paymentMethod;
@@ -10,6 +11,7 @@ class PaymentResquest {
   PaymentResquest(
       {this.deliveryAddress,
       this.totalPrice,
+      this.totalAfterDiscount,
       this.promotionPrice,
       this.orderType,
       this.paymentMethod,
@@ -19,6 +21,7 @@ class PaymentResquest {
   PaymentResquest.fromJson(Map<String, dynamic> json) {
     deliveryAddress = json['delivery_address'];
     totalPrice = json['total_price'];
+    totalAfterDiscount = json['total_after_discount'];
     promotionPrice = json['promotion_price'];
     orderType = json['order_type'];
     paymentMethod = json['payment_method'];
@@ -30,6 +33,7 @@ class PaymentResquest {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['delivery_address'] = this.deliveryAddress;
     data['total_price'] = this.totalPrice;
+    data['total_after_discount'] = this.totalAfterDiscount;
     data['promotion_price'] = this.promotionPrice;
     data['order_type'] = this.orderType;
     data['payment_method'] = this.paymentMethod;

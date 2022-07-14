@@ -57,7 +57,8 @@ class OrderService {
         "order_type": request.orderType,
         "payment_method": request.paymentMethod,
         "shipping_fee": request.shippingFee,
-        "store_id": request.storeId
+        "store_id": request.storeId,
+        "total_after_discount": request.totalAfterDiscount
       }),
     );
 

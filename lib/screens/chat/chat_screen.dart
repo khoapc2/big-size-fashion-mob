@@ -18,7 +18,7 @@ class ChatScreen extends StatelessWidget {
     return AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text('Chatter', style: TextStyle(color: Colors.black),),
+        title: Text('Thông báo', style: TextStyle(color: Colors.black),),
         leading: BackButton(color: Colors.black,),
       );
 }

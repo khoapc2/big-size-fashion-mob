@@ -6,6 +6,7 @@ import 'package:shop_app/models/customer_account/login_response_model.dart';
 
 import 'package:shop_app/screens/login_success/login_success_screen.dart';
 import 'package:shop_app/screens/sign_up%20copy/sign_up_screen.dart';
+import 'package:shop_app/screens/sign_up%20for%20old%20customer/sign_up_screen.dart';
 import 'package:shop_app/size_config.dart';
 import 'package:shop_app/view_model/login_view_model.dart';
 import 'package:twilio_phone_verify/twilio_phone_verify.dart';
@@ -160,13 +161,11 @@ class _OtpFormState extends State<OtpForm> {
             text: "Continue",
             press: () async {
               LoginViewModel loginViewModel = new LoginViewModel();
-              LoginRequestModel loginRequestModel= new LoginRequestModel(_twilio.getPhone()!);
               // loginViewModel.getLoginResponse(loginRequestModel).then((value) {
               //   print("Giá trị của loginRequestModel trả về trong otpform"+value!.isNewCustomer.toString());
               //   response = value;} );
-              LoginResponseModel? loginResponse = await loginViewModel.getLoginResponse(loginRequestModel);
-              if(loginResponse!.isNewCustomer == true){
-                
+              LoginResponseModel? loginResponse = await loginViewModel.getLoginResponse(_twilio.getPhone()!);
+              if(loginResponse!.content!.isNewCustomer == true){
                Navigator.push(
                         context,
                       MaterialPageRoute(builder: (context) => SignUpScreen()),
@@ -174,10 +173,18 @@ class _OtpFormState extends State<OtpForm> {
                 //Navigator.pushNamed(context, SignUpUserProfileScreen.routeName);
               }
               else{
-                _storage.write(key: "token", value: loginResponse.token);
+                _storage.write(key: "token", value: loginResponse.content!.token);
                 _storage.write(key: "phoneNumber", value: _twilio.getPhone());
-                
+                  if(loginResponse.content!.isHasWeightHeight == false){
+                    print("IsHasWeightHeight");
+                    Navigator.push(
+                        context,
+                      MaterialPageRoute(builder: (context) => SignUpScreenForOldCustomer()),
+                    );
+                }
+                else{
                 Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+                }
             }
 
               //Navigator.pushNamed(context, SignUpUserProfileScreen.routeName);

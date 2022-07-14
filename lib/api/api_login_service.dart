@@ -5,7 +5,7 @@ import 'package:shop_app/models/customer_account/login_response_model.dart';
 
 class LoginService {
   HttpClient client = HttpClient();
-  Future<LoginResponseModel> login(LoginRequestModel loginRequestModel) async {
+  Future<LoginResponseModel> login(String phoneNumber) async {
 
     LoginResponseModel responseModel;
     // String link = "https://104.215.186.78/";
@@ -19,7 +19,7 @@ class LoginService {
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, dynamic>{
-        'phone_number' : loginRequestModel.phone,
+        'phone_number' : phoneNumber,
       }),
     );
 

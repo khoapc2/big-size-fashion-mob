@@ -2,14 +2,14 @@ import 'package:shop_app/api/api_login_service.dart';
 import 'package:shop_app/models/customer_account/login_response_model.dart';
 
 class LoginViewModel {
-  Future<LoginResponseModel?> getLoginResponse(LoginRequestModel loginRequestModel)
+  Future<LoginResponseModel?> getLoginResponse(String phoneNumber)
   async {
     
       print("getLoginResponse is running");
     LoginResponseModel? response;
     LoginService services = new LoginService();
     try {
-      response = await services.login(loginRequestModel);
+      response = await services.login(phoneNumber);
     } catch (Exception) {
       
       print("lỗi nè:"+Exception.toString());

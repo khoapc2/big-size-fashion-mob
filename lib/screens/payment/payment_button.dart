@@ -58,7 +58,8 @@ class PaymentButton extends StatelessWidget{
                                 promotionPrice: 0,
                                 totalPrice: currentListCart.total,
                                 shippingFee: currentListCart.shippingFee,
-                                storeId: currentListCart.storeId
+                                storeId: currentListCart.storeId,
+                                totalAfterDiscount: currentListCart.total
                                 );
                                 
                                 
