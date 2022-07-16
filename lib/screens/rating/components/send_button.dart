@@ -2,23 +2,45 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shop_app/api/api_feedback.dart';
 import 'package:shop_app/models/create_feedback_request_model.dart';
+import 'package:shop_app/models/create_feedback_response_model.dart';
 import 'package:shop_app/screens/rating/components/body.dart';
+import 'package:shop_app/service/storage_service.dart';
 import 'package:shop_app/view_model/feedback_view_model.dart';
 
 class SendButton extends StatelessWidget{
   SendButton(this.createFeedback);
   final CreateFeedback createFeedback;
+  final StorageService _storageService = StorageService();
+FeedbackService _feedbackBloc = new FeedbackService();  
+
+  Future<String?> getUserToken() async {
+    return await _storageService.readSecureData("token");
+  }
+
+Future<CreateFeedbackResponse?> addFeedback(CreateFeedbackRequest request, String token)
+  async {
+    try {
+      return await _feedbackBloc.createFeedback(request, token);
+    } catch (Exception) {
+      print("lỗi nè:"+Exception.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return GestureDetector(
+    return 
+    FutureBuilder<String>(builder: (context, token){
+      if(token.hasData){
+        return  GestureDetector(
               onTap: () {
                 CreateFeedbackRequest request = new CreateFeedbackRequest();
                 request.content = createFeedback.context;
                 request.productId = createFeedback.productId;
                 request.rate = createFeedback.rating!.round();
-                      new FeedbackViewModel().createFeedback(request);
+                      addFeedback(request, token.data!);
                       _showToast(context);
                     },
               child: Container(
@@ -42,7 +64,27 @@ class SendButton extends StatelessWidget{
                 ),
               ),
             ),
-            );
+            ); 
+      }
+       else{
+      return _buildProgressIndicator();
+    }
+    }
+   
+    );
+   
+  }
+
+  Widget _buildProgressIndicator() {
+    return new Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: new Center(
+        child: new Opacity(
+          opacity: 1.0,
+          child: new CircularProgressIndicator(),
+        ),
+      ),
+    );
   }
 
    void _showToast(BuildContext context) {

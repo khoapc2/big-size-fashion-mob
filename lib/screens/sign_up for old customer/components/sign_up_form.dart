@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shop_app/api/api_customer.dart';
 import 'package:shop_app/components/custom_surfix_icon.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/form_error.dart';
 import 'package:shop_app/models/customer_account/register_account_model.dart';
 import 'package:shop_app/models/update_profile_request_model.dart';
+import 'package:shop_app/models/update_profile_response_model.dart';
 import 'package:shop_app/screens/complete_profile/complete_profile_screen.dart';
 import 'package:shop_app/screens/login_success/login_success_screen.dart';
+import 'package:shop_app/service/storage_service.dart';
 import 'package:shop_app/view_model/customer_view_model.dart';
 import 'package:shop_app/view_model/register_view_model.dart';
+
 
 import '../../../constants.dart';
 import '../../../locator.dart';
@@ -24,6 +28,7 @@ class SignUpForm extends StatefulWidget {
 class _SignUpFormState extends State<SignUpForm> {
   var _twilio = locator.get<TwilioVerify>();
   final _storage = const FlutterSecureStorage();
+  CustomerService _customerBloc = new CustomerService();
   final _formKey = GlobalKey<FormState>();
   String? name;
   String? email;
@@ -32,6 +37,8 @@ class _SignUpFormState extends State<SignUpForm> {
   String? weight;
   bool remember = false;
   final List<String?> errors = [];
+  
+  final StorageService _storageService = StorageService();
 
   void addError({String? error}) {
     if (!errors.contains(error))
@@ -47,9 +54,27 @@ class _SignUpFormState extends State<SignUpForm> {
       });
   }
 
+  Future<String?> getUserToken() async {
+    return await _storageService.readSecureData("token");
+  }
+
+  Future<UpdateProfileResponseModel?> updateProfile(UpdateProfileRequestModel request, String token)
+  async {
+    try {
+      return await _customerBloc.updateProfile(request, token);
+    } catch (Exception) {
+      print("lỗi nè:"+Exception.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Form(
+    return 
+    FutureBuilder<String?>(
+      future: getUserToken(),
+      builder: (context, snapshot){
+        if(snapshot.hasData){
+          return Form(
       key: _formKey,
       child: Column(
         children: [
@@ -78,13 +103,31 @@ class _SignUpFormState extends State<SignUpForm> {
                   weigth: int.parse(weight!),
                   );
                 CustomerViewModel? registerViewModel = new CustomerViewModel();
-                await registerViewModel.updateProfile(registerRequestVM);
+                await registerViewModel.updateProfile(registerRequestVM, snapshot.data!);
                // _storage.write(key: "token", value: response!.content!.token);
                 Navigator.pushNamed(context, LoginSuccessScreen.routeName);
               }
             },
           ),
         ],
+      ),
+    );
+        }
+        else{
+          return _buildProgressIndicator();
+        }
+      });
+    
+  }
+
+  Widget _buildProgressIndicator() {
+    return new Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: new Center(
+        child: new Opacity(
+          opacity: 1.0,
+          child: new CircularProgressIndicator(),
+        ),
       ),
     );
   }

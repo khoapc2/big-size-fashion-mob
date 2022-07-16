@@ -15,9 +15,9 @@ class StoreViewModel {
     return result;
   }
 
-   Future<GetNearestStoreModel> getNearestStores(String address) async {
+   Future<GetNearestStoreModel> getNearestStores(String address, String token) async {
     StoreService service = new StoreService();
-    var result = await service.getNearestStore(address);
+    var result = await service.getNearestStore(address, token);
     return result;
   }
 }

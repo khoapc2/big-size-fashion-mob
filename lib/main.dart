@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_app/locator.dart';
 import 'package:shop_app/routes.dart';
 import 'package:shop_app/screens/home/home_screen.dart';
@@ -28,9 +29,49 @@ class MyHttpOverrides extends HttpOverrides {
 }
 
   final storage = const FlutterSecureStorage();
+
+//   Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+//   // If you're going to use other Firebase services in the background, such as Firestore,
+//   // make sure you call `initializeApp` before using other Firebase services.
+//   await Firebase.initializeApp();
+
+//   print("Handling a background message: ${message.data}");
+// }
 Future<void> main() async {
   HttpOverrides.global = new MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
+
+  // FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+  // //permission for IOS/Web
+  // NotificationSettings settings = await messaging.requestPermission(
+  //   alert: true,
+  //   announcement: false,
+  //   badge: true,
+  //   carPlay: false,
+  //   criticalAlert: false,
+  //   provisional: false,
+  //   sound: true,
+  // );
+  // print('User granted permission: ${settings.authorizationStatus}');
+
+  // await messaging.setForegroundNotificationPresentationOptions(
+  //   alert: true,
+  //   badge: true,
+  //   sound: true,
+  // );
+
+  // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+  //   print('Got a message whilst in the foreground!');
+  //   print('Message data: ${message.data}');
+
+  //   if (message.notification != null) {
+  //     print('Message also contained a notification: ${message.notification}');
+  //   }
+  // });
+
+  // //When the app is in the background and opened directly from the push notification.
+  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   
   // await Firebase.initializeApp();
   setup();
@@ -46,7 +87,9 @@ Future<String> naviagateToFirstScreen() async {
       return SplashScreen.routeName;
     }
     else{
-                return HomeScreen.routeName;
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', token);
+      return HomeScreen.routeName;
     }
   }
 

@@ -160,7 +160,7 @@ class CartCard extends StatelessWidget {
                   Container(
                     margin: EdgeInsets.only(left: 15.0),
                     color: kPrimaryColor,
-                    child: Text("-${content!.promotionValue}"),)
+                    child: Text("-${content!.promotionValue}", style: TextStyle(color: Colors.white)),)
                 ],
               )
             )

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_app/models/add_to_cart_model.dart';
 import 'package:shop_app/models/cart_model.dart';
 import 'package:shop_app/models/create_feedback_request_model.dart';
@@ -12,10 +13,9 @@ import 'package:shop_app/models/get_list_feedback_model.dart';
 import 'package:shop_app/models/rating_response_model.dart';
 
 class FeedbackService {
-  final storage = const FlutterSecureStorage();
   HttpClient client = HttpClient();
   Future<CreateFeedbackResponse> createFeedback(
-      CreateFeedbackRequest request) async {
+      CreateFeedbackRequest request, String token) async {
 
     // String link = "https://104.215.186.78/";
     CreateFeedbackResponse addToCartResponse;
@@ -23,12 +23,11 @@ class FeedbackService {
     String link = "https://20.211.17.194/";
     String url = link + "api/v1/feedbacks";
 
-
     final response = await http.post(
       Uri.parse(url),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': "Bearer "+ (await storage.read(key: "token"))!
+        'Authorization': "Bearer "+ token
 
       },
       body: jsonEncode(<String, dynamic>{

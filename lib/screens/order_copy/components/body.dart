@@ -2,8 +2,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shop_app/api/api_get_orders.dart';
 import 'package:shop_app/models/orders_model.dart';
 import 'package:shop_app/screens/orders_status/process_timeline_screen.dart';
+import 'package:shop_app/service/storage_service.dart';
 import 'package:shop_app/view_model/order_view_model.dart';
 import 'package:shop_app/view_model/product_view_model.dart';
 
@@ -18,7 +20,8 @@ class _StateBody extends State<Body>{
   bool isLoading = false;
   List products = <Content>[];
   int testValue = 1;
-
+  final StorageService _storageService = StorageService();
+  OrderService _orderBloc = new OrderService();
 
   void initState() {
     this._getMoreData(page);
@@ -37,13 +40,23 @@ class _StateBody extends State<Body>{
         isLoading = true;
       });
      //call api
-      var response = await OrderViewModel.getListOrder(page);
+     var token = await getUserToken();
+      var response = await getListOrder(page, token!);
       setState(() {
         isLoading = false;
         products.addAll(response.content!.toList());
         page++;
       });
     }
+  }
+
+  Future<OrdersResponse> getListOrder(int page, String token) async {
+    var result = await _orderBloc.getListOrder(page, token);
+    return result;
+  }
+
+  Future<String?> getUserToken() async {
+    return await _storageService.readSecureData("token");
   }
 
    void dispose() {

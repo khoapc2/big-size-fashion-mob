@@ -15,8 +15,7 @@ import '../main.dart';
 import '../twilio_verify.dart';
 
 class AddressService {
-  final storage = const FlutterSecureStorage();
-  Future<GetAddressesResponse> getAddress() async {
+  Future<GetAddressesResponse> getAddress(String token) async {
     String link = "https://20.211.17.194/";
     String url = link + "api/v1/addresses";
 
@@ -25,7 +24,7 @@ class AddressService {
     final response = await http.get(Uri.parse(url),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': "Bearer "+ (await storage.read(key: "token"))!
+          'Authorization': "Bearer "+ token
         });
 
     if(response.statusCode == 200){
@@ -37,7 +36,7 @@ class AddressService {
   }
 
   Future<AddAddressResponse> addToAddress(
-      AddAddressRequest request) async {
+      AddAddressRequest request, String token) async {
 
     // String link = "https://104.215.186.78/";
     AddAddressResponse addToCartResponse;
@@ -50,7 +49,7 @@ class AddressService {
       Uri.parse(url),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': "Bearer "+ (await storage.read(key: "token"))!
+        'Authorization': "Bearer "+ token
 
       },
       body: jsonEncode(<String, dynamic>{

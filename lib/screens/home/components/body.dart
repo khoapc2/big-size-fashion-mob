@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/models/product_model.dart';
+import 'package:shop_app/screens/home/components/image_slider.dart';
 import 'package:shop_app/view_model/product_view_model.dart';
 
 import '../../../size_config.dart';
@@ -77,7 +78,8 @@ class _BodyState extends State<Body>{
             SizedBox(height: getProportionateScreenHeight(20)),
             const HomeHeader(),
             SizedBox(height: getProportionateScreenWidth(10)),
-            const DiscountBanner(),
+           // const DiscountBanner(),
+            const ImageForHome(),
             const Categories(),
             Divider(thickness: 6.0,
             color: Colors.grey[100]),
@@ -86,6 +88,8 @@ class _BodyState extends State<Body>{
             Divider(thickness: 6.0,
             color: Colors.grey[100]),
             const PopularProducts(),
+            Divider(thickness: 6.0,
+            color: Colors.grey[100]),
             SizedBox(height: getProportionateScreenWidth(30)),
             Products(products),
           ],

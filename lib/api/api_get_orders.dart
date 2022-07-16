@@ -1,24 +1,26 @@
 import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_app/models/add_order_response_model.dart';
 import 'package:shop_app/models/orders_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shop_app/models/payment_request_model.dart';
 
 class OrderService {
-   final storage = const FlutterSecureStorage();
    
-  Future<OrdersResponse> getListOrder(int page) async {
+  Future<OrdersResponse> getListOrder(int page, String token) async {
     String link = "https://20.211.17.194/";
     String url = link + "api/v1/orders/customer"+"?PageNumber="+page.toString();
 
      OrdersResponse listCartResponse = new OrdersResponse();  
 
+     
+
     final response = await http.get(Uri.parse(url),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': "Bearer "+ (await storage.read(key: "token"))!
+          'Authorization': "Bearer "+ token
         });
 
     if(response.statusCode == 200){
@@ -36,7 +38,7 @@ class OrderService {
   }
 
   Future<AddOrderResponse> addOrder(
-      PaymentResquest request) async {
+      PaymentResquest request, String token) async {
     // String link = "https://104.215.186.78/";
 
     String link = "https://20.211.17.194/";
@@ -47,7 +49,7 @@ class OrderService {
       Uri.parse(url),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': "Bearer "+ (await storage.read(key: "token"))!
+        'Authorization': "Bearer "+ token
 
       },
       body: jsonEncode(<String, dynamic>{

@@ -16,7 +16,6 @@ import '../twilio_verify.dart';
 
 class ProductService {
    var _twilio = locator.get<TwilioVerify>();
-   final storage = const FlutterSecureStorage();
 
   Future<ProductResponseModel> getListProductByName(String? searchValue, int page) async {
     String link = "https://20.211.17.194/";

@@ -9,17 +9,17 @@ import 'package:shop_app/models/product_model.dart';
 import 'package:shop_app/models/detail_product_id_model.dart';
 
 class AddressViewModel {
-   static Future<GetAddressesResponse> getAddress() async {
+   static Future<GetAddressesResponse> getAddress(String token) async {
     AddressService service = new AddressService();
-    var result = await service.getAddress();
+    var result = await service.getAddress(token);
     return result;
   }
 
-  Future<AddAddressResponse?> addToAddress(AddAddressRequest cart)
+  Future<AddAddressResponse?> addToAddress(AddAddressRequest cart, String token)
   async {
     AddressService services = new AddressService();
     try {
-      return await services.addToAddress(cart);
+      return await services.addToAddress(cart,token);
     } catch (Exception) {
       print("lỗi nè:"+Exception.toString());
     }

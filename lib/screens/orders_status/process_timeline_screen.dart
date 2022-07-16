@@ -22,7 +22,6 @@ const todoColor = Color(0xffd1d2d7);
 
 class ProcessTimelinePage extends StatelessWidget{
   ProcessTimelinePage(this._orderId);
-int _processIndex = 4;
 int _orderId;
 
   @override
@@ -36,9 +35,7 @@ int _orderId;
         title: Text('Chi tiết đơn hàng', style: TextStyle(color: Colors.black),),
         leading: BackButton(color: Colors.black,),
       ),
-      body: Body(_orderId),
-     
-      bottomNavigationBar:  FeedbackButton(_processIndex)
+      body: Body(_orderId)
     );
   }
 }

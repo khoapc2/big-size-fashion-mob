@@ -2,11 +2,15 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shop_app/api/api_address.dart';
+import 'package:shop_app/api/api_get_all_store_service.dart';
+import 'package:shop_app/models/ge_nearest_store_model.dart';
 import 'package:shop_app/models/get_address_model.dart';
 import 'package:shop_app/models/orders_model.dart';
 import 'package:shop_app/screens/add_address/add_address_screen.dart';
 import 'package:shop_app/screens/orders_status/process_timeline_screen.dart';
 import 'package:shop_app/screens/payment/payment_screen.dart';
+import 'package:shop_app/service/storage_service.dart';
 import 'package:shop_app/view_model/address_view_model.dart';
 import 'package:shop_app/view_model/store_view_model.dart';
 
@@ -19,21 +23,44 @@ import '../../../location.dart';
 class Body extends StatelessWidget{
   var locationSelected = locator.get<Location>();
   var currentListCart = locator.get<ListCart>();
+  final StorageService _storageService = StorageService();
+  final AddressService _addressBloc = new AddressService();
+  final StoreService _storeBloc = new StoreService();
+
+  late Future<GetAddressesResponse> _customerAddress;
+  
+  Future<String?> getUserToken() async {
+    return await _storageService.readSecureData("token");
+  }
+
+  Future<GetAddressesResponse> getAddress(String token) async {
+    var result = await _addressBloc.getAddress(token);
+    return result;
+  }
+
+  Future<GetNearestStoreModel> getNearestStores(String address, String token) async {
+    
+    var result = await _storeBloc.getNearestStore(address, token);
+    return result;
+  }
+
   @override
   Widget build(BuildContext context) {
-    var getAddresses = AddressViewModel.getAddress();
-    // TODO: implement build
-    return 
-    FutureBuilder(
-      future: getAddresses,
-      builder: (BuildContext context, AsyncSnapshot<GetAddressesResponse> snapshot){
+    return FutureBuilder<String?>(
+      future: getUserToken(),
+      builder: (context, token){
+        if (token.hasData) {
+            _customerAddress= getAddress(token.data!);
+            return FutureBuilder<GetAddressesResponse?>(
+      future: _customerAddress,
+      builder: (context, snapshot){
           if(snapshot.hasData){
               return SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-             children: listAddress(snapshot.data!, context)
+             children: listAddress(snapshot.data!, context, token.data!)
             // [
                 
             //     Container(
@@ -156,10 +183,15 @@ class Body extends StatelessWidget{
             return Container();
           }
     });
+        }
+        return const CircularProgressIndicator();
+    });
+    // TODO: implement build
+    
     
   }
 
-  List<Widget> listAddress(GetAddressesResponse data, BuildContext context){
+  List<Widget> listAddress(GetAddressesResponse data, BuildContext context, String token){
     return List.generate(data.content!.length, (index) =>
     GestureDetector(
       onTap:() async {
@@ -169,7 +201,7 @@ class Body extends StatelessWidget{
           locationSelected.setLocationId(data.content![index].addressId!);
           print(locationSelected.locationId);
           var storeVM = new StoreViewModel();
-        var response =  await storeVM.getNearestStores(data.content![index].receiveAddress!);
+        var response =  await storeVM.getNearestStores(data.content![index].receiveAddress!, token);
         currentListCart.setShippingFee(response.content!.shippingFee!);
         currentListCart.setStoreId(response.content!.storeId);
           print("Tiền phí vận chuyển là:"+currentListCart.shippingFee.toString());

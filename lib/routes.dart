@@ -10,6 +10,7 @@ import 'package:shop_app/screens/forgot_password/forgot_password_screen.dart';
 import 'package:shop_app/screens/home/home_screen.dart';
 import 'package:shop_app/screens/login_success/login_success_screen.dart';
 import 'package:shop_app/screens/otp/otp_screen.dart';
+import 'package:shop_app/screens/payment/payment_screen.dart';
 import 'package:shop_app/screens/pincode/pincode_screen.dart';
 import 'package:shop_app/screens/profile/profile_screen.dart';
 import 'package:shop_app/screens/profile/userprofile/userprofile_screen.dart';
@@ -42,5 +43,6 @@ final Map<String, WidgetBuilder> routes = {
   SettingScreen.routeName: (context) => SettingScreen(),
   PincodeScreen.routeName: (context) => PincodeScreen(),
   SignUpUserProfileScreen.routeName: (context) => SignUpUserProfileScreen(),
-  WaitngHomeScreen.routeName: (context) => WaitngHomeScreen()
+  WaitngHomeScreen.routeName: (context) => WaitngHomeScreen(),
+  //PaymentScreen.routeName: (context) => PaymentScreen()
 };

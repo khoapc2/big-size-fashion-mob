@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/api/api_get_detail_product_service.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/models/Product.dart';
 import 'package:shop_app/models/cart_model.dart';
@@ -7,10 +8,12 @@ import 'package:shop_app/models/get_detail_fit_product.dart';
 import 'package:shop_app/models/product_model.dart';
 import 'package:shop_app/models/detail_product_id_model.dart';
 import 'package:shop_app/screens/detail_fit_product/components/size-dots.dart';
+import 'package:shop_app/service/storage_service.dart';
 import 'package:shop_app/size_config.dart';
 import 'package:shop_app/view_model/cart_view_model.dart';
 import 'package:shop_app/view_model/detail_product_view_model.dart';
 import 'package:shop_app/view_model/product_view_model.dart';
+import 'package:shop_app/models/get_detail_fit_product.dart' as fitDetailProduct;
 
 import 'color_dots.dart';
 import 'product_description.dart';
@@ -25,13 +28,44 @@ GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdReque
 
   Body({Key? key, required this.productId}) : super(key: key);
 
+  final StorageService _storageService = StorageService();
+  DetailProductService _detailProductBloc = new DetailProductService();
+
+  Future<String?> getUserToken() async {
+    return await _storageService.readSecureData("token");
+  }
+
+   Future<fitDetailProduct.GetDetailFitProductResponse> getDetailFitProduct(int productId, String token) async {
+    var result = await _detailProductBloc.getDetailFitProduct(productId, token);
+    var listColor= <fitDetailProduct.Colour>[];
+    var listSize = <fitDetailProduct.Size>[]; 
+    for(var productDetail in result.content!.productDetailList!){
+        if(listColor.length == 0){
+          listColor.add(productDetail.colour!);
+          listSize.add(productDetail.size!);
+        }else{
+          if(listColor.where((element) => element.colourId == productDetail.colour!.colourId).isEmpty == true){
+            listColor.add(productDetail.colour!);
+          }
+          if(listSize.where((element) => element.sizeId == productDetail.size!.sizeId).isEmpty == true){
+            listSize.add(productDetail.size!);
+          }
+        }
+    }
+    result.setlistColor(listColor);
+    result.setlistSize(listSize);
+
+    return result;
+  }
+
   @override
   Widget build(BuildContext context) {
-    
-    var detailResponse = DetailProductViewModel.getDetailFitProduct(productId);
-
+    return FutureBuilder<String?>(
+      future: getUserToken(),
+      builder:(context, token){
+        if(token.hasData){
     return FutureBuilder(
-      future: detailResponse,
+      future: getDetailFitProduct(productId, token.data!),
       builder: (BuildContext context, AsyncSnapshot<GetDetailFitProductResponse> snapshot){
       if(snapshot.hasData){
              return 
@@ -74,7 +108,7 @@ GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdReque
                                   productDetailId: response.content,
                                   quantity: getDetailProductRequest!.quantity
                               );
-                              CartViewModel().addToCart(addToCartRequest);
+                              CartViewModel().addToCart(addToCartRequest, token.data!);
                               _showToast(context);
 
                           },
@@ -95,6 +129,11 @@ GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdReque
         );
       }
     });
+        }else{
+          return _buildProgressIndicator();
+        }
+      });
+    
    
   }
 
@@ -109,6 +148,7 @@ GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdReque
       ),
     );
   }
+
 }
 
  void _showToast(BuildContext context) {

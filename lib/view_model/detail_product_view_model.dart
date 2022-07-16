@@ -36,9 +36,9 @@ static Future<DetailProductResponse> getListProductById(int productId) async {
     return result;
   }
 
-  static Future<fitDetailProduct.GetDetailFitProductResponse> getDetailFitProduct(int productId) async {
+  static Future<fitDetailProduct.GetDetailFitProductResponse> getDetailFitProduct(int productId, String token) async {
     DetailProductService service = new DetailProductService();
-    var result = await service.getDetailFitProduct(productId);
+    var result = await service.getDetailFitProduct(productId, token);
     var listColor= <fitDetailProduct.Colour>[];
     var listSize = <fitDetailProduct.Size>[]; 
     for(var productDetail in result.content!.productDetailList!){

@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/api/api_get_detail_product_service.dart';
+import 'package:shop_app/api/api_get_list_cart.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/models/Product.dart';
+import 'package:shop_app/models/add_to_cart_model.dart';
 import 'package:shop_app/models/cart_model.dart';
 import 'package:shop_app/models/detail_product_model.dart';
 import 'package:shop_app/models/product_model.dart';
 import 'package:shop_app/models/detail_product_id_model.dart';
 import 'package:shop_app/screens/details%20copy/components/size-dots.dart';
 import 'package:shop_app/screens/details%20copy/details_screen.dart';
+import 'package:shop_app/service/storage_service.dart';
 import 'package:shop_app/size_config.dart';
 import 'package:shop_app/view_model/cart_view_model.dart';
 import 'package:shop_app/view_model/detail_product_view_model.dart';
@@ -21,18 +25,66 @@ import 'product_images.dart';
 class Body extends StatelessWidget {
   final int productId;
   final InputForViewingFeedback? inputForViewingFeedback;
-  
+  DetailProductService _detailProductBloc = new DetailProductService();
+  late Future<DetailProductResponse> _detailResponse;
+  CartService _cartBloc = new CartService();
 GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdRequest();
-
+final StorageService _storageService = StorageService();
   Body({Key? key, required this.productId, this.inputForViewingFeedback}) : super(key: key);
+
+Future<String?> getUserToken() async {
+    return await _storageService.readSecureData("token");
+  }
+
+  Future<DetailProductResponse> getListProductById(int productId) async {
+    
+    var result = await _detailProductBloc.getDetailProduct(productId);
+    var listColor= <Colour>[];
+    var listSize = <Size>[]; 
+    for(var productDetail in result.content!.productDetailList!){
+        if(listColor.length == 0){
+          listColor.add(productDetail.colour!);
+          listSize.add(productDetail.size!);
+        }else{
+          if(listColor.where((element) => element.colourId == productDetail.colour!.colourId).isEmpty == true){
+            listColor.add(productDetail.colour!);
+          }
+          if(listSize.where((element) => element.sizeId == productDetail.size!.sizeId).isEmpty == true){
+            listSize.add(productDetail.size!);
+          }
+        }
+    }
+    result.setlistColor(listColor);
+    result.setlistSize(listSize);
+
+    return result;
+  }
+
+  Future<GetProductDetailResponse> getProductDetailId(GetProductDetailIdRequest request) async {
+    DetailProductService service = new DetailProductService();
+    var result = await service.getProductDetailId(request);
+    return result;
+  }
+
+  Future<AddToCartResponse?> addToCart(AddToCarRequest cart, String token)
+  async {
+    try {
+      return await _cartBloc.addToCart(cart, token);
+    } catch (Exception) {
+      print("lỗi nè:"+Exception.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    
-    var detailResponse = DetailProductViewModel.getListProductById(productId);
+    return FutureBuilder<String?>(
+      future: getUserToken(),
+      builder: (context, token){
+        if(token.hasData){
+          _detailResponse = getListProductById(productId);
 
     return FutureBuilder(
-      future: detailResponse,
+      future: _detailResponse,
       builder: (BuildContext context, AsyncSnapshot<DetailProductResponse> snapshot){
       if(snapshot.hasData){
         inputForViewingFeedback!.urlImage = snapshot.data!.content!.images![0].imageUrl!;
@@ -70,7 +122,7 @@ GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdReque
                               getDetailProductRequest!.productId = productId;
                               //print(quantityRequest!.colourId);
                               
-                              var response = await DetailProductViewModel.getProductDetailId(getDetailProductRequest!);
+                              var response = await getProductDetailId(getDetailProductRequest!);
                               if(response.content == 0){
                                 _showToast(context,"Hết hàng rồi bạn ơi vui lòng chọn thuộc tính khác");
                                 return;
@@ -80,7 +132,7 @@ GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdReque
                                   productDetailId: response.content,
                                   quantity: getDetailProductRequest!.quantity
                               );
-                              CartViewModel().addToCart(addToCartRequest);
+                              addToCart(addToCartRequest, token.data!);
                               _showToast(context,"Thêm vào giỏ hàng thành công");
 
                           },
@@ -101,6 +153,11 @@ GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdReque
         );
       }
     });
+        }else{
+          return _buildProgressIndicator();
+        }
+      });
+    
    
   }
 

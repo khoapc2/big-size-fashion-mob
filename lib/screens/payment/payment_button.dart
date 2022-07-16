@@ -8,6 +8,7 @@ import 'package:shop_app/models/cart_model.dart';
 import 'package:shop_app/models/payment_request_model.dart';
 import 'package:shop_app/screens/details%20copy/components/top_rounded_container.dart';
 import 'package:shop_app/screens/home/home_screen.dart';
+import 'package:shop_app/service/storage_service.dart';
 import 'package:shop_app/view_model/cart_view_model.dart';
 import 'package:shop_app/view_model/order_view_model.dart';
 import 'package:shop_app/view_model/zalo_view_model.dart';
@@ -21,14 +22,22 @@ import '../../size_config.dart';
 class PaymentButton extends StatelessWidget{
   var currentListCart = locator.get<ListCart>();
    var locationSelected = locator.get<Location>();
+    final StorageService _storageService = StorageService();
    String? payResult; 
      
-
+Future<String?> getUserToken() async {
+    return await _storageService.readSecureData("token");
+  }
   @override
   Widget build(BuildContext context) {
     var formatter = NumberFormat('#,###,000');
     // TODO: implement build
-    return Container(
+    return 
+    FutureBuilder<String?>(
+      future: getUserToken(),
+      builder: (context, token){
+        if(token.hasData){
+          return Container(
       
                       height:137.0,
                         padding: EdgeInsets.only(
@@ -73,9 +82,9 @@ class PaymentButton extends StatelessWidget{
                     _showToast(context, "Khách hàng Huỷ Thanh Toán");
                     break;
                   case FlutterZaloPayStatus.success:
-                    await OrderViewModel.addOrder(request);
+                    await OrderViewModel.addOrder(request, token.data!);
                     _showToast(context, "Thanh toán bằng zalopay thành công");
-                    updateCart();
+                    updateCart(token.data!);
                     break;
                   case FlutterZaloPayStatus.failed:
                    _showToast(context, "Thanh toán thất bại");
@@ -87,8 +96,8 @@ class PaymentButton extends StatelessWidget{
                               });
                             }
                             else{
-                                await OrderViewModel.addOrder(request);
-                                updateCart();
+                                await OrderViewModel.addOrder(request, token.data!);
+                                updateCart(token.data!);
                                 _showToast(context, "Thanh toán thành công");
                             }
                             currentListCart.setListCart(null);
@@ -102,6 +111,11 @@ class PaymentButton extends StatelessWidget{
                         ),],)
                        
                       );
+        }else{
+          return _buildProgressIndicator();
+        }
+    });
+    
   }
 
    void _showToast(BuildContext context, String payResult) {
@@ -114,10 +128,22 @@ class PaymentButton extends StatelessWidget{
     );
   }
 
-  void updateCart(){
+  Widget _buildProgressIndicator() {
+    return new Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: new Center(
+        child: new Opacity(
+          opacity: 1.0,
+          child: new CircularProgressIndicator(),
+        ),
+      ),
+    );
+  }
+
+  void updateCart(String token){
     List<AddToCarRequest> listCart = [];
     CartViewModel respone = CartViewModel();
-    respone.addListCart(listCart);
+    respone.addListCart(listCart, token);
   }
 
 }

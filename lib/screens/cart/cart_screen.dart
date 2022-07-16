@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/api/api_get_list_cart.dart';
 import 'package:shop_app/list_cart.dart';
 import 'package:shop_app/models/Cart.dart';
 import 'package:shop_app/models/cart_model.dart';
+import 'package:shop_app/service/storage_service.dart';
 import 'package:shop_app/view_model/cart_view_model.dart';
 
 import '../../locator.dart';
@@ -12,21 +14,42 @@ class CartScreen extends StatefulWidget {
  static String routeName = "/cart";
  double total = 0;
  int quantity = 0;
- var listCart = CartViewModel.getListCart();
+ 
  bool initState = true;
  
   var currentListCart = locator.get<ListCart>();
  @override
   State<StatefulWidget> createState() => CartScreenState();
+
+  
 }
 
+
+
 class CartScreenState extends State<CartScreen>{
+  final StorageService _storageService = StorageService();
+  CartService _cartBloc = new CartService();
+  
+  Future<String?> getUserToken() async {
+    return await _storageService.readSecureData("token");
+  }
+
+  static Future<ListCartResponse> getListCart(String token) async {
+    CartService service = new CartService();
+    var result = await service.getListCart(token);
+    return result;
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return
-    FutureBuilder(
-      future: widget.listCart,
+    FutureBuilder<String?>(
+      future: getUserToken(),
+      builder: (context, token){
+        if(token.hasData){
+            return FutureBuilder(
+      future: getListCart(token.data!),
       builder: (BuildContext context, AsyncSnapshot<ListCartResponse> snapshot){
         if(snapshot.hasData){
           widget.quantity = snapshot.data!.content!.length;
@@ -42,27 +65,32 @@ class CartScreenState extends State<CartScreen>{
           }
            
     return Scaffold(
-      appBar: buildAppBar(context),
+      appBar: buildAppBar(context, token.data!),
       body:  Body(updateTotal),
-      bottomNavigationBar: CheckoutCard(total: widget.total,updateCart: updateCart,),                                                                                                                                                                                                                                                    
+      bottomNavigationBar: CheckoutCard(total: widget.total,updateCart: updateCart,token: token.data!),                                                                                                                                                                                                                                                    
     );}
     else{
       print("đen là do thằng này nè");
       return Scaffold(
-      appBar: buildAppBar(context),
+      appBar: buildAppBar(context, token.data!),
       body:  Container(
         child: _buildProgressIndicator(),
       ));
     }
     });
+        }else{
+          return _buildProgressIndicator();
+        }
+    });
+    
   }
 
-  AppBar buildAppBar(BuildContext context) {
+  AppBar buildAppBar(BuildContext context, String token) {
     return AppBar(
       leading: 
       IconButton(icon: Icon(Icons.arrow_back),
       onPressed: (){
-        updateCart();
+        updateCart(token);
         widget.currentListCart.setListCart(null);
         widget.currentListCart.total = 0;
         Navigator.pop(context);
@@ -94,7 +122,7 @@ class CartScreenState extends State<CartScreen>{
     );
   }
 
-    void updateCart(){
+    void updateCart(String token){
         CartViewModel response = CartViewModel();
         widget.currentListCart.total = widget.total;
         
@@ -109,7 +137,7 @@ class CartScreenState extends State<CartScreen>{
           cart.quantity = element.quantity;
           listCart.add(cart);
         });
-        response.addListCart(listCart);
+        response.addListCart(listCart, token);
     }
 
    void updateTotal(){

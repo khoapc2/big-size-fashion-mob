@@ -3,13 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_zalopay_sdk/flutter_zalopay_sdk.dart';
 import 'package:intl/intl.dart';
+import 'package:shop_app/api/api_address.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/models/add_address_request_model.dart';
+import 'package:shop_app/models/add_address_response_model.dart';
 import 'package:shop_app/models/cart_model.dart';
 import 'package:shop_app/models/payment_request_model.dart';
 import 'package:shop_app/screens/address_copy/address_copy_screen.dart';
 import 'package:shop_app/screens/details%20copy/components/top_rounded_container.dart';
 import 'package:shop_app/screens/home/home_screen.dart';
+import 'package:shop_app/service/storage_service.dart';
 import 'package:shop_app/view_model/address_view_model.dart';
 import 'package:shop_app/view_model/cart_view_model.dart';
 import 'package:shop_app/view_model/order_view_model.dart';
@@ -25,11 +28,31 @@ class PaymentButton extends StatelessWidget{
      final String? address;
      final String? phoneNumber;
      AddAddressRequest request = new AddAddressRequest();
+     AddressService _addAddressBloc  = new AddressService();
+
+     final StorageService _storageService = StorageService();
+
+
+     Future<AddAddressResponse?> addToAddress(AddAddressRequest cart, String token)
+  async {
+    try {
+      return await _addAddressBloc.addToAddress(cart,token);
+    } catch (Exception) {
+      print("lỗi nè:"+Exception.toString());
+    }
+  }
+
+  Future<String?> getUserToken() async {
+    return await _storageService.readSecureData("token");
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Container(
+    return FutureBuilder<String?>(builder: (context, snapshot){
+      if(snapshot.hasData){
+        return Container(
                       height:137.0,
                         padding: EdgeInsets.only(
                           left: 20,
@@ -45,8 +68,7 @@ class PaymentButton extends StatelessWidget{
                             request.receiveAddress = address;
                             request.receiverName = receiver;
                             request.receiverPhone = phoneNumber;
-
-                            AddressViewModel().addToAddress(request);
+                            addToAddress(request, snapshot.data!);
                             _showToast(context, "Thêm địa chỉ thành công");
                             Navigator.push(
                         context,
@@ -57,6 +79,25 @@ class PaymentButton extends StatelessWidget{
                         ),],)
                        
                       );
+      }
+      else{
+return _buildProgressIndicator();
+      }
+    });
+    // TODO: implement build
+    
+  }
+
+  Widget _buildProgressIndicator() {
+    return new Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: new Center(
+        child: new Opacity(
+          opacity: 1.0,
+          child: new CircularProgressIndicator(),
+        ),
+      ),
+    );
   }
 
    void _showToast(BuildContext context, String payResult) {
@@ -67,12 +108,6 @@ class PaymentButton extends StatelessWidget{
         action: SnackBarAction(label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
-  }
-
-  void updateCart(){
-    List<AddToCarRequest> listCart = [];
-    CartViewModel respone = CartViewModel();
-    respone.addListCart(listCart);
   }
 
 }
