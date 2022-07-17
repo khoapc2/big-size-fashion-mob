@@ -14,8 +14,7 @@ import '../locator.dart';
 import '../main.dart';
 import '../twilio_verify.dart';
 
-class ProductService {
-   var _twilio = locator.get<TwilioVerify>();
+class ProductBloc {
 
   Future<ProductResponseModel> getListProductByName(String? searchValue, int page) async {
     String link = "https://20.211.17.194/";
@@ -94,7 +93,7 @@ class ProductService {
   //   return productResponseModel;
   // }
 
-Future<GetFitProductByCategoryResponse> getFitProductsByCategory() async {
+Future<GetFitProductByCategoryResponse> getFitProductsByCategory(String token) async {
     String link = "https://20.211.17.194/";
     String url = link + "api/v1/products/get-quantity-fit-product-by-category";
 
@@ -103,7 +102,7 @@ Future<GetFitProductByCategoryResponse> getFitProductsByCategory() async {
     final response = await http.get(Uri.parse(url),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': "Bearer "+ (await storage.read(key: "token"))!
+          'Authorization': "Bearer "+ token
         });
 
     if(response.statusCode == 200){
@@ -133,7 +132,7 @@ Future<GetFitProductByCategoryResponse> getFitProductsByCategory() async {
     return productResponseModel;
   }
 
-  Future<GetListFitProductByCategoryResponse> getListFitProductByCategory(String? categoryName, int page) async {
+  Future<GetListFitProductByCategoryResponse> getListFitProductByCategory(String? categoryName, int page, String token) async {
     String link = "https://20.211.17.194/";
     String url = link + "api/v1/products/fit-with-customer"+"?CategoryName="+categoryName!+"&PageNumber="+ page.toString();
 
@@ -142,7 +141,7 @@ Future<GetFitProductByCategoryResponse> getFitProductsByCategory() async {
     final response = await http.get(Uri.parse(url),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': "Bearer "+ (await storage.read(key: "token"))!
+          'Authorization': "Bearer "+ token
         });
 
     if(response.statusCode == 200){

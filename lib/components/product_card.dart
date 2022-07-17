@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:shop_app/models/Product.dart';
 import 'package:shop_app/models/get_popular_product.dart';
-import 'package:shop_app/screens/details%20copy/details_screen.dart';
+import 'package:shop_app/screens/detail_product/details_screen.dart';
 
 import '../constants.dart';
 import '../size_config.dart';

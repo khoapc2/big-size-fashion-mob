@@ -8,7 +8,7 @@ import 'package:shop_app/models/Store_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shop_app/models/ge_nearest_store_model.dart';
 
-class StoreService{
+class StoreBloc{
   Future<StoreResponseModel> getAllStore() async {
     String link = "https://20.211.17.194/";
     String url = link + "api/v1/stores";

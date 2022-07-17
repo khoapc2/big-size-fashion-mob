@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shop_app/blocs/login_bloc.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/form_error.dart';
 import 'package:shop_app/models/customer_account/login_response_model.dart';
 
 import 'package:shop_app/screens/login_success/login_success_screen.dart';
-import 'package:shop_app/screens/sign_up%20copy/sign_up_screen.dart';
 import 'package:shop_app/screens/sign_up%20for%20old%20customer/sign_up_screen.dart';
+import 'package:shop_app/screens/sign_up/sign_up_screen.dart';
 import 'package:shop_app/size_config.dart';
 import 'package:shop_app/view_model/login_view_model.dart';
-import 'package:twilio_phone_verify/twilio_phone_verify.dart';
 
 import '../../../constants.dart';
 import '../../../locator.dart';
@@ -42,6 +42,8 @@ class _OtpFormState extends State<OtpForm> {
   FocusNode? pin4FocusNode;
   FocusNode? pin5FocusNode;
   FocusNode? pin6FocusNode;
+  LoginBloc _loginBloc = new LoginBloc();
+
   var _twilio = locator.get<TwilioVerify>();
   var _token = locator.get<Token>();
   final List<String?> errors = [];
@@ -84,6 +86,22 @@ class _OtpFormState extends State<OtpForm> {
     if (value.length == 1) {
       focusNode!.requestFocus();
     }
+  }
+
+    Future<LoginResponseModel?> getLoginResponse(String phoneNumber)
+  async {
+    
+      print("getLoginResponse is running");
+    LoginResponseModel? response;
+    
+    try {
+      response = await _loginBloc.login(phoneNumber);
+    } catch (Exception) {
+      
+      print("lỗi nè:"+Exception.toString());
+      response = null;
+    }
+    return response;
   }
 
   @override
@@ -164,7 +182,7 @@ class _OtpFormState extends State<OtpForm> {
               // loginViewModel.getLoginResponse(loginRequestModel).then((value) {
               //   print("Giá trị của loginRequestModel trả về trong otpform"+value!.isNewCustomer.toString());
               //   response = value;} );
-              LoginResponseModel? loginResponse = await loginViewModel.getLoginResponse(_twilio.getPhone()!);
+              LoginResponseModel? loginResponse = await getLoginResponse(_twilio.getPhone()!);
               if(loginResponse!.content!.isNewCustomer == true){
                Navigator.push(
                         context,

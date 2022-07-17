@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shop_app/blocs/store_bloc.dart';
 import 'package:shop_app/models/Store_model.dart';
 import 'package:shop_app/view_model/store_view_model.dart';
 
@@ -16,11 +17,17 @@ class _StoresState extends State<Stores> {
   List<Content>? storesReponse = <Content>[];
   String? selectedStore;
   int? selectStoreId; 
-  
+   StoreBloc _storeBloc = new StoreBloc();
+
+   Future<StoreResponseModel> getAllStores() async {
+   
+    var result = await _storeBloc.getAllStore();
+    return result;
+  }
     @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    var storeResponse = StoreViewModel.getAllStores();
+    var storeResponse = getAllStores();
     return 
     FutureBuilder(
       future: storeResponse,

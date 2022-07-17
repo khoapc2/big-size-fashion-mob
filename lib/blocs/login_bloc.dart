@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shop_app/models/customer_account/login_response_model.dart';
 
-class LoginService {
+class LoginBloc {
   HttpClient client = HttpClient();
   Future<LoginResponseModel> login(String phoneNumber) async {
 

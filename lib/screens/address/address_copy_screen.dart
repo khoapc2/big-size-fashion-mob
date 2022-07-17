@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:shop_app/constants.dart';
-import 'package:shop_app/screens/add_address1/add_address_screen.dart';
+import 'package:shop_app/screens/add_address/add_address_screen.dart';
 
 import 'components/body.dart';
 

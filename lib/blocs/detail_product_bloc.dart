@@ -11,7 +11,7 @@ import 'package:shop_app/models/detail_product_id_model.dart';
 import '../locator.dart';
 import '../twilio_verify.dart';
 
-class DetailProductService {
+class DetailProductBloc {
    var _twilio = locator.get<TwilioVerify>();
 
   Future<DetailProductResponse> getDetailProduct(int productId) async {

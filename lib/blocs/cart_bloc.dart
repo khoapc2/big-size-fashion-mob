@@ -1,17 +1,12 @@
 
 import 'dart:convert';
 
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_app/models/add_to_cart_model.dart';
 import 'package:shop_app/models/cart_model.dart';
-import 'package:shop_app/models/product_model.dart';
 
 import 'package:http/http.dart' as http;
-import '../locator.dart';
-import '../twilio_verify.dart';
 
-class CartService {
+class CartBloc {
    
   Future<ListCartResponse> getListCart(String token) async {
     String link = "https://20.211.17.194/";

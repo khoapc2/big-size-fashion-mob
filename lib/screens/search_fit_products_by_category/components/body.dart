@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shop_app/blocs/product_bloc.dart';
 import 'package:shop_app/models/Cart.dart';
 import 'package:shop_app/models/get_list_fit_product_by_category_model.dart';
+import 'package:shop_app/service/storage_service.dart';
 import 'package:shop_app/view_model/product_view_model.dart';
 
 import '../../../size_config.dart';
@@ -10,16 +12,19 @@ import 'cart_card.dart';
 class Body extends StatefulWidget {
   Body({required this.contents});
   final String contents;
+  
   @override
   _BodyState createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
+  final StorageService _storageService = StorageService();
   int page = 1;
   ScrollController _sc = new ScrollController();
   bool isLoading = false;
   List products = <Content>[];
   int testValue = 1;
+   ProductBloc _productBloc = new ProductBloc();
 
 
   void initState() {
@@ -39,7 +44,8 @@ class _BodyState extends State<Body> {
         isLoading = true;
       });
      //call api
-      var response = await ProductViewModel.getFitProductsByCategory(widget.contents, page);
+     var token = await getUserToken();
+      var response = await getFitProductsByCategory(widget.contents, page, token!);
       setState(() {
         isLoading = false;
         products.addAll(response.content!.toList());
@@ -48,6 +54,14 @@ class _BodyState extends State<Body> {
     }
   }
 
+     Future<GetListFitProductByCategoryResponse> getFitProductsByCategory(String categoryName, int page, String token) async {
+   
+    var result = await _productBloc.getListFitProductByCategory(categoryName, page, token);
+    return result;
+  }
+Future<String?> getUserToken() async {
+    return await _storageService.readSecureData("token");
+  }
    void dispose() {
     _sc.dispose();
     

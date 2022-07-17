@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/api/api_get_detail_product_service.dart';
+import 'package:shop_app/blocs/detail_product_bloc.dart';
+import 'package:shop_app/blocs/cart_bloc.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/models/Product.dart';
+import 'package:shop_app/models/add_to_cart_model.dart';
 import 'package:shop_app/models/cart_model.dart';
 import 'package:shop_app/models/detail_product_model.dart';
 import 'package:shop_app/models/get_detail_fit_product.dart';
@@ -29,7 +31,10 @@ GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdReque
   Body({Key? key, required this.productId}) : super(key: key);
 
   final StorageService _storageService = StorageService();
-  DetailProductService _detailProductBloc = new DetailProductService();
+  DetailProductBloc _detailProductBloc = new DetailProductBloc();
+  late GetProductDetailResponse response;
+   CartBloc _cartBloc = new CartBloc();
+
 
   Future<String?> getUserToken() async {
     return await _storageService.readSecureData("token");
@@ -102,13 +107,13 @@ GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdReque
                               getDetailProductRequest!.productId = productId;
                               //print(quantityRequest!.colourId);
                               
-                              var response = await DetailProductViewModel.getProductDetailId(getDetailProductRequest!);
+                              response = await getProductDetailId(getDetailProductRequest!);
                              // print("Số lượng quantity mà người dùng chọn"+getDetailProductRequest!.quantity.toString());
                               var addToCartRequest = new AddToCarRequest(
                                   productDetailId: response.content,
                                   quantity: getDetailProductRequest!.quantity
                               );
-                              CartViewModel().addToCart(addToCartRequest, token.data!);
+                              addToCart(addToCartRequest, token.data!);
                               _showToast(context);
 
                           },
@@ -135,6 +140,21 @@ GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdReque
       });
     
    
+  }
+
+    Future<GetProductDetailResponse> getProductDetailId(GetProductDetailIdRequest request) async {
+    
+    var result = await _detailProductBloc.getProductDetailId(request);
+    return result;
+  }
+    Future<AddToCartResponse?> addToCart(AddToCarRequest cart, String token)
+  async {
+   
+    try {
+      return await _cartBloc.addToCart(cart, token);
+    } catch (Exception) {
+      print("lỗi nè:"+Exception.toString());
+    }
   }
 
   Widget _buildProgressIndicator() {

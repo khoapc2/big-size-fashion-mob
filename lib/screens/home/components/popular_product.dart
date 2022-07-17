@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/blocs/product_bloc.dart';
 import 'package:shop_app/components/product_card.dart';
 import 'package:shop_app/models/Product.dart';
 import 'package:shop_app/models/get_popular_product.dart';
@@ -8,12 +9,19 @@ import '../../../size_config.dart';
 import 'section_title.dart';
 
 class PopularProducts extends StatelessWidget {
-  const PopularProducts({
+   PopularProducts({
     Key? key,
   }) : super(key: key);
+
+   ProductBloc _productBloc = new ProductBloc();
+     Future<GetListPopularProductResponse> getPopularProducts() async {
+   
+    var result = await _productBloc.getPoularProducts();
+    return result;
+  }
   @override
   Widget build(BuildContext context) {
-    var popularProductsResponse = ProductViewModel.getPopularProducts();
+    var popularProductsResponse = getPopularProducts();
     return 
     FutureBuilder(
       future:  popularProductsResponse,

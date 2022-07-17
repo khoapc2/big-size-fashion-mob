@@ -18,7 +18,7 @@ class Body extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: SizeConfig.screenHeight * 0.04), // 4%
-                Text("Register Account", style: headingStyle),
+                Text("Thông tin cần thiết", style: headingStyle),
 
                 /*
                 Text(

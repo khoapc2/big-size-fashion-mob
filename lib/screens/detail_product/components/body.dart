@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/api/api_get_detail_product_service.dart';
-import 'package:shop_app/api/api_get_list_cart.dart';
+import 'package:shop_app/blocs/detail_product_bloc.dart';
+import 'package:shop_app/blocs/cart_bloc.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/models/Product.dart';
 import 'package:shop_app/models/add_to_cart_model.dart';
@@ -8,14 +8,14 @@ import 'package:shop_app/models/cart_model.dart';
 import 'package:shop_app/models/detail_product_model.dart';
 import 'package:shop_app/models/product_model.dart';
 import 'package:shop_app/models/detail_product_id_model.dart';
-import 'package:shop_app/screens/details%20copy/components/size-dots.dart';
-import 'package:shop_app/screens/details%20copy/details_screen.dart';
+import 'package:shop_app/screens/detail_product/components/size-dots.dart';
 import 'package:shop_app/service/storage_service.dart';
 import 'package:shop_app/size_config.dart';
 import 'package:shop_app/view_model/cart_view_model.dart';
 import 'package:shop_app/view_model/detail_product_view_model.dart';
 import 'package:shop_app/view_model/product_view_model.dart';
 
+import '../details_screen.dart';
 import 'color_dots.dart';
 import 'product_description.dart';
 import 'stores.dart';
@@ -25,9 +25,9 @@ import 'product_images.dart';
 class Body extends StatelessWidget {
   final int productId;
   final InputForViewingFeedback? inputForViewingFeedback;
-  DetailProductService _detailProductBloc = new DetailProductService();
+  DetailProductBloc _detailProductBloc = new DetailProductBloc();
   late Future<DetailProductResponse> _detailResponse;
-  CartService _cartBloc = new CartService();
+  CartBloc _cartBloc = new CartBloc();
 GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdRequest();
 final StorageService _storageService = StorageService();
   Body({Key? key, required this.productId, this.inputForViewingFeedback}) : super(key: key);
@@ -61,7 +61,7 @@ Future<String?> getUserToken() async {
   }
 
   Future<GetProductDetailResponse> getProductDetailId(GetProductDetailIdRequest request) async {
-    DetailProductService service = new DetailProductService();
+    DetailProductBloc service = new DetailProductBloc();
     var result = await service.getProductDetailId(request);
     return result;
   }

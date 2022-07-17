@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shop_app/models/order_detail_model.dart';
 
-class OrderDetailService{
+class OrderDetailBloc{
    Future<OrderDetailResponse> getOrderDetail(int orderId) async {
     String link = "https://20.211.17.194/";
     String url = link + "api/v1/orders/detail/"+orderId.toString();

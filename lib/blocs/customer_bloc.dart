@@ -1,36 +1,44 @@
 import 'dart:io';
 import 'dart:convert';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_app/models/add_to_cart_model.dart';
 import 'package:shop_app/models/cart_model.dart';
 import 'package:shop_app/models/customer_account/login_response_model.dart';
 import 'package:shop_app/models/customer_account/register_account_model.dart';
+import 'package:shop_app/models/update_profile_request_model.dart';
+import 'package:shop_app/models/update_profile_response_model.dart';
 
-class AddToCartService {
+class CustomerBloc {
   HttpClient client = HttpClient();
-  Future<AddToCartResponse> addToCart(
-      AddToCarRequest request) async {
+  Future<UpdateProfileResponseModel> updateProfile(
+      UpdateProfileRequestModel request, String token) async {
 
     // String link = "https://104.215.186.78/";
-    AddToCartResponse addToCartResponse;
+    UpdateProfileResponseModel addToCartResponse;
 
     String link = "https://20.211.17.194/";
-    String url = link + "api/v1/carts/add-cart";
+    String url = link + "api/v1/customers/update-profile";
 
-
-    final response = await http.post(
+    final response = await http.put(
       Uri.parse(url),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': "Bearer "+ token
       },
       body: jsonEncode(<String, dynamic>{
-        'product_detail_id' : request.productDetailId,
-        'quantity': request.quantity
+        'fullname' : request.fullname,
+        'email': request.email,
+        'birthday': null,
+        'gender': request.gender,
+        "weigth": request.weigth,
+        "heigth": request.heigth
       },
     ));
       
     if (response.statusCode == 200 || response.statusCode == 400) {
-      addToCartResponse = AddToCartResponse.fromJson(json.decode(response.body));
+      addToCartResponse = UpdateProfileResponseModel.fromJson(json.decode(response.body));
     } else {
       print("Status code:" + response.statusCode.toString());
       throw Exception(Exception);

@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shop_app/blocs/order_detail_bloc.dart';
 import 'package:shop_app/constants.dart';
 import 'package:shop_app/models/order_detail_model.dart';
 import 'package:shop_app/screens/orders_status/components/order_detail.dart';
@@ -24,7 +25,7 @@ const inProgressColor = kPrimaryColor;
 const todoColor = Color(0xffd1d2d7);
 
 class _BezierPainter extends CustomPainter {
-  const _BezierPainter({
+  _BezierPainter({
     required this.color,
     this.drawStart = true,
     this.drawEnd = true,
@@ -33,6 +34,7 @@ class _BezierPainter extends CustomPainter {
   final Color color;
   final bool drawStart;
   final bool drawEnd;
+  
 
   Offset _offset(double radius, double angle) {
     return Offset(
@@ -97,7 +99,7 @@ class Body extends StatelessWidget{
   int _processIndex = 0;
   int _orderId;
   Body(this._orderId);
-  
+  OrderDetailBloc _orderDetailBloc = new OrderDetailBloc();
 
   Color getColor(int index) {
     if (index == _processIndex) {
@@ -108,11 +110,16 @@ class Body extends StatelessWidget{
       return todoColor;
     }
   }
+
+  Future<OrderDetailResponse> getOrderDetail(int orderId) async {
+    var result = await _orderDetailBloc.getOrderDetail(orderId);
+    return result;
+  }
   @override
   Widget build(BuildContext context) {
     
     // TODO: implement build
-    var orderDetailResponse = OrderDetailViewModel.getOrderDetail(_orderId);
+    var orderDetailResponse = getOrderDetail(_orderId);
     return FutureBuilder(
       future: orderDetailResponse,
       builder: (BuildContext context, AsyncSnapshot<OrderDetailResponse> snapshot){

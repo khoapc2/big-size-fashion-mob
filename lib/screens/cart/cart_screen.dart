@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/api/api_get_list_cart.dart';
+import 'package:shop_app/blocs/cart_bloc.dart';
 import 'package:shop_app/list_cart.dart';
 import 'package:shop_app/models/Cart.dart';
 import 'package:shop_app/models/cart_model.dart';
@@ -28,14 +28,14 @@ class CartScreen extends StatefulWidget {
 
 class CartScreenState extends State<CartScreen>{
   final StorageService _storageService = StorageService();
-  CartService _cartBloc = new CartService();
+  CartBloc _cartBloc = new CartBloc();
   
   Future<String?> getUserToken() async {
     return await _storageService.readSecureData("token");
   }
 
   static Future<ListCartResponse> getListCart(String token) async {
-    CartService service = new CartService();
+    CartBloc service = new CartBloc();
     var result = await service.getListCart(token);
     return result;
   }
@@ -123,7 +123,6 @@ class CartScreenState extends State<CartScreen>{
   }
 
     void updateCart(String token){
-        CartViewModel response = CartViewModel();
         widget.currentListCart.total = widget.total;
         
         var currentListCart = widget.currentListCart.listCart!;
@@ -137,8 +136,20 @@ class CartScreenState extends State<CartScreen>{
           cart.quantity = element.quantity;
           listCart.add(cart);
         });
-        response.addListCart(listCart, token);
+        addListCart(listCart, token);
     }
+
+     Future<bool?> addListCart(List<AddToCarRequest> listCartRequest, String token)
+  async {
+    
+    try {
+      return await _cartBloc.addListCart(listCartRequest, token);
+    } catch (Exception) {
+      
+      print("lỗi nè:"+Exception.toString());
+    }
+    return false;
+  }
 
    void updateTotal(){
     setState(() {

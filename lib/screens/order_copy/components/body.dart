@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:shop_app/api/api_get_orders.dart';
+import 'package:shop_app/blocs/order_bloc.dart';
 import 'package:shop_app/models/orders_model.dart';
 import 'package:shop_app/screens/orders_status/process_timeline_screen.dart';
 import 'package:shop_app/service/storage_service.dart';
@@ -21,7 +21,7 @@ class _StateBody extends State<Body>{
   List products = <Content>[];
   int testValue = 1;
   final StorageService _storageService = StorageService();
-  OrderService _orderBloc = new OrderService();
+  OrderBloc _orderBloc = new OrderBloc();
 
   void initState() {
     this._getMoreData(page);

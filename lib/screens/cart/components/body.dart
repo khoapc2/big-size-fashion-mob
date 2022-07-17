@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:shop_app/api/api_get_list_cart.dart';
 import 'package:shop_app/models/Cart.dart';
 import 'package:shop_app/models/cart_model.dart';
 import 'package:shop_app/screens/cart/components/check_out_card.dart';

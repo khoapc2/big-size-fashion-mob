@@ -7,7 +7,7 @@ import 'package:shop_app/models/orders_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shop_app/models/payment_request_model.dart';
 
-class OrderService {
+class OrderBloc {
    
   Future<OrdersResponse> getListOrder(int page, String token) async {
     String link = "https://20.211.17.194/";

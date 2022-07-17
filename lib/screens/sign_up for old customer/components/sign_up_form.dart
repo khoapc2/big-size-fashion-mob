@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:shop_app/api/api_customer.dart';
+import 'package:shop_app/blocs/customer_bloc.dart';
 import 'package:shop_app/components/custom_surfix_icon.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/form_error.dart';
@@ -28,7 +28,7 @@ class SignUpForm extends StatefulWidget {
 class _SignUpFormState extends State<SignUpForm> {
   var _twilio = locator.get<TwilioVerify>();
   final _storage = const FlutterSecureStorage();
-  CustomerService _customerBloc = new CustomerService();
+  CustomerBloc _customerBloc = new CustomerBloc();
   final _formKey = GlobalKey<FormState>();
   String? name;
   String? email;
@@ -67,6 +67,8 @@ class _SignUpFormState extends State<SignUpForm> {
     }
   }
 
+   
+
   @override
   Widget build(BuildContext context) {
     return 
@@ -102,8 +104,8 @@ class _SignUpFormState extends State<SignUpForm> {
                   heigth: int.parse(height!),
                   weigth: int.parse(weight!),
                   );
-                CustomerViewModel? registerViewModel = new CustomerViewModel();
-                await registerViewModel.updateProfile(registerRequestVM, snapshot.data!);
+                // CustomerViewModel? registerViewModel = new CustomerViewModel();
+                 updateProfile(registerRequestVM, snapshot.data!);
                // _storage.write(key: "token", value: response!.content!.token);
                 Navigator.pushNamed(context, LoginSuccessScreen.routeName);
               }

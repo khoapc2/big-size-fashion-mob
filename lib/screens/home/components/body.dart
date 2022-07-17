@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/blocs/product_bloc.dart';
 import 'package:shop_app/models/product_model.dart';
 import 'package:shop_app/screens/home/components/image_slider.dart';
 import 'package:shop_app/view_model/product_view_model.dart';
@@ -23,6 +24,7 @@ class _BodyState extends State<Body>{
   static int page = 1;
   bool isLoading = false;
   var products = <Content>[];
+  ProductBloc _produtBloc = new ProductBloc();
 
   @override
   void initState() {
@@ -37,13 +39,18 @@ class _BodyState extends State<Body>{
     });
   }
 
+   Future<ProductResponseModel> getAllProducts(int page) async {
+    
+    var result = await _produtBloc.getAllProducts(page);
+    return result;
+  }
   void _getMoreData(int index) async {
     if (!isLoading) {
       setState(() {
         isLoading = true;
       });
       //call ProductVm
-      var listProduct = await ProductViewModel.getAllProducts(page);
+      var listProduct = await getAllProducts(page);
       // List tList = new List();
       // for (int i = 0; i < listProduct.content!.length; i++) {
       //   tList.add(response.data['results'][i]);
@@ -83,11 +90,11 @@ class _BodyState extends State<Body>{
             const Categories(),
             Divider(thickness: 6.0,
             color: Colors.grey[100]),
-            const SpecialOffers(),
+            SpecialOffers(),
             SizedBox(height: getProportionateScreenWidth(30)),
             Divider(thickness: 6.0,
             color: Colors.grey[100]),
-            const PopularProducts(),
+             PopularProducts(),
             Divider(thickness: 6.0,
             color: Colors.grey[100]),
             SizedBox(height: getProportionateScreenWidth(30)),

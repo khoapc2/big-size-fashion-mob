@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/api/api_feedback.dart';
+import 'package:shop_app/blocs/feedback_bloc.dart';
 import 'package:shop_app/models/create_feedback_request_model.dart';
 import 'package:shop_app/models/create_feedback_response_model.dart';
 import 'package:shop_app/screens/rating/components/body.dart';
@@ -13,7 +13,7 @@ class SendButton extends StatelessWidget{
   SendButton(this.createFeedback);
   final CreateFeedback createFeedback;
   final StorageService _storageService = StorageService();
-FeedbackService _feedbackBloc = new FeedbackService();  
+FeedbackBloc _feedbackBloc = new FeedbackBloc();  
 
   Future<String?> getUserToken() async {
     return await _storageService.readSecureData("token");

@@ -1,10 +1,9 @@
 import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:shop_app/models/customer_account/login_response_model.dart';
 import 'package:shop_app/models/customer_account/register_account_model.dart';
 
-class RegisterAccountService {
+class RegisterAccountBloc {
   HttpClient client = HttpClient();
   Future<RegisterAccountResponse> registerAccount(
       RegisterAccountRequest registerRequestModel) async {

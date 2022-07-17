@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
-import 'package:shop_app/screens/address_copy/address_copy_screen.dart';
+import 'package:shop_app/screens/address/address_copy_screen.dart';
 import 'package:shop_app/screens/payment/payment_screen.dart';
 import 'package:shop_app/screens/pick_voucher/pick_voucher_screen.dart';
 

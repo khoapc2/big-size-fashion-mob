@@ -1,24 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_zalopay_sdk/flutter_zalopay_sdk.dart';
-import 'package:intl/intl.dart';
-import 'package:shop_app/api/api_address.dart';
+import 'package:shop_app/blocs/address_bloc.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/models/add_address_request_model.dart';
 import 'package:shop_app/models/add_address_response_model.dart';
-import 'package:shop_app/models/cart_model.dart';
-import 'package:shop_app/models/payment_request_model.dart';
-import 'package:shop_app/screens/address_copy/address_copy_screen.dart';
-import 'package:shop_app/screens/details%20copy/components/top_rounded_container.dart';
-import 'package:shop_app/screens/home/home_screen.dart';
+import 'package:shop_app/screens/address/address_copy_screen.dart';
 import 'package:shop_app/service/storage_service.dart';
-import 'package:shop_app/view_model/address_view_model.dart';
-import 'package:shop_app/view_model/cart_view_model.dart';
-import 'package:shop_app/view_model/order_view_model.dart';
-import 'package:shop_app/view_model/zalo_view_model.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import '../../../size_config.dart';
 
 class PaymentButton extends StatelessWidget{
@@ -28,7 +15,7 @@ class PaymentButton extends StatelessWidget{
      final String? address;
      final String? phoneNumber;
      AddAddressRequest request = new AddAddressRequest();
-     AddressService _addAddressBloc  = new AddressService();
+     AddressBloc _addAddressBloc  = new AddressBloc();
 
      final StorageService _storageService = StorageService();
 
