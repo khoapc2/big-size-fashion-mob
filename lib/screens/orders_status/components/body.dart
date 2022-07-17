@@ -4,18 +4,22 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:shop_app/blocs/order_bloc.dart';
 import 'package:shop_app/blocs/order_detail_bloc.dart';
 import 'package:shop_app/constants.dart';
+import 'package:shop_app/models/cancel_order_response_model.dart';
 import 'package:shop_app/models/order_detail_model.dart';
+import 'package:shop_app/screens/order_history/list_order_screen.dart';
 import 'package:shop_app/screens/orders_status/components/order_detail.dart';
+import 'package:shop_app/service/storage_service.dart';
 import 'package:shop_app/src/connector_theme.dart';
 import 'package:shop_app/src/connectors.dart';
 import 'package:shop_app/src/indicators.dart';
 import 'package:shop_app/src/timeline_theme.dart';
 import 'package:shop_app/src/timeline_tile_builder.dart';
 import 'package:shop_app/src/timelines.dart';
-import 'package:shop_app/view_model/order_detail_view_model.dart';
+
+import '../../../size_config.dart';
 
 
 const kTileHeight = 50.0;
@@ -100,6 +104,8 @@ class Body extends StatelessWidget{
   int _orderId;
   Body(this._orderId);
   OrderDetailBloc _orderDetailBloc = new OrderDetailBloc();
+  OrderBloc _orderBloc = new OrderBloc();
+  final StorageService _storageService = StorageService();
 
   Color getColor(int index) {
     if (index == _processIndex) {
@@ -115,16 +121,26 @@ class Body extends StatelessWidget{
     var result = await _orderDetailBloc.getOrderDetail(orderId);
     return result;
   }
+
+   Future<String?> getUserToken() async {
+    return await _storageService.readSecureData("token");
+  }
+
   @override
   Widget build(BuildContext context) {
-    
-    // TODO: implement build
+    return FutureBuilder<String?>(
+      future: getUserToken(),
+      builder: (context, token){
+        if(token.hasData){
     var orderDetailResponse = getOrderDetail(_orderId);
     return FutureBuilder(
       future: orderDetailResponse,
       builder: (BuildContext context, AsyncSnapshot<OrderDetailResponse> snapshot){
         if(snapshot.hasData){
          switch (snapshot.data!.content!.status) {
+          case "Đã hủy":
+          _processIndex = -1;
+          break;
            case "Chờ xác nhận":
              _processIndex = 0;
              break;
@@ -277,6 +293,32 @@ class Body extends StatelessWidget{
         ),
       )
           ),
+          //Nút hủy
+          GestureDetector(onTap: (){
+                 cancelOrder(_orderId, token.data!);
+                 Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ListOrderScreen()),
+                );
+                }, 
+                child: _processIndex == 0?
+                    Container(
+                      margin: EdgeInsets.only(left: 200, right: 10),
+                      
+                      height: 40,
+                      width: 100,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: kPrimaryColor,
+                      ),
+                      child: 
+                      Center(
+                        child:Text("Hủy đơn hàng",style: TextStyle(
+            fontSize: getProportionateScreenWidth(18),
+            color: Colors.white)),
+                        )
+                    ): Container(),
+                ),
           OrderDetail(snapshot.data!)
         ],
       );
@@ -288,6 +330,15 @@ class Body extends StatelessWidget{
        
       },
     );
+        }else{
+          return _buildProgressIndicator();
+        }
+      
+    }
+    
+    );
+    // TODO: implement build
+    
       
   
   }
@@ -302,7 +353,20 @@ class Body extends StatelessWidget{
       ),
     );
   }
+
+  Future<CancelOrderResponse?> cancelOrder(int orderId, String token)
+  async {
+
+    try {
+      return await _orderBloc.cancelOrder(orderId, token);
+    } catch (Exception) {
+      print("lỗi nè:"+Exception.toString());
+    }
+  }
 }
+
+
+  
 final _processes = [
   'Xác thực',
   'Đóng gói',

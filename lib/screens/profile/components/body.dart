@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:shop_app/screens/oder_history/oder_history_screen.dart';
-import 'package:shop_app/screens/order_copy/components/body.dart';
-import 'package:shop_app/screens/order_copy/list_order_screen.dart';
+import 'package:shop_app/screens/order_history/list_order_screen.dart';
 import 'package:shop_app/screens/profile/userprofile/userprofile_screen.dart';
 import 'package:shop_app/screens/setting/setting_screen.dart';
 import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
