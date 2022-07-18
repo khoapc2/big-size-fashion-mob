@@ -12,8 +12,9 @@ import '../../../size_config.dart';
 class CheckoutCard extends StatelessWidget {
    double? total = 0;
    final updateCart;
+   final token;
    CheckoutCard({
-    Key? key,this.total, this.updateCart
+    Key? key,this.total, this.updateCart, this.token
     
   }) : super(key: key);
   @override
@@ -64,11 +65,13 @@ class CheckoutCard extends StatelessWidget {
                   child: DefaultButton(
                     text: "Thanh toán",
                     press: () {
-                      updateCart();
+                      updateCart(token);
+                     // Navigator.pushNamed(context, PaymentScreen.routeName);
                       Navigator.push(
                         context,
                       MaterialPageRoute(builder: (context) => PaymentScreen()),
                     );
+                    
                     //print(_controller.total.value.toString());
                       // print(total);
                     },

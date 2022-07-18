@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop_app/screens/chat/chat_screen.dart';
 import 'package:shop_app/screens/home/home_screen.dart';
-import 'package:shop_app/screens/order_copy/list_order_screen.dart';
+import 'package:shop_app/screens/notification/search_fit_product_by_category_screen.dart';
+import 'package:shop_app/screens/order_history/list_order_screen.dart';
 import 'package:shop_app/screens/profile/profile_screen.dart';
 
 import '../constants.dart';
@@ -74,7 +75,7 @@ class CustomBottomNavBar extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ChatScreen()),
+                    MaterialPageRoute(builder: (context) => NotificationScreen(category: "Sơ mi",)),
                   );
                 },
               ),

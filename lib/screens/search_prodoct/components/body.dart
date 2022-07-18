@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shop_app/blocs/product_bloc.dart';
 import 'package:shop_app/models/Cart.dart';
 import 'package:shop_app/models/product_model.dart';
 import 'package:shop_app/view_model/product_view_model.dart';
@@ -20,6 +21,7 @@ class _BodyState extends State<Body> {
   bool isLoading = false;
   List products = <Content>[];
   int testValue = 1;
+  ProductBloc _productBloc = new ProductBloc();
 
 
   void initState() {
@@ -39,13 +41,19 @@ class _BodyState extends State<Body> {
         isLoading = true;
       });
      //call api
-      var response = await ProductViewModel.getListProductByNameSearch(widget.searchValue, page);
+      var response = await getListProductByNameSearch(widget.searchValue, page);
       setState(() {
         isLoading = false;
         products.addAll(response.content!.toList());
         page++;
       });
     }
+  }
+
+   Future<ProductResponseModel> getListProductByNameSearch(String? searchValue, int page) async {
+    
+    var result = await _productBloc.getListProductByName(searchValue, page);
+    return result;
   }
 
    void dispose() {

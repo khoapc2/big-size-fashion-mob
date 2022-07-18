@@ -6,6 +6,7 @@ import 'package:shop_app/screens/payment/payment_button.dart';
 import '../../enums.dart';
 
 class PaymentScreen extends StatelessWidget{
+  static String routeName = "/cart";
   @override
   Widget build(BuildContext context) {
     // TODO: implement build

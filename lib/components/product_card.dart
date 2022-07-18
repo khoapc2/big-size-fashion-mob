@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:shop_app/models/Product.dart';
 import 'package:shop_app/models/get_popular_product.dart';
-import 'package:shop_app/screens/details%20copy/details_screen.dart';
+import 'package:shop_app/screens/detail_product/details_screen.dart';
 
 import '../constants.dart';
 import '../size_config.dart';
@@ -56,8 +56,8 @@ class ProductCard extends StatelessWidget {
               ),
                   Text(
                     product.promotionPrice != null?
-                    "\đ${product.promotionPrice}" :
-                    "\đ${product.price}",
+                    "${product.promotionPrice} VNĐ" :
+                    "${product.price} VNĐ",
                     style: TextStyle(
                       fontSize: getProportionateScreenWidth(18),
                       fontWeight: FontWeight.w600,
@@ -69,11 +69,11 @@ class ProductCard extends StatelessWidget {
               child:
               Row(
                 children: [
-                  Text("\đ${formatter.format(product.price!)}", style: TextStyle(decoration: TextDecoration.lineThrough),),
+                  Text("${formatter.format(product.price!)} VNĐ", style: TextStyle(decoration: TextDecoration.lineThrough),),
                   Container(
-                    margin: EdgeInsets.only(left: 15.0),
+                    margin: EdgeInsets.only(left: 10.0),
                     color: kPrimaryColor,
-                    child: Text("-${product.promotionValue}"),)
+                    child: Text("-${product.promotionValue}", style: TextStyle(color: Colors.white),),)
                 ],
               )
             )

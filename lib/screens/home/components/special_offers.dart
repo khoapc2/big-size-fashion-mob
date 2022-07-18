@@ -1,21 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/blocs/product_bloc.dart';
 import 'package:shop_app/models/get_fit_product_by_category_model.dart';
 import 'package:shop_app/screens/search_fit_products_by_category/search_fit_product_by_category_screen.dart';
+import 'package:shop_app/service/storage_service.dart';
 import 'package:shop_app/view_model/product_view_model.dart';
 
 import '../../../size_config.dart';
 import 'section_title.dart';
 
 class SpecialOffers extends StatelessWidget {
-  const SpecialOffers({
+  SpecialOffers({
     Key? key,
   }) : super(key: key);
+  StorageService _storageService = StorageService();
+  ProductBloc _productBloc = new ProductBloc();
 
+Future<String?> getUserToken() async {
+    return await _storageService.readSecureData("token");
+  }
+
+   Future<GetFitProductByCategoryResponse> getFitProductByCategory(String token) async {
+    var result = await _productBloc.getFitProductsByCategory(token);
+    return result;
+  }
   @override
   Widget build(BuildContext context) {
-    var FitProductByCategoryResponse = ProductViewModel.getFitProductByCategory();
-    return FutureBuilder(
-      future: FitProductByCategoryResponse,
+
+    return FutureBuilder<String?>(
+      future: getUserToken(),
+      builder: (context, token){
+        
+    return 
+    
+    FutureBuilder(
+      future: getFitProductByCategory(token.data!),
       builder: (BuildContext context, AsyncSnapshot<GetFitProductByCategoryResponse> snapshot){
         if(snapshot.hasData){
       return Column(
@@ -107,6 +125,8 @@ class SpecialOffers extends StatelessWidget {
       return Container();
     }
     });
+    });
+    
     
   }
 }

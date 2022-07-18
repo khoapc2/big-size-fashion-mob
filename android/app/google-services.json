@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "477092289244",
+    "project_id": "big-size-fashion-chain",
+    "storage_bucket": "big-size-fashion-chain.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:477092289244:android:283b2b763d04058af73219",
+        "android_client_info": {
+          "package_name": "com.example.bigsize_management_staff"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "477092289244-8on7mjru7f4f1mom9f2anadehcen2e9b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bigsize_management_staff",
+            "certificate_hash": "be01c35df1d292443b925230a1c58fa8e3784b1c"
+          }
+        },
+        {
+          "client_id": "477092289244-mvbpuq2tae67ktvlda0a9mvpbsoguga2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_3-G9GoBZVXFEof0QnWaOWjTZI9tc9Bs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "477092289244-mvbpuq2tae67ktvlda0a9mvpbsoguga2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:477092289244:android:1d1bb69967e88a49f73219",
+        "android_client_info": {
+          "package_name": "com.example.shop_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "477092289244-mvbpuq2tae67ktvlda0a9mvpbsoguga2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_3-G9GoBZVXFEof0QnWaOWjTZI9tc9Bs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "477092289244-mvbpuq2tae67ktvlda0a9mvpbsoguga2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

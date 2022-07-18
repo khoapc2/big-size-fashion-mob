@@ -1,17 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_zalopay_sdk/flutter_zalopay_sdk.dart';
 import 'package:intl/intl.dart';
+import 'package:shop_app/blocs/cart_bloc.dart';
+import 'package:shop_app/blocs/order_bloc.dart';
+import 'package:shop_app/blocs/zalopay_bloc.dart';
 import 'package:shop_app/components/default_button.dart';
+import 'package:shop_app/models/add_order_response_model.dart';
 import 'package:shop_app/models/cart_model.dart';
 import 'package:shop_app/models/payment_request_model.dart';
-import 'package:shop_app/screens/details%20copy/components/top_rounded_container.dart';
+import 'package:shop_app/models/zalo_response_model.dart';
 import 'package:shop_app/screens/home/home_screen.dart';
-import 'package:shop_app/view_model/cart_view_model.dart';
-import 'package:shop_app/view_model/order_view_model.dart';
-import 'package:shop_app/view_model/zalo_view_model.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:shop_app/service/storage_service.dart';
 
 import '../../list_cart.dart';
 import '../../location.dart';
@@ -21,14 +21,44 @@ import '../../size_config.dart';
 class PaymentButton extends StatelessWidget{
   var currentListCart = locator.get<ListCart>();
    var locationSelected = locator.get<Location>();
+    final StorageService _storageService = StorageService();
+    late ZaloResponse _zaloPayResponse;
+    OrderBloc _orderBloc = new OrderBloc();
    String? payResult; 
+   ZaloPayBloc _zaloBloc = new ZaloPayBloc();
+   CartBloc _cartBloc = new CartBloc();
      
+Future<String?> getUserToken() async {
+    return await _storageService.readSecureData("token");
+  }
+
+  Future<ZaloResponse> createOrderFromZaloPay(double totalPrice, String token) async {
+    
+    var result = await _zaloBloc.createOrder(totalPrice, token);
+    return result;
+  }
+ Future<AddOrderResponse> addOrder(PaymentResquest resquest, String token) async {
+    
+    AddOrderResponse result = new AddOrderResponse();
+    try{
+       result = await _orderBloc.addOrder(resquest, token);
+    return result;
+    }catch(exception){
+      print(exception);
+    }
+    return result;
+  }
 
   @override
   Widget build(BuildContext context) {
     var formatter = NumberFormat('#,###,000');
     // TODO: implement build
-    return Container(
+    return 
+    FutureBuilder<String?>(
+      future: getUserToken(),
+      builder: (context, token){
+        if(token.hasData){
+          return Container(
       
                       height:137.0,
                         padding: EdgeInsets.only(
@@ -58,23 +88,24 @@ class PaymentButton extends StatelessWidget{
                                 promotionPrice: 0,
                                 totalPrice: currentListCart.total,
                                 shippingFee: currentListCart.shippingFee,
-                                storeId: currentListCart.storeId
+                                storeId: currentListCart.storeId,
+                                totalAfterDiscount: currentListCart.total
                                 );
                                 
                                 
                             if(paymentMethod != 0){
-                              var zaloPayResponse = await ZaloPayViewModel.createOrderFromZaloPay(currentListCart.total);
+                               _zaloPayResponse = await createOrderFromZaloPay(currentListCart.total, token.data!);
                              
-                              FlutterZaloPaySdk.payOrder(zpToken: zaloPayResponse.content!.zpTransToken!).listen((event) async {
+                              FlutterZaloPaySdk.payOrder(zpToken: _zaloPayResponse.content!.zpTransToken!).listen((event) async {
                               //launch(zaloPayResponse.content!.orderUrl!);
                               switch (event) {
                   case FlutterZaloPayStatus.cancelled:
                     _showToast(context, "Khách hàng Huỷ Thanh Toán");
                     break;
                   case FlutterZaloPayStatus.success:
-                    await OrderViewModel.addOrder(request);
+                    await addOrder(request, token.data!);
                     _showToast(context, "Thanh toán bằng zalopay thành công");
-                    updateCart();
+                    updateCart(token.data!);
                     break;
                   case FlutterZaloPayStatus.failed:
                    _showToast(context, "Thanh toán thất bại");
@@ -86,8 +117,8 @@ class PaymentButton extends StatelessWidget{
                               });
                             }
                             else{
-                                await OrderViewModel.addOrder(request);
-                                updateCart();
+                                await addOrder(request, token.data!);
+                                updateCart(token.data!);
                                 _showToast(context, "Thanh toán thành công");
                             }
                             currentListCart.setListCart(null);
@@ -101,6 +132,11 @@ class PaymentButton extends StatelessWidget{
                         ),],)
                        
                       );
+        }else{
+          return _buildProgressIndicator();
+        }
+    });
+    
   }
 
    void _showToast(BuildContext context, String payResult) {
@@ -113,10 +149,32 @@ class PaymentButton extends StatelessWidget{
     );
   }
 
-  void updateCart(){
-    List<AddToCarRequest> listCart = [];
-    CartViewModel respone = CartViewModel();
-    respone.addListCart(listCart);
+  Widget _buildProgressIndicator() {
+    return new Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: new Center(
+        child: new Opacity(
+          opacity: 1.0,
+          child: new CircularProgressIndicator(),
+        ),
+      ),
+    );
   }
 
+  void updateCart(String token){
+    List<AddToCarRequest> listCart = [];
+    addListCart(listCart, token);
+  }
+
+   Future<bool?> addListCart(List<AddToCarRequest> listCartRequest, String token)
+  async {
+    CartBloc services = new CartBloc();
+    try {
+      return await services.addListCart(listCartRequest, token);
+    } catch (Exception) {
+      
+      print("lỗi nè:"+Exception.toString());
+    }
+    return false;
+  }
 }

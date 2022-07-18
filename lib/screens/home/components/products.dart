@@ -2,20 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shop_app/models/Cart.dart';
 import 'package:shop_app/models/customer_account/login_response_model.dart';
-import 'package:shop_app/models/product_model.dart';
+import 'package:shop_app/models/product_model.dart' as product;
 import 'package:shop_app/screens/cart/components/cart_card.dart';
-import 'package:shop_app/screens/details%20copy/details_screen.dart';
+import 'package:shop_app/screens/detail_product/details_screen.dart';
 import 'package:shop_app/screens/home/components/section_title.dart';
 import 'package:shop_app/view_model/product_view_model.dart';
 import 'package:intl/intl.dart';
-
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class Products extends StatelessWidget{
   Products(this.listProducts);
-  final List<Content> listProducts;
+  final List<product.Content?> listProducts;
   @override
   Widget build(BuildContext context) {
     return 
@@ -38,7 +37,7 @@ class Products extends StatelessWidget{
            return Padding(
           padding: EdgeInsets.symmetric(vertical: 10),
           child: Dismissible(
-            key: Key(listProducts[index].productId.toString()),
+            key: Key(listProducts[index]!.productId.toString()),
             direction: DismissDirection.endToStart,
             onDismissed: (direction) {
               // setState(() {
@@ -95,7 +94,7 @@ class CartCard extends StatelessWidget {
     required this.content, 
   }) : super(key: key);
 
-  final Content? content;
+  final product.Content? content;
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +160,7 @@ class CartCard extends StatelessWidget {
                   Container(
                     margin: EdgeInsets.only(left: 15.0),
                     color: kPrimaryColor,
-                    child: Text("-${content!.promotionValue}"),)
+                    child: Text("-${content!.promotionValue}", style: TextStyle(color: Colors.white)),)
                 ],
               )
             )

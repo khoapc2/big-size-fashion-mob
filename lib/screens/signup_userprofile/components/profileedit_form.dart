@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:shop_app/blocs/register_account_bloc.dart';
 import 'package:shop_app/models/customer_account/register_account_model.dart';
 import 'package:shop_app/screens/login_success/login_success_screen.dart';
 import 'package:shop_app/view_model/register_view_model.dart';
@@ -37,6 +38,18 @@ class _EditProfile extends State<EditProfileForm> {
   TextEditingController emailP = TextEditingController();
   TextEditingController genderP = TextEditingController();
 
+Future<RegisterAccountResponse?> getRegisterResponse(RegisterAccountRequest registerRequestModel)
+  async {
+    RegisterAccountResponse? response;
+    RegisterAccountBloc _registerAccoutBloc = new RegisterAccountBloc();
+    try {
+      response = await _registerAccoutBloc.registerAccount(registerRequestModel);
+    } catch (Exception) {
+      print("Bị lỗi nè:"+Exception.toString());
+      response = null;
+    }
+    return response;
+  }
   @override
   Widget build(BuildContext context) {
     emailP.text = email;
@@ -270,8 +283,7 @@ class _EditProfile extends State<EditProfileForm> {
                   phoneNumber: phone,
                   weigth: int.parse(weightP.text),
                   );
-                RegisterViewModel? registerViewModel = new RegisterViewModel();
-                var response = await registerViewModel.getRegisterResponse(registerRequestVM);
+                var response = await getRegisterResponse(registerRequestVM);
                 var token = response!.content!.token;
 
                 Navigator.pushNamed(context, LoginSuccessScreen.routeName);

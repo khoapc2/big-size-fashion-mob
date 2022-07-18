@@ -89,10 +89,8 @@ class _OrderDetailState extends State<OrderDetail> {
             Column(
               children: [
                 CartCard(cart: widget._orderDetailResponse.content!.productList![index]),
-                Divider(
-                  thickness: 1.0,
-                  color: Colors.black,
-                ),
+                Divider(thickness: 2.0,
+            color: Colors.grey[100],),
                 GestureDetector(onTap: (){
                  Navigator.push(
                         context,
@@ -101,7 +99,7 @@ class _OrderDetailState extends State<OrderDetail> {
                       ))),
                     );
                 }, 
-                child: 
+                child: widget._orderDetailResponse.content!.status =="Đã nhận hàng"?
                     Container(
                       margin: EdgeInsets.only(left: 200),
                       
@@ -111,12 +109,13 @@ class _OrderDetailState extends State<OrderDetail> {
                         borderRadius: BorderRadius.circular(10),
                         color: kPrimaryColor,
                       ),
-                      child: Center(
+                      child: 
+                      Center(
                         child:Text("Nhận xét",style: TextStyle(
             fontSize: getProportionateScreenWidth(18),
             color: Colors.white)),
-                        ),
-                    )
+                        )
+                    ): Container(),
                 )
               ],
             ),

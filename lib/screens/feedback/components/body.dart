@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/blocs/feedback_bloc.dart';
 import 'package:shop_app/models/get_list_feedback_model.dart';
 import 'package:shop_app/screens/otp/components/otp_form.dart';
 import 'package:shop_app/view_model/feedback_view_model.dart';
@@ -13,6 +14,9 @@ class Body extends StatelessWidget {
   final String? urlImage;
   final int? productId;
   final double? avarageRating;
+  
+
+   
    
   @override
   Widget build(BuildContext context) {
@@ -43,7 +47,14 @@ class ListFeedbackState extends State<ListFeedBack>{
   bool isLoading = false;
   var products = <Content>[];
   int testValue = 1;
+  FeedbackBloc _feedbackBloc = new FeedbackBloc();
 
+
+Future<GetListFeedback> getListFeedback(int page, int productId) async {
+    
+    var result = await _feedbackBloc.getListFeedback(page, productId);
+    return result;
+  }
 
   void initState() {
     this._getMoreData(page);
@@ -62,7 +73,7 @@ class ListFeedbackState extends State<ListFeedBack>{
         isLoading = true;
       });
      //call api
-      var response = await FeedbackViewModel.getListFeedback(page, widget.productId!);
+      var response = await getListFeedback(page, widget.productId!);
       setState(() {
         isLoading = false;
         products.addAll(response.content!.toList());
