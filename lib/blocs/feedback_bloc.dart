@@ -41,6 +41,7 @@ class FeedbackBloc {
   }
 
   Future<RatingResponse> getRating(int productId) async {
+    print("getRating");
     String link = "https://20.211.17.194/";
     String url = link + "api/v1/feedbacks/rating/"+productId.toString();
 
@@ -54,7 +55,7 @@ class FeedbackBloc {
     if(response.statusCode == 200){
       detailProductResponseModel = RatingResponse.fromJson(json.decode(response.body));
     } else {
-      throw Exception(Exception);
+      detailProductResponseModel = new RatingResponse();
     }
     return detailProductResponseModel;
   }

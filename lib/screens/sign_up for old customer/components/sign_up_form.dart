@@ -103,6 +103,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   gender: gender == "Male" ? true : false,
                   heigth: int.parse(height!),
                   weigth: int.parse(weight!),
+                  birthday: "null"
                   );
                 // CustomerViewModel? registerViewModel = new CustomerViewModel();
                  updateProfile(registerRequestVM, snapshot.data!);

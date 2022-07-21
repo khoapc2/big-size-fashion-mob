@@ -7,6 +7,7 @@ import 'package:shop_app/models/add_to_cart_model.dart';
 import 'package:shop_app/models/cart_model.dart';
 import 'package:shop_app/models/customer_account/login_response_model.dart';
 import 'package:shop_app/models/customer_account/register_account_model.dart';
+import 'package:shop_app/models/profile_response_model.dart';
 import 'package:shop_app/models/update_profile_request_model.dart';
 import 'package:shop_app/models/update_profile_response_model.dart';
 
@@ -30,7 +31,7 @@ class CustomerBloc {
       body: jsonEncode(<String, dynamic>{
         'fullname' : request.fullname,
         'email': request.email,
-        'birthday': null,
+        'birthday': request.birthday == "null"?null: request.birthday,
         'gender': request.gender,
         "weigth": request.weigth,
         "heigth": request.heigth
@@ -45,4 +46,25 @@ class CustomerBloc {
     }
     return addToCartResponse;
   }
+
+Future<ProfileResponse> getProfile(String token) async {
+    String link = "https://20.211.17.194/";
+    String url = link + "api/v1/customers/get-own-profile";
+
+    ProfileResponse detailProductResponseModel;  
+    var test = token;
+    final response = await http.get(Uri.parse(url),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': "Bearer "+ token
+        });
+
+    if(response.statusCode == 200){
+      detailProductResponseModel = ProfileResponse.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(Exception);
+    }
+    return detailProductResponseModel;
+  }
+
 }

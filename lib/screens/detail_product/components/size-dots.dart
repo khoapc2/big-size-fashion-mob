@@ -31,12 +31,18 @@ class _SizeDotsState extends State<SizeDots>{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Row(
+    return 
+    Padding(padding: EdgeInsets.symmetric(horizontal: 25.0)
+    ,child: SingleChildScrollView(
+    scrollDirection: Axis.horizontal,
+    child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ...List.generate(widget.listSize!.length,
                 (index) => buildSmallSizePreview(widget.listSize![index])),
-          ],);
+          ],)));
+   
+    
   }
 GestureDetector buildSmallSizePreview(Size size) {
     return GestureDetector(

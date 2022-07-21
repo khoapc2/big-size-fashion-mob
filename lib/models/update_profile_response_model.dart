@@ -35,8 +35,8 @@ class Content {
   Null? birthday;
   String? gender;
   Null? pinCode;
-  Null? weigth;
-  Null? heigth;
+  int? weigth;
+  int? heigth;
 
   Content(
       {this.uid,

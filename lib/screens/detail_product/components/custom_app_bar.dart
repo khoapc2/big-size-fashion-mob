@@ -34,7 +34,8 @@ class CustomAppBar extends StatelessWidget {
       future: _ratingResponse,
       builder: (BuildContext context, AsyncSnapshot<RatingResponse> snapshot){
           if(snapshot.hasData){
-            inputForViewingFeedback!.averageRating = snapshot.data!.content;
+            if(snapshot.data!.content != null){
+                inputForViewingFeedback!.averageRating = snapshot.data!.content;
             return SafeArea(
       child: Padding(
         padding:
@@ -95,6 +96,41 @@ class CustomAppBar extends StatelessWidget {
         ),
       ),
     );
+            }else{
+                return Padding(
+        padding:
+            EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20),vertical: getProportionateScreenHeight(20)),
+        child: Row(
+          children: [
+            SizedBox(
+              height: getProportionateScreenWidth(40),
+              width: getProportionateScreenWidth(50),
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(60),
+                  ),
+                  primary: kPrimaryColor,
+                  backgroundColor: Colors.white,
+                  padding: EdgeInsets.zero,
+                ),
+                onPressed: () => Navigator.pop(context),
+                child: SvgPicture.asset(
+                  "assets/icons/Back ICon.svg"
+                ),
+              ),
+            ),
+            Spacer(),
+            Container(
+          
+              child: IconBtnWithCounter(
+            svgSrc: "assets/icons/Cart Icon.svg",
+            press: () => Navigator.pushNamed(context, CartScreen.routeName),
+          ),
+            )
+            ,]));
+            }
+            
           }
           else{
             return Container();

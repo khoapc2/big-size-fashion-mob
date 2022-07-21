@@ -82,7 +82,6 @@ Future<String?> getUserToken() async {
       builder: (context, token){
         if(token.hasData){
           _detailResponse = getListProductById(productId);
-
     return FutureBuilder(
       future: _detailResponse,
       builder: (BuildContext context, AsyncSnapshot<DetailProductResponse> snapshot){

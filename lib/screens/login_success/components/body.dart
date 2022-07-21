@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/screens/home/home_screen.dart';
 import 'package:shop_app/size_config.dart';
 
+import '../../../service/firebase_messaging.dart';
+import '../../../service/storage_service.dart';
+
 class Body extends StatelessWidget {
-  final _storage = const FlutterSecureStorage();
+  StorageService _storageService = new StorageService();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -30,7 +32,9 @@ class Body extends StatelessWidget {
           child: DefaultButton(
             text: "Back to home",
             press: () async {
-              final storage = const FlutterSecureStorage();
+              await HandleMessagingFirebase.receiveMessagingFromServer(
+                         (await _storageService.readSecureData("phoneNumber")).toString());
+              // print((await _storageService.readSecureData("phoneNumber")).toString());
               Navigator.pushNamed(context, HomeScreen.routeName);
             },
           ),

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/blocs/cart_bloc.dart';
 import 'package:shop_app/list_cart.dart';
-import 'package:shop_app/models/Cart.dart';
 import 'package:shop_app/models/cart_model.dart';
 import 'package:shop_app/service/storage_service.dart';
-import 'package:shop_app/view_model/cart_view_model.dart';
 
 import '../../locator.dart';
 import 'components/body.dart';
@@ -95,8 +93,13 @@ class CartScreenState extends State<CartScreen>{
         widget.currentListCart.total = 0;
         Navigator.pop(context);
       }),
-      title: Column(
+      title: 
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+            Column(
+        children: [
+    
           Text(
             "Giỏ hàng",
             style: TextStyle(color: Colors.black),
@@ -105,8 +108,24 @@ class CartScreenState extends State<CartScreen>{
             "${widget.quantity} sản phẩm",
             style: Theme.of(context).textTheme.caption,
           ),
+          
         ],
       ),
+      GestureDetector(
+          onTap: (){
+            updateCart(token);
+            widget.currentListCart.setListCart(null);
+            widget.currentListCart.total = 0;
+            Navigator.pop(context);
+          },
+          child: Text(
+            "Mua thêm",
+            style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline),
+          ),
+        ),
+        ],
+      )
+      
     );
     }
 
