@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/screens/home/home_screen.dart';
 import 'package:shop_app/size_config.dart';
@@ -32,8 +31,6 @@ class Body extends StatelessWidget {
             text: "Back to home",
             press: () async {
               final storage = const FlutterSecureStorage();
-              final prefs = await SharedPreferences.getInstance();
-              await prefs.setString('token', (await storage.read(key: "token"))!);
               Navigator.pushNamed(context, HomeScreen.routeName);
             },
           ),
