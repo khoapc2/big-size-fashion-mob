@@ -81,20 +81,25 @@ Future<String?> getUserToken() async {
                           text: "Thanh toán",
                           press: () async {
                               var paymentMethod = currentListCart.paymentMethod;
-                              var request = new PaymentResquest(
+                              print("Mã địa chỉ "+locationSelected.locationId.toString());
+                              if(locationSelected.locationId == null){
+                                _showToast(context, "Chọn địa chỉ để nhận hàng");
+                              }else{
+                                 var request = new PaymentResquest(
                                 deliveryAddress: locationSelected.locationId,
                                 orderType: true,
                                 paymentMethod: paymentMethod == 0 ? "Trả sau" : "Zalopay",
                                 promotionPrice: 0,
                                 totalPrice: currentListCart.total,
                                 shippingFee: currentListCart.shippingFee,
-                                storeId: currentListCart.storeId,
+                                //storeId: currentListCart.storeId,
+                                storeId: 2,
                                 totalAfterDiscount: currentListCart.total
                                 );
                                 
                                 
                             if(paymentMethod != 0){
-                               _zaloPayResponse = await createOrderFromZaloPay(currentListCart.total, token.data!);
+                               _zaloPayResponse = await createOrderFromZaloPay(currentListCart.total + currentListCart.shippingFee, token.data!);
                              
                               FlutterZaloPaySdk.payOrder(zpToken: _zaloPayResponse.content!.zpTransToken!).listen((event) async {
                               //launch(zaloPayResponse.content!.orderUrl!);
@@ -105,6 +110,7 @@ Future<String?> getUserToken() async {
                   case FlutterZaloPayStatus.success:
                     await addOrder(request, token.data!);
                     _showToast(context, "Thanh toán bằng zalopay thành công");
+                    Navigator.pushNamed(context, HomeScreen.routeName);
                     updateCart(token.data!);
                     break;
                   case FlutterZaloPayStatus.failed:
@@ -121,14 +127,16 @@ Future<String?> getUserToken() async {
                                 await addOrder(request, token.data!);
                                 updateCart(token.data!);
                                 _showToast(context, "Thanh toán thành công");
+                                Navigator.pushNamed(context, HomeScreen.routeName);
                             }
                             currentListCart.setListCart(null);
                                 currentListCart.total = 0;
+                                currentListCart.shippingFee = 0;
                                 locationSelected.setLocationId(null);
                                 currentListCart.setPaymentMethod(0);
-                                Navigator.pushNamed(context, HomeScreen.routeName);
+                                
                              
-                          
+                              }
                           },
                         ),],)
                        

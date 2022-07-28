@@ -37,7 +37,7 @@ class ProductDescriptionState extends State<ProductDescription>{
         Padding(
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-          child: Text("Nhà cung cấp: "+
+          child: Text("Nhãn hiệu: "+
             widget.product!.brand!,style: TextStyle(fontWeight:
               FontWeight.bold)
           ),

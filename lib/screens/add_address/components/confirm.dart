@@ -37,7 +37,9 @@ class PaymentButton extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<String?>(builder: (context, snapshot){
+    return FutureBuilder<String?>(
+      future: getUserToken(),
+      builder: (context, snapshot){
       if(snapshot.hasData){
         return Container(
                       height:137.0,

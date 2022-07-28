@@ -44,6 +44,7 @@ class _BodyState extends State<Body> {
                   print("Code mới-Làm ơn in cái số điện thoại ra dùm 1 cái"+_twilio.getPhone()!);
                   var twilioResponse = await twilioPhoneVerify
                       .sendSmsCode(_twilio.getPhone()!);
+                      print(_twilio.getPhone());
                   if (twilioResponse.successful!) {
                     print("Gửi thành công");
                   } else {

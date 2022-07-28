@@ -39,6 +39,7 @@ class Content {
   List<ProductList>? productList;
   double? totalPrice;
   double? totalPriceAfterDiscount;
+  double? shippingFee;
   String? paymentMethod;
   String? orderType;
   String? approvalDate;
@@ -60,6 +61,7 @@ class Content {
       this.productList,
       this.totalPrice,
       this.totalPriceAfterDiscount,
+      this.shippingFee,
       this.paymentMethod,
       this.orderType,
       this.approvalDate,
@@ -88,6 +90,7 @@ class Content {
     }
     totalPrice = json['total_price'];
     totalPriceAfterDiscount = json['total_price_after_discount'];
+    shippingFee = json['shipping_fee'];
     paymentMethod = json['payment_method'];
     orderType = json['order_type'];
     approvalDate = json['approval_date'];
@@ -117,6 +120,7 @@ class Content {
     }
     data['total_price'] = this.totalPrice;
     data['total_price_after_discount'] = this.totalPriceAfterDiscount;
+    data['shipping_fee'] = this.shippingFee;
     data['payment_method'] = this.paymentMethod;
     data['order_type'] = this.orderType;
     data['approval_date'] = this.approvalDate;
@@ -164,23 +168,29 @@ class DeliveryAddress {
 
 class Store {
   int? storeId;
-  Null? managerName;
+  String? managerName;
+  String? storeName;
   String? storeAddress;
   String? storePhone;
+  bool? isMainWarehouse;
   bool? status;
 
   Store(
       {this.storeId,
       this.managerName,
+      this.storeName,
       this.storeAddress,
       this.storePhone,
+      this.isMainWarehouse,
       this.status});
 
   Store.fromJson(Map<String, dynamic> json) {
     storeId = json['store_id'];
     managerName = json['manager_name'];
+    storeName = json['store_name'];
     storeAddress = json['store_address'];
     storePhone = json['store_phone'];
+    isMainWarehouse = json['is_main_warehouse'];
     status = json['status'];
   }
 
@@ -188,8 +198,10 @@ class Store {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['store_id'] = this.storeId;
     data['manager_name'] = this.managerName;
+    data['store_name'] = this.storeName;
     data['store_address'] = this.storeAddress;
     data['store_phone'] = this.storePhone;
+    data['is_main_warehouse'] = this.isMainWarehouse;
     data['status'] = this.status;
     return data;
   }

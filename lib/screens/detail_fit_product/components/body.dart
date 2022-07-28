@@ -17,6 +17,7 @@ import 'package:shop_app/view_model/detail_product_view_model.dart';
 import 'package:shop_app/view_model/product_view_model.dart';
 import 'package:shop_app/models/get_detail_fit_product.dart' as fitDetailProduct;
 
+import '../../detail_product/details_screen.dart';
 import 'color_dots.dart';
 import 'product_description.dart';
 import 'stores.dart';
@@ -25,10 +26,11 @@ import 'product_images.dart';
 
 class Body extends StatelessWidget {
   final int productId;
+  final InputForViewingFeedback? inputForViewingFeedback;
   
 GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdRequest();
 
-  Body({Key? key, required this.productId}) : super(key: key);
+  Body({Key? key, required this.productId, this.inputForViewingFeedback}) : super(key: key);
 
   final StorageService _storageService = StorageService();
   DetailProductBloc _detailProductBloc = new DetailProductBloc();
@@ -73,6 +75,7 @@ GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdReque
       future: getDetailFitProduct(productId, token.data!),
       builder: (BuildContext context, AsyncSnapshot<GetDetailFitProductResponse> snapshot){
       if(snapshot.hasData){
+        inputForViewingFeedback!.urlImage = snapshot.data!.content!.images![0].imageUrl!;
              return 
     ListView(
       children: [
@@ -102,7 +105,7 @@ GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdReque
                           top: getProportionateScreenWidth(15),
                         ),
                         child: DefaultButton(
-                          text: "Add To Cart",
+                          text: "Thêm vào giỏ h",
                           press: () async {
                               getDetailProductRequest!.productId = productId;
                               //print(quantityRequest!.colourId);

@@ -11,7 +11,7 @@ import '../size_config.dart';
 class ProductCard extends StatelessWidget {
   const ProductCard({
     Key? key,
-    this.width = 140,
+    this.width = 153,
     this.aspectRetio = 1.02,
     required this.product,
   }) : super(key: key);
@@ -56,8 +56,8 @@ class ProductCard extends StatelessWidget {
               ),
                   Text(
                     product.promotionPrice != null?
-                    "${product.promotionPrice} VNĐ" :
-                    "${product.price} VNĐ",
+                    "${formatter.format(product.promotionPrice)} VNĐ" :
+                    "${formatter.format(product.price)} VNĐ",
                     style: TextStyle(
                       fontSize: getProportionateScreenWidth(18),
                       fontWeight: FontWeight.w600,

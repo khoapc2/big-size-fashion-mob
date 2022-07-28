@@ -96,7 +96,7 @@ class _UserProfileInfo extends State<UserProfileInfo> {
                             ),
                             child: RowUP().rowUPRow(
                               Icons.height,
-                              snapshot.data!.content!.heigth.toString(),
+                              snapshot.data!.content!.heigth.toString()+" cm",
                               () {
                                 Navigator.push(
                                     context,
@@ -121,7 +121,7 @@ class _UserProfileInfo extends State<UserProfileInfo> {
                             ),
                             child: RowUP().rowUPRow(
                               Icons.line_weight,
-                              snapshot.data!.content!.weigth.toString(),
+                              snapshot.data!.content!.weigth.toString()+" kg",
                               () {
                                 Navigator.push(
                                     context,
@@ -315,12 +315,11 @@ class RowUP extends Row {
           margin: const EdgeInsets.only(top: 0, left: 10),
           //color: Colors.red,
           child: Text(
-            content,
+            content == "null"? "...": content,
             softWrap: true,
             style: const TextStyle(
               fontFamily: "QuicksandMedium",
               fontSize: 20,
-              color: kPrimaryColor,
             ),
             textAlign: TextAlign.left,
           ),

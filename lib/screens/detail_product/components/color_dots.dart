@@ -27,7 +27,12 @@ class _ColorDotsState extends State<ColorDots>{
   @override
   void initState() {
     // TODO: implement initState 
-    var myNiceColor = StringToHex.toColor(widget.listColor![0].colourCode);
+    var myNiceColor = int.parse(
+                            "FF" +
+                                widget.listColor![0]
+                                    .colourCode!
+                                    .replaceAll('#', ''),
+                            radix: 16);
     widget._colorSelected = Color(myNiceColor);
     widget.getQuantityRequest!.colourId = widget.listColor![0].colourId;
   }
@@ -79,7 +84,12 @@ class _ColorDotsState extends State<ColorDots>{
   }
 
   GestureDetector buildSmallColorDot(Colour colour) {
-    var myNiceColor = StringToHex.toColor(colour.colourCode);
+    var myNiceColor = int.parse(
+                            "FF" +
+                                colour
+                                    .colourCode!
+                                    .replaceAll('#', ''),
+                            radix: 16);
     return GestureDetector(
       onTap: () => {setState(() {
         print("cliked");

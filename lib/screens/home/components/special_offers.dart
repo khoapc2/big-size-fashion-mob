@@ -54,7 +54,7 @@ Future<String?> getUserToken() async {
                SpecialOfferCard(
                 image: "assets/images/so mi.jpg",
                 category: "Sơ mi",
-                numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 5,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
+                numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 1,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
                 press: () async {
                   //var listProductResponse = await ProductViewModel.getFitProductsByCategory("Sơ mi");
                   Navigator.push(
@@ -66,7 +66,7 @@ Future<String?> getUserToken() async {
                SpecialOfferCard(
                 image: "assets/images/Ao thun.jpg",
                 category: "Áo thun",
-                numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 6,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
+                numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 2,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
                 press: () async {
                   Navigator.push(
                         context,
@@ -77,7 +77,7 @@ Future<String?> getUserToken() async {
               SpecialOfferCard(
                 image: "assets/images/short.jpg",
                 category: "Quần dài",
-                numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 7,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
+                numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 3,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
                 press: () async {
                   //var listProductResponse = await ProductViewModel.getFitProductsByCategory("Quần dài");
                   Navigator.push(
@@ -91,7 +91,7 @@ Future<String?> getUserToken() async {
                 
                 image: "assets/images/short (2).jpg",
                 category: "Quần short",
-                numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 8,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
+                numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 4,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
                 press: () async {
                  // var listProductResponse = await ProductViewModel.getFitProductsByCategory("Quần short");
                   Navigator.push(
@@ -103,7 +103,7 @@ Future<String?> getUserToken() async {
               SpecialOfferCard(
                 image: "assets/images/dam.jpg",
                 category: "Đầm",
-                numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 9,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
+                numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 5,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
                 press: () async {
                  // var listProductResponse = await ProductViewModel.getFitProductsByCategory("Đầm");
                   Navigator.push(

@@ -76,7 +76,12 @@ class _ColorDotsState extends State<ColorDots>{
   }
 
   GestureDetector buildSmallColorDot(Colour colour) {
-    var myNiceColor = StringToHex.toColor(colour.colourCode);
+    var myNiceColor = int.parse(
+                            "FF" +
+                                colour
+                                    .colourCode!
+                                    .replaceAll('#', ''),
+                            radix: 16);
     return GestureDetector(
       onTap: () => {setState(() {
         print("cliked");

@@ -54,7 +54,6 @@ class CartScreenState extends State<CartScreen>{
           if(widget.currentListCart.getListCart() == null){
             widget.currentListCart.setListCart(snapshot.data!.content);
             widget.currentListCart.setTotal();
-            
           }
 
           if(widget.initState == true){
@@ -84,6 +83,7 @@ class CartScreenState extends State<CartScreen>{
   }
 
   AppBar buildAppBar(BuildContext context, String token) {
+    print("Xem nó chạy mấy lần");
     return AppBar(
       leading: 
       IconButton(icon: Icon(Icons.arrow_back),
@@ -104,10 +104,10 @@ class CartScreenState extends State<CartScreen>{
             "Giỏ hàng",
             style: TextStyle(color: Colors.black),
           ),
-          Text(
-            "${widget.quantity} sản phẩm",
-            style: Theme.of(context).textTheme.caption,
-          ),
+          // Text(
+          //   "${widget.quantity} sản phẩm",
+          //   style: Theme.of(context).textTheme.caption,
+          // ),
           
         ],
       ),
@@ -120,7 +120,7 @@ class CartScreenState extends State<CartScreen>{
           },
           child: Text(
             "Mua thêm",
-            style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline),
+            style: TextStyle(color: Colors.blue),
           ),
         ),
         ],
@@ -180,6 +180,7 @@ class CartScreenState extends State<CartScreen>{
           widget.total += (cart.quantity! * cart.productPromotion!);
         }
         });
+        widget.quantity = widget.currentListCart.getListCart()!.length;
       print("Total đã đc cập nhật");
     });
   }

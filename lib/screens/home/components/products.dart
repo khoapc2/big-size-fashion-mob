@@ -145,7 +145,7 @@ class CartCard extends StatelessWidget {
             SizedBox(height: 10),
             Text.rich(
               TextSpan(
-                text: content!.promotionPrice == null?"${formatter.format(content!.price!)} VNĐ":"\đ${formatter.format(content!.promotionPrice)} VNĐ",
+                text: content!.promotionPrice == null?"${formatter.format(content!.price!)} VNĐ":"${formatter.format(content!.promotionPrice)} VNĐ",
                 style: TextStyle(
                     fontWeight: FontWeight.w600, color: kPrimaryColor)
               ),

@@ -33,13 +33,19 @@ class _ProductImagesState extends State<ProductImages> {
           ),
         ),
         // SizedBox(height: getProportionateScreenWidth(20)),
-        Row(
+        Padding(padding: EdgeInsets.symmetric(horizontal: 25.0),
+        child: 
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ...List.generate(widget.product!.images!.length,
                 (index) => buildSmallProductPreview(index)),
           ],
-        )
+        )))
+        
+        
       ],
     );
   }

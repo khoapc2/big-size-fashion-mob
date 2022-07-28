@@ -47,11 +47,11 @@ String gender = "";
 class _EditProfile extends State<EditProfileForm> {
   final CustomerBloc _customerBloc = CustomerBloc();
   final String userToken;
- String name = "";
+  String name = "";
   String dob = "";
   String height = "";
   String weight = "";
-String gender = "";
+  String gender = "";
   String email = "";
 
   _EditProfile(
@@ -88,6 +88,9 @@ String gender = "";
   Widget build(BuildContext context) {
     nameP.text = name;
     emailP.text = email;
+    if(dob == "null"){
+      dob = "";
+    }
     birthDay.text = dob;
     genderP.text = gender;
     heightP.text = height;
@@ -271,7 +274,7 @@ String gender = "";
               contentPadding:
                   const EdgeInsets.only(top: 0, left: 20, bottom: 0, right: 10),
             ),
-            maxLength: 10,
+            maxLength: 3,
             style: const TextStyle(
               fontFamily: "QuickSandMedium",
               fontSize: 20,
