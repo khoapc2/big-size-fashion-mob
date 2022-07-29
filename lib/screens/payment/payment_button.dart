@@ -17,6 +17,7 @@ import '../../list_cart.dart';
 import '../../location.dart';
 import '../../locator.dart';
 import '../../size_config.dart';
+import '../order_history/list_order_screen.dart';
 
 class PaymentButton extends StatelessWidget{
   var currentListCart = locator.get<ListCart>();
@@ -110,7 +111,10 @@ Future<String?> getUserToken() async {
                   case FlutterZaloPayStatus.success:
                     await addOrder(request, token.data!);
                     _showToast(context, "Thanh toán bằng zalopay thành công");
-                    Navigator.pushNamed(context, HomeScreen.routeName);
+                    Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ListOrderScreen()),
+                );
                     updateCart(token.data!);
                     break;
                   case FlutterZaloPayStatus.failed:
@@ -127,7 +131,10 @@ Future<String?> getUserToken() async {
                                 await addOrder(request, token.data!);
                                 updateCart(token.data!);
                                 _showToast(context, "Thanh toán thành công");
-                                Navigator.pushNamed(context, HomeScreen.routeName);
+                                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ListOrderScreen()),
+                );
                             }
                             currentListCart.setListCart(null);
                                 currentListCart.total = 0;

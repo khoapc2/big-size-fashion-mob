@@ -29,8 +29,8 @@ Future<String?> getUserToken() async {
     return FutureBuilder<String?>(
       future: getUserToken(),
       builder: (context, token){
-        
-    return 
+        if(token.hasData){
+            return 
     
     FutureBuilder(
       future: getFitProductByCategory(token.data!),
@@ -125,6 +125,9 @@ Future<String?> getUserToken() async {
       return Container();
     }
     });
+        }
+        return CircularProgressIndicator();
+    
     });
     
     

@@ -70,6 +70,8 @@ class PaymentButton extends StatelessWidget {
                         request.receiverPhone = phoneNumber;
                         addToAddress(request, snapshot.data!);
                         _showToast(context, "Thêm địa chỉ thành công");
+                          Navigator.pop(context);
+                          Navigator.pop(context);
                           Navigator.push(
                             context,
                             MaterialPageRoute(

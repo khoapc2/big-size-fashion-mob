@@ -130,6 +130,7 @@ class _AddAddress extends State<AddAdressForm> {
           height:60.0,
           margin: EdgeInsets.only(left: 20, right: 20),
           child: TextFormField(
+            keyboardType: TextInputType.number,
              validator: (value) {
         if (value!.isEmpty) {
           addError(error: kPhoneNumberNullError);

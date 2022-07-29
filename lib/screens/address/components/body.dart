@@ -204,6 +204,8 @@ class Body extends StatelessWidget{
         currentListCart.setShippingFee(response.content!.shippingFee!);
         currentListCart.setStoreId(response.content!.storeId);
           print("Tiền phí vận chuyển là:"+currentListCart.shippingFee.toString());
+          Navigator.pop(context);
+          Navigator.pop(context);
           Navigator.push(
                         context,
                       MaterialPageRoute(builder: (context) => PaymentScreen()),

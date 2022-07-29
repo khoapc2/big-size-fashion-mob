@@ -87,19 +87,19 @@
     },
     {
       "name": "firebase_core",
-      "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core-1.19.2",
+      "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core-1.20.0",
       "packageUri": "lib/",
       "languageVersion": "2.16"
     },
     {
       "name": "firebase_core_platform_interface",
-      "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core_platform_interface-4.4.3",
+      "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core_platform_interface-4.5.0",
       "packageUri": "lib/",
       "languageVersion": "2.16"
     },
     {
       "name": "firebase_core_web",
-      "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core_web-1.7.0",
+      "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core_web-1.7.1",
       "packageUri": "lib/",
       "languageVersion": "2.16"
     },
@@ -202,6 +202,12 @@
     {
       "name": "flutter_zalopay_sdk",
       "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_zalopay_sdk-0.1.12",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "fluttertoast",
+      "rootUri": "file:///C:/Users/IT/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/fluttertoast-8.0.9",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -536,7 +542,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2022-07-27T07:32:44.124064Z",
+  "generated": "2022-07-29T16:19:56.724767Z",
   "generator": "pub",
   "generatorVersion": "2.17.6"
 }
