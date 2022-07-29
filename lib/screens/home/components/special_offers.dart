@@ -15,122 +15,154 @@ class SpecialOffers extends StatelessWidget {
   StorageService _storageService = StorageService();
   ProductBloc _productBloc = new ProductBloc();
 
-Future<String?> getUserToken() async {
+  Future<String?> getUserToken() async {
     return await _storageService.readSecureData("token");
   }
 
-   Future<GetFitProductByCategoryResponse> getFitProductByCategory(String token) async {
+  Future<GetFitProductByCategoryResponse> getFitProductByCategory(
+      String token) async {
     var result = await _productBloc.getFitProductsByCategory(token);
     return result;
   }
+
   @override
   Widget build(BuildContext context) {
-
     return FutureBuilder<String?>(
-      future: getUserToken(),
-      builder: (context, token){
-        if(token.hasData){
-            return 
-    
-    FutureBuilder(
-      future: getFitProductByCategory(token.data!),
-      builder: (BuildContext context, AsyncSnapshot<GetFitProductByCategoryResponse> snapshot){
-        if(snapshot.hasData){
-      return Column(
-      children: [
-        Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-          child: SectionTitle(
-            title: "Sản phẩm phù hợp",
-            press: () {},
-          ),
-        ),
-        SizedBox(height: getProportionateScreenWidth(20)),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-               SpecialOfferCard(
-                image: "assets/images/so mi.jpg",
-                category: "Sơ mi",
-                numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 1,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
-                press: () async {
-                  //var listProductResponse = await ProductViewModel.getFitProductsByCategory("Sơ mi");
-                  Navigator.push(
-                        context,
-                      MaterialPageRoute(builder: (context) => SearchFitProductsByCategoryScreen(category: "Sơ mi")),
+        future: getUserToken(),
+        builder: (context, token) {
+          if (token.hasData) {
+            return FutureBuilder(
+                future: getFitProductByCategory(token.data!),
+                builder: (BuildContext context,
+                    AsyncSnapshot<GetFitProductByCategoryResponse> snapshot) {
+                  if (snapshot.hasData) {
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: getProportionateScreenWidth(20)),
+                          child: SectionTitle(
+                            title: "Sản phẩm phù hợp",
+                            press: () {},
+                          ),
+                        ),
+                        SizedBox(height: getProportionateScreenWidth(20)),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              SpecialOfferCard(
+                                image: "assets/images/so mi.jpg",
+                                category: "Sơ mi",
+                                numOfBrands: snapshot.data!.content!
+                                    .firstWhere(
+                                        (category) => category.categoryId == 1,
+                                        orElse: () =>
+                                            new Content(quantityFitProduct: 0))
+                                    .quantityFitProduct!,
+                                press: () async {
+                                  //var listProductResponse = await ProductViewModel.getFitProductsByCategory("Sơ mi");
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            SearchFitProductsByCategoryScreen(
+                                                category: "Sơ mi")),
+                                  );
+                                },
+                              ),
+                              SpecialOfferCard(
+                                image: "assets/images/Ao thun.jpg",
+                                category: "Áo thun",
+                                numOfBrands: snapshot.data!.content!
+                                    .firstWhere(
+                                        (category) => category.categoryId == 2,
+                                        orElse: () =>
+                                            new Content(quantityFitProduct: 0))
+                                    .quantityFitProduct!,
+                                press: () async {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            SearchFitProductsByCategoryScreen(
+                                                category: "Áo thun")),
+                                  );
+                                },
+                              ),
+                              SpecialOfferCard(
+                                image: "assets/images/short.jpg",
+                                category: "Quần dài",
+                                numOfBrands: snapshot.data!.content!
+                                    .firstWhere(
+                                        (category) => category.categoryId == 3,
+                                        orElse: () =>
+                                            new Content(quantityFitProduct: 0))
+                                    .quantityFitProduct!,
+                                press: () async {
+                                  //var listProductResponse = await ProductViewModel.getFitProductsByCategory("Quần dài");
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            SearchFitProductsByCategoryScreen(
+                                                category: "Quần dài")),
+                                  );
+                                },
+                              ),
+                              SpecialOfferCard(
+                                image: "assets/images/short (2).jpg",
+                                category: "Quần short",
+                                numOfBrands: snapshot.data!.content!
+                                    .firstWhere(
+                                        (category) => category.categoryId == 4,
+                                        orElse: () =>
+                                            new Content(quantityFitProduct: 0))
+                                    .quantityFitProduct!,
+                                press: () async {
+                                  // var listProductResponse = await ProductViewModel.getFitProductsByCategory("Quần short");
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            SearchFitProductsByCategoryScreen(
+                                                category: "Quần short")),
+                                  );
+                                },
+                              ),
+                              SpecialOfferCard(
+                                image: "assets/images/dam.jpg",
+                                category: "Đầm",
+                                numOfBrands: snapshot.data!.content!
+                                    .firstWhere(
+                                        (category) => category.categoryId == 5,
+                                        orElse: () =>
+                                            new Content(quantityFitProduct: 0))
+                                    .quantityFitProduct!,
+                                press: () async {
+                                  // var listProductResponse = await ProductViewModel.getFitProductsByCategory("Đầm");
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            SearchFitProductsByCategoryScreen(
+                                                category: "Đầm")),
+                                  );
+                                },
+                              ),
+                              SizedBox(width: getProportionateScreenWidth(20)),
+                            ],
+                          ),
+                        ),
+                      ],
                     );
-                },
-              ),
-               SpecialOfferCard(
-                image: "assets/images/Ao thun.jpg",
-                category: "Áo thun",
-                numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 2,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
-                press: () async {
-                  Navigator.push(
-                        context,
-                      MaterialPageRoute(builder: (context) => SearchFitProductsByCategoryScreen(category: "Áo thun")),
-                    );
-                },
-              ),
-              SpecialOfferCard(
-                image: "assets/images/short.jpg",
-                category: "Quần dài",
-                numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 3,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
-                press: () async {
-                  //var listProductResponse = await ProductViewModel.getFitProductsByCategory("Quần dài");
-                  Navigator.push(
-                        context,
-                      MaterialPageRoute(builder: (context) => SearchFitProductsByCategoryScreen(category: "Quần dài")),
-                    );
-                },
-              ),
-              
-              SpecialOfferCard(
-                
-                image: "assets/images/short (2).jpg",
-                category: "Quần short",
-                numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 4,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
-                press: () async {
-                 // var listProductResponse = await ProductViewModel.getFitProductsByCategory("Quần short");
-                  Navigator.push(
-                        context,
-                      MaterialPageRoute(builder: (context) => SearchFitProductsByCategoryScreen(category: "Quần short")),
-                    );
-                },
-              ),
-              SpecialOfferCard(
-                image: "assets/images/dam.jpg",
-                category: "Đầm",
-                numOfBrands: snapshot.data!.content!.firstWhere((category) => category.categoryId == 5,orElse: () => new Content(quantityFitProduct: 0)).quantityFitProduct!,
-                press: () async {
-                 // var listProductResponse = await ProductViewModel.getFitProductsByCategory("Đầm");
-                  Navigator.push(
-                        context,
-                      MaterialPageRoute(builder: (context) => SearchFitProductsByCategoryScreen(category: "Đầm")),
-                    );
-                },
-              ),
-             
-              SizedBox(width: getProportionateScreenWidth(20)),
-            ],
-          ),
-        ),
-      ],
-    );
-    
-        }
-        else{
-      return Container();
-    }
-    });
-        }
-        return CircularProgressIndicator();
-    
-    });
-    
-    
+                  } else {
+                    return Container();
+                  }
+                });
+          }
+          return CircularProgressIndicator();
+        });
   }
 }
 

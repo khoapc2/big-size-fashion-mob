@@ -84,12 +84,12 @@ Future<String?> getUserToken() async {
           padding: EdgeInsets.symmetric(vertical: 10),
           child: Dismissible(
             key: Key(products[index].productId.toString()),
-            direction: DismissDirection.endToStart,
-            onDismissed: (direction) {
-              setState(() {
-                demoCarts.removeAt(index);
-              });
-            },
+            // direction: DismissDirection.endToStart,
+            // onDismissed: (direction) {
+            //   setState(() {
+            //     demoCarts.removeAt(index);
+            //   });
+            // },
             background: Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/blocs/detail_product_bloc.dart';
 import 'package:shop_app/blocs/cart_bloc.dart';
 import 'package:shop_app/components/default_button.dart';
@@ -136,16 +135,16 @@ Future<String?> getUserToken() async {
                                   quantity: getDetailProductRequest!.quantity
                               );
                               addToCart(addToCartRequest, token.data!);
-                              //_showToast(context,"Thêm vào giỏ hàng thành công");
-                                Fluttertoast.showToast(
-                                          msg:
-                                              "Thêm vào giỏ hàng thành công", // message
-                                          toastLength:
-                                              Toast.LENGTH_SHORT, // length
-                                          gravity:
-                                              ToastGravity.BOTTOM, // location
-                                          timeInSecForIosWeb: 1 // duration
-                                          );
+                              _showToast(context,"Thêm vào giỏ hàng thành công");
+                                // Fluttertoast.showToast(
+                                //           msg:
+                                //               "Thêm vào giỏ hàng thành công", // message
+                                //           toastLength:
+                                //               Toast.LENGTH_SHORT, // length
+                                //           gravity:
+                                //               ToastGravity.BOTTOM, // location
+                                //           timeInSecForIosWeb: 1 // duration
+                                //           );
                           },
                         ),
                       ),

@@ -47,7 +47,7 @@ class _UserProfileHeader extends State<UserProfileHeader> {
                     color: Colors.white,
                   ),
                   //color: Colors.white,
-                  width: getProportionateScreenWidth(SizeConfig.screenWidth),
+                  width: MediaQuery.of(context).size.width - 40,
                   height: 50,
                   child: Text(
                     snapshot.data!.content!.fullname.toString(),

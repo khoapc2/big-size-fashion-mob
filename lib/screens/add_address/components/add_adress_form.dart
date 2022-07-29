@@ -88,7 +88,7 @@ class _AddAddress extends State<AddAdressForm> {
         SizedBox(height: size.height * 0.01),
         Container(
           alignment: Alignment.center,
-          height:60.0,
+          height:65.0,
           margin: EdgeInsets.only(left: 20, right: 20),
           child: TextField(
             onChanged: (value){
@@ -102,7 +102,7 @@ class _AddAddress extends State<AddAdressForm> {
               enabledBorder: myinputborder(),
               focusedBorder: myfocusborder(),
               contentPadding:
-                  EdgeInsets.only(top: 25, left: 20, bottom: 25, right: 10),
+                  EdgeInsets.only(top: 0, left: 20, bottom: 0, right: 10),
             ),
             maxLength: 50,
             style: TextStyle(
@@ -177,7 +177,7 @@ class _AddAddress extends State<AddAdressForm> {
         SizedBox(height: size.height * 0.01),
         Container(
           alignment: Alignment.center,
-          height:60.0,
+          height:65.0,
           margin: EdgeInsets.only(left: 20, right: 20),
           child: TextFormField(
 
@@ -203,9 +203,9 @@ class _AddAddress extends State<AddAdressForm> {
               enabledBorder: myinputborder(),
               focusedBorder: myfocusborder(),
               contentPadding:
-                  EdgeInsets.only(top: 25, left: 20, bottom: 25, right: 10),
+                  EdgeInsets.only(top: 0, left: 20, bottom: 0, right: 10),
             ),
-            maxLength: 50,
+            maxLength: 100,
             style: TextStyle(
               fontFamily: "QuickSandMedium",
               fontSize: 20,
