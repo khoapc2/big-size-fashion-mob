@@ -42,10 +42,11 @@ const String kShortPassError = "Vui lòng nhập đúng chiều cao";
 const String kMatchPassError = "Passwords don't match";
 const String kNamelNullError = "Please Enter your name";
 const String kPhoneNumberNullError = "Làm ơn nhập số điện thoại";
-const String kAddressNullError = "Please Enter your address";
+const String kAddressNullError = "Địa chỉ không được bỏ trống";
 const String kInvalidCode = "Nhập sai mã code";
 const String kExpiredTime = "Hết thời gian vui lòng gửi lại mã code";
 const String kGenderNullError = "Vui lòng nhập giới tính";
+const String kReceiverNullError = "Ngươi nhận không được để trống";
 
 final otpInputDecoration = InputDecoration(
   contentPadding:

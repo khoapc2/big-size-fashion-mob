@@ -117,11 +117,7 @@ class _SignFormState extends State<SignForm> {
                   KeyboardUtil.hideKeyboard(context);
                   _twilio.setPhone(phone!);
                   var twilioPhoneVerify = _twilio.getTwilioPhoneVerify();
-                  await twilioPhoneVerify.sendSmsCode("+84"+phone!);
-                //print(response!.token);
-    // print(twilioResponse.statusCode!);
-      //code sent
-   
+                 await twilioPhoneVerify.sendSmsCode("+84"+phone!); 
                   Navigator.pushNamed(context, OtpScreen.routeName);
                 }
             },

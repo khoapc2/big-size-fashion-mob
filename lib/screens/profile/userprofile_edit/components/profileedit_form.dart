@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:shop_app/blocs/customer_bloc.dart';
+import 'package:shop_app/constants.dart';
 import 'package:shop_app/models/update_profile_request_model.dart';
 import 'package:shop_app/models/update_profile_response_model.dart';
 import 'package:shop_app/screens/profile/userprofile/userprofile_screen.dart';
@@ -53,6 +54,7 @@ class _EditProfile extends State<EditProfileForm> {
   String weight = "";
   String gender = "";
   String email = "";
+  String genderSelected = "";
 
   _EditProfile(
       {required this.name,
@@ -73,6 +75,7 @@ class _EditProfile extends State<EditProfileForm> {
   @override
   void initState() {
     super.initState();
+    genderSelected = gender;
   }
 
   Future<UpdateProfileResponseModel?> updateProfile(UpdateProfileRequestModel request, String token)
@@ -93,8 +96,13 @@ class _EditProfile extends State<EditProfileForm> {
     }
     birthDay.text = dob;
     genderP.text = gender;
+    
     heightP.text = height;
     weightP.text = weight;
+    var items = [   
+    'Nam',
+    'Nữ',
+  ];
 
     Size size = MediaQuery.of(context).size;
 
@@ -189,12 +197,9 @@ class _EditProfile extends State<EditProfileForm> {
         ),
         SizedBox(height: size.height * 0.01),
         Container(
-          alignment: Alignment.center,
-          margin: const EdgeInsets.only(left: 20, right: 20),
-          height: 80,
-          child: TextField(
-            controller: genderP,
-            decoration: InputDecoration(
+          width: 327,
+          child: InputDecorator(
+          decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white,
               border: myinputborder(),
@@ -203,13 +208,27 @@ class _EditProfile extends State<EditProfileForm> {
               contentPadding:
                   const EdgeInsets.only(top: 0, left: 20, bottom: 0, right: 10),
             ),
-            maxLength: 10,
-            style: const TextStyle(
-              fontFamily: "QuickSandMedium",
-              fontSize: 20,
-            ),
-          ),
+            child: Container(width: 50,
+          child:  
+          
+          DropdownButton<String>(
+      value: genderSelected,
+      items: items.map((String items) {
+      
+        return DropdownMenuItem(
+          value: items,
+          child: Text(items));
+    } ).toList(), onChanged: (String? newValue) {
+      setState(() {
+        genderSelected = newValue!;
+        print("genderSelected: "+genderSelected);
+      });
+    })
         ),
+            ),
+        ),
+        
+        SizedBox(height: size.height * 0.03),
         Container(
           alignment: Alignment.centerLeft,
           margin: const EdgeInsets.only(left: 20),
@@ -479,11 +498,25 @@ class _EditProfile extends State<EditProfileForm> {
           margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 5),
           child: RaisedButton(
             onPressed: () async {
+              String errors = "";
+              if(nameP.text == ""){
+                  errors = "Vui lòng nhập tên\n";
+              }
+              if(emailP.text == ""){
+                errors +="Vui lòng nhập email\n";
+              }
+              if(heightP.text == ""){
+                errors += "Vui lòng nhập chiêu cao\n";
+              }
+              if(weightP.text == ""){
+                errors += "Vui lòng nhập cân nặng\n";
+              }
+              if(errors == ""){
               UpdateProfileRequestModel content = UpdateProfileRequestModel(
                   fullname: nameP.text,
                   email: emailP.text,
-                  birthday: birthDay.text,
-                  gender: genderP.text == "Nam" ? true: false,
+                  birthday: birthDay.text == ""?"null": birthDay.text,
+                  gender: genderSelected == "Nam" ? true: false,
                   heigth: int.parse(heightP.text),
                   weigth: int.parse(weightP.text),
                   
@@ -498,10 +531,12 @@ class _EditProfile extends State<EditProfileForm> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (_) => const UserProfileScreen()));
+                        builder: (_) => const UserProfileScreen()));  
+              }
+              
               } else {
                 showAlertDialog(context,
-                    "Có lỗi xảy ra khi cập nhật thông tin.\nVui lòng thử lại sau.");
+                    errors);
               }
             },
             shape: RoundedRectangleBorder(
@@ -514,14 +549,14 @@ class _EditProfile extends State<EditProfileForm> {
               width: size.width * 0.5,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(80.0),
-                  gradient: const LinearGradient(colors: [
-                    Color.fromARGB(255, 0, 0, 0),
-                    Color.fromARGB(170, 0, 0, 0)
-                  ])),
+                  color: kPrimaryColor,
+                  ),
               padding: const EdgeInsets.all(0),
+              
               child: const Text(
                 "XÁC NHẬN",
                 textAlign: TextAlign.center,
+                
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontFamily: "QuickSandBold",

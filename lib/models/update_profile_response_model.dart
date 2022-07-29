@@ -32,7 +32,7 @@ class Content {
   String? fullname;
   String? phoneNumber;
   String? email;
-  Null? birthday;
+  String? birthday;
   String? gender;
   Null? pinCode;
   int? weigth;

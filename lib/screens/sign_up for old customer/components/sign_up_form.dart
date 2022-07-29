@@ -12,6 +12,7 @@ import 'package:shop_app/service/storage_service.dart';
 
 import '../../../constants.dart';
 import '../../../locator.dart';
+import '../../../models/profile_response_model.dart';
 import '../../../size_config.dart';
 import '../../../twilio_verify.dart';
 
@@ -34,6 +35,7 @@ class _SignUpFormState extends State<SignUpForm> {
   bool remember = false;
   final List<String?> errors = [];
   String genderSelected = 'Nam';
+  final CustomerBloc _staffBloc = CustomerBloc();
 
   var items = [   
     'Nam',
@@ -69,6 +71,9 @@ class _SignUpFormState extends State<SignUpForm> {
     }
   }
 
+Future<ProfileResponse?> getStaffProfile(String token) async {
+    return await _staffBloc.getProfile(token);
+  }
    
 
   @override
@@ -76,13 +81,17 @@ class _SignUpFormState extends State<SignUpForm> {
     return 
     FutureBuilder<String?>(
       future: getUserToken(),
-      builder: (context, snapshot){
-        if(snapshot.hasData){
-          return Form(
+      builder: (context, token){
+        if(token.hasData){
+          return FutureBuilder<ProfileResponse?>(
+            future: getStaffProfile(token.data!),
+            builder: ((context, snapshot) {
+              if(snapshot.hasData){
+                return Form(
       key: _formKey,
       child: Column(
         children: [
-          buildNameFormField(),
+          buildNameFormField(snapshot.data!.content!.fullname!),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildEmailFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
@@ -94,7 +103,7 @@ class _SignUpFormState extends State<SignUpForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
-            text: "Continue",
+            text: "Tiếp tục",
             press: () async {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
@@ -108,7 +117,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   birthday: "null"
                   );
                 // CustomerViewModel? registerViewModel = new CustomerViewModel();
-                 updateProfile(registerRequestVM, snapshot.data!);
+                 updateProfile(registerRequestVM, token.data!);
                // _storage.write(key: "token", value: response!.content!.token);
                 Navigator.pushNamed(context, LoginSuccessScreen.routeName);
               }
@@ -117,6 +126,13 @@ class _SignUpFormState extends State<SignUpForm> {
         ],
       ),
     );
+              }
+              else{
+                return _buildProgressIndicator();
+              }
+          }));
+          
+          
         }
         else{
           return _buildProgressIndicator();
@@ -140,7 +156,6 @@ class _SignUpFormState extends State<SignUpForm> {
   TextFormField buildWeightFormField() {
     return TextFormField(
       keyboardType: TextInputType.number,
-      obscureText: true,
       onSaved: (newValue) => weight = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
@@ -174,7 +189,6 @@ class _SignUpFormState extends State<SignUpForm> {
   TextFormField buildHeightFormField() {
     return TextFormField(
       keyboardType: TextInputType.number,
-      obscureText: true,
       onSaved: (newValue) => height = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
@@ -209,8 +223,9 @@ class _SignUpFormState extends State<SignUpForm> {
     );
   }
 
-  TextFormField buildNameFormField() {
+  TextFormField buildNameFormField(String customerName) {
     return TextFormField(
+      initialValue: customerName,
       keyboardType: TextInputType.name,
       onSaved: (newValue) => name = newValue,
       onChanged: (value) {

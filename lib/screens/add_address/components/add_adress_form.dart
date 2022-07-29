@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:shop_app/models/add_address_request_model.dart';
 
+import '../../../components/form_error.dart';
+import '../../../constants.dart';
 import 'confirm.dart';
 
 // ignore: must_be_immutable
@@ -37,6 +39,8 @@ class _AddAddress extends State<AddAdressForm> {
   String streetValue= "";
   TextEditingController province = TextEditingController();
   String provinceValue= "";
+  final List<String?> errors = [];
+  
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +91,10 @@ class _AddAddress extends State<AddAdressForm> {
           height:60.0,
           margin: EdgeInsets.only(left: 20, right: 20),
           child: TextField(
-            onChanged: (value)=> receiverValue= value,
+            onChanged: (value){
+              receiverValue= value;
+              print(receiverValue);
+            } ,
             controller: receiver,
             decoration: InputDecoration(
               //labelText: "Hostel name",
@@ -122,8 +129,21 @@ class _AddAddress extends State<AddAdressForm> {
           alignment: Alignment.center,
           height:60.0,
           margin: EdgeInsets.only(left: 20, right: 20),
-          child: TextField(
-            onChanged: (value)=> phoneNumberValue= value,
+          child: TextFormField(
+             validator: (value) {
+        if (value!.isEmpty) {
+          addError(error: kPhoneNumberNullError);
+          return "";
+        } 
+        return null;
+      },
+            onChanged: (value){
+              if(value.isNotEmpty){
+                removeError(error: kPhoneNumberNullError);
+                phoneNumberValue= value;
+              }
+                return null;
+            }, 
             controller: phoneNumber,
             decoration: InputDecoration(
               //labelText: "Hostel name",
@@ -158,9 +178,24 @@ class _AddAddress extends State<AddAdressForm> {
           alignment: Alignment.center,
           height:60.0,
           margin: EdgeInsets.only(left: 20, right: 20),
-          child: TextField(
+          child: TextFormField(
+
             controller: addressText,
-            onChanged: (value) => addressTextValue = value,
+            onChanged: (value) {
+              if(value.isNotEmpty){
+                  addressTextValue = value;
+                  removeError(error: kReceiverNullError);
+              }
+
+              return null;
+            } ,
+            validator: (value) {
+        if (value!.isEmpty) {
+          addError(error: kReceiverNullError);
+          return "";
+        } 
+        return null;
+      },
             decoration: InputDecoration(
               //labelText: "Hostel name",
               border: myinputborder(),
@@ -331,6 +366,20 @@ class _AddAddress extends State<AddAdressForm> {
           width: 2,
         ));
   }
+void addError({String? error}) {
+    if (!errors.contains(error))
+      setState(() {
+        errors.add(error);
+      });
+  }
 
+  void removeError({String? error}) {
+    if (errors.contains(error))
+      setState(() {
+        errors.remove(error);
+      });
+  }
+
+  
   
 }
