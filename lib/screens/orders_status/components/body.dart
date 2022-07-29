@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shop_app/blocs/order_bloc.dart';
 import 'package:shop_app/blocs/order_detail_bloc.dart';
 import 'package:shop_app/constants.dart';
@@ -128,6 +129,7 @@ class Body extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    var formatter = NumberFormat('#,###,000');
     return FutureBuilder<String?>(
       future: getUserToken(),
       builder: (context, token){
@@ -164,6 +166,64 @@ class Body extends StatelessWidget{
  return 
     ListView(
         children: [
+          Container(
+            padding: EdgeInsets.only(left: 15.0, right: 15.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Card(
+                  color: Color(0xFFF5F6F9),
+                  child: 
+                  Column(children: [
+ListTile(
+                    title: Text("Mã đơn hàng: "+snapshot.data!.content!.orderId!.toString()),
+                    //leading: Text("Ngày đặt: "+snapshot.data!.content![i].createDate!),
+                    subtitle: Text('Người nhận:' +snapshot.data!.content!.deliveryAddress!.receiverName!),
+                  )
+                  ],)
+                ),
+                Card(
+                  color: Color(0xFFF5F6F9),
+                  child: 
+                  Column(children: [
+ListTile(
+                    title: Text("Tiền đơn hàng: "+formatter.format(snapshot.data!.content!.totalPrice)+" VNĐ"),
+                    //leading: Text("Ngày đặt: "+snapshot.data!.content![i].createDate!),
+                    subtitle: Text('Phí ship:' +formatter.format(snapshot.data!.content!.shippingFee)+" VNĐ"),
+                  )
+                  ],)
+                ),
+                Card(
+                  color: Color(0xFFF5F6F9),
+                  child: 
+                  Column(children: [
+ListTile(
+                    title: Text("Địa chỉ cửa hàng: "+snapshot.data!.content!.deliveryAddress!.receiveAddress!),
+                    //leading: Text("Ngày đặt: "+snapshot.data!.content![i].createDate!),
+                    subtitle: Text('Địa chỉ nhận hàng:'+snapshot.data!.content!.deliveryAddress!.receiveAddress!),
+                  )
+                  ],)
+                ),
+                // Text("Mã đơn hàng:"+snapshot.data!.content!.orderId!.toString(), style: TextStyle(fontWeight: FontWeight.bold,
+                // fontSize: 17.0),),
+                // Text("Tiền đơn hàng:"+formatter.format(snapshot.data!.content!.totalPrice)+" VNĐ",
+                // style: TextStyle(fontWeight: FontWeight.bold,
+                // fontSize: 17.0)),
+                // Text("Phí ship:"+formatter.format(snapshot.data!.content!.shippingFee)+" VNĐ",
+                // style: TextStyle(fontWeight: FontWeight.bold,
+                // fontSize: 17.0)),
+                // Text("Địa chỉ của hàng:"+snapshot.data!.content!.deliveryAddress!.receiveAddress!,
+                // style: TextStyle(fontWeight: FontWeight.bold,
+                // fontSize: 17.0)),
+                // Text("Người nhận:"+snapshot.data!.content!.deliveryAddress!.receiverName!,
+                // style: TextStyle(fontWeight: FontWeight.bold,
+                // fontSize: 17.0)),
+                // Text("Địa chỉ nhận hàng:"+snapshot.data!.content!.deliveryAddress!.receiveAddress!,
+                // style: TextStyle(fontWeight: FontWeight.bold,
+                // fontSize: 17.0)),
+            ]),
+          ),
+          
           Container(
             height: 200.0,
             child: Timeline.tileBuilder(
@@ -294,8 +354,10 @@ class Body extends StatelessWidget{
       )
           ),
           //Nút hủy
-          GestureDetector(onTap: (){
-                 cancelOrder(_orderId, token.data!);
+          GestureDetector(onTap: () async {
+                 await cancelOrder(_orderId, token.data!);
+                 Navigator.pop(context);
+                 Navigator.pop(context);
                  Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ListOrderScreen()),

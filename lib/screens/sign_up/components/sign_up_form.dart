@@ -22,6 +22,12 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   var _twilio = locator.get<TwilioVerify>();
+  String genderSelected = 'Nam';
+
+  var items = [   
+    'Nam',
+    'Nữ',
+  ];
 
 
   final _storage = const FlutterSecureStorage();
@@ -29,7 +35,7 @@ class _SignUpFormState extends State<SignUpForm> {
   RegisterAccountBloc _registerAccoutBloc = new RegisterAccountBloc();
   String? name;
   String? email;
-  String? gender;
+  String gender = "Nam";
   String? height;
   String? weight;
   bool remember = false;
@@ -80,7 +86,7 @@ class _SignUpFormState extends State<SignUpForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
-            text: "Continue",
+            text: "Tiếp tục",
             press: () async {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
@@ -88,14 +94,14 @@ class _SignUpFormState extends State<SignUpForm> {
                 var registerRequestVM = RegisterAccountRequest(
                   email: email,
                   fullname: name,
-                  gender: gender,
+                  gender: gender == "Nữ"? "Female": "Male",
                   heigth: int.parse(height!),
                   phoneNumber: _twilio.getPhone(),
                   weigth: int.parse(weight!),
                   );
                 var response = await getRegisterResponse(registerRequestVM);
                 print("token key:"+response!.content!.token!);
-               // _storage.write(key: "token", value: response!.content!.token);
+                _storage.write(key: "token", value: response.content!.token);
                 Navigator.pushNamed(context, LoginSuccessScreen.routeName);
               }
             },
@@ -107,8 +113,8 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildWeightFormField() {
     return TextFormField(
+      maxLength: 3,
       keyboardType: TextInputType.number,
-      obscureText: true,
       onSaved: (newValue) => weight = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
@@ -124,20 +130,25 @@ class _SignUpFormState extends State<SignUpForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Cân nặng",
-        hintText: "Nhập cân nặng (kg)",
+        labelText: "Cân nặng (kg)",
+        hintText: "90",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/weight.svg"),
+        prefixIcon: 
+         Container(
+          padding: EdgeInsets.only(left: 30.0),
+          child: 
+        CustomSurffixIcon(svgIcon: "assets/icons/weight.svg"),
+        ),
       ),
     );
   }
 
-  TextFormField buildHeightFormField() {
+ TextFormField buildHeightFormField() {
     return TextFormField(
+      maxLength: 3,
       keyboardType: TextInputType.number,
-      obscureText: true,
       onSaved: (newValue) => height = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
@@ -158,12 +169,16 @@ class _SignUpFormState extends State<SignUpForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Chiều cao",
-        hintText: "Nhập chiều cao (cm)",
+        labelText: "Chiều cao (cm)",
+        hintText: "183",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/height.svg"),
+        prefixIcon: 
+        Container(
+          padding: EdgeInsets.only(left: 30.0),
+          child: CustomSurffixIcon(svgIcon: "assets/icons/height.svg"),
+        ),
       ),
     );
   }
@@ -187,44 +202,106 @@ class _SignUpFormState extends State<SignUpForm> {
       },
       decoration: InputDecoration(
         labelText: "Tên",
-        hintText: "Nhập tên",
+        hintText: "Nguyễn Văn A",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/name.svg"),
+        prefixIcon: 
+        Container(
+          padding: EdgeInsets.only(left: 30.0),
+          child: 
+        CustomSurffixIcon(svgIcon: "assets/icons/name.svg"),
+        ),
       ),
     );
   }
 
-  TextFormField buildGenderFormField() {
-    return TextFormField(
-      keyboardType: TextInputType.emailAddress,
-      onSaved: (newValue) => gender = newValue,
-      onChanged: (value) {
-        if (value.isNotEmpty) {
-          removeError(error: kGenderNullError);
-        } 
-        return null;
-      },
-      validator: (value) {
-        if (value!.isEmpty) {
-          addError(error: kGenderNullError);
-          return "";
-        } 
-        return null;
-      },
-      decoration: InputDecoration(
-        labelText: "Giới tính",
-        hintText: "Nhập giới tính",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/gender.svg"),
+  Widget buildGenderFormField() {
+    return 
+    
+    // TextFormField(
+    //   keyboardType: TextInputType.emailAddress,
+    //   onSaved: (newValue) => gender = newValue,
+    //   onChanged: (value) {
+    //     if (value.isNotEmpty) {
+    //       removeError(error: kGenderNullError);
+    //     } 
+    //     return null;
+    //   },
+    //   validator: (value) {
+    //     if (value!.isEmpty) {
+    //       addError(error: kGenderNullError);
+    //       return "";
+    //     } 
+    //     return null;
+    //   },
+    //   decoration: InputDecoration(
+    //     labelText: "Giới tính",
+    //     hintText: "Nam",
+    //     // If  you are using latest version of flutter then lable text and hint text shown like this
+    //     // if you r using flutter less then 1.20.* then maybe this is not working properly
+    //     floatingLabelBehavior: FloatingLabelBehavior.always,
+    //     suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/gender.svg"),
+    //   ),
+    // );
+     Container(
+    //   width: SizeConfig.screenWidth,
+    //   height: getProportionateScreenHeight(90),
+    //   padding: EdgeInsets.only(left: 40,top:10),
+    //   decoration: 
+    //   BoxDecoration(
+    //     borderRadius: BorderRadius.all(Radius.circular(30.0)),
+    //     border: Border.all(
+          
+    //   color: Colors.black,
+    // ),
+    //   ),
+
+    //     child: DropdownButton<String>(
+    //   value: genderSelected,
+    //   items: items.map((String items) {
+      
+    //     return DropdownMenuItem(
+    //       value: items,
+    //       child: Text(items));
+    // } ).toList(), onChanged: (String? newValue) {
+    //   setState(() {
+    //     genderSelected = newValue!;
+    //   });
+    // }),
+  height: getProportionateScreenHeight(90),
+    child: InputDecorator(
+
+       decoration: InputDecoration(
+        prefixIcon: Container(
+          padding: EdgeInsets.only(left: 30.0),
+          child: 
+        CustomSurffixIcon(svgIcon: "assets/icons/gender.svg"),
+        ),
+      labelText: 'Giới tính',
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10.0),
       ),
+      
+    ),
+    child: DropdownButton<String>(
+      value: genderSelected,
+      items: items.map((String items) {
+      
+        return DropdownMenuItem(
+          value: items,
+          child: Text(items));
+    } ).toList(), onChanged: (String? newValue) {
+      setState(() {
+        genderSelected = newValue!;
+      });
+    }),
+    ),
     );
+    
   }
 
-  TextFormField buildEmailFormField() {
+   TextFormField buildEmailFormField() {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
       onSaved: (newValue) => email = newValue,
@@ -248,11 +325,16 @@ class _SignUpFormState extends State<SignUpForm> {
       },
       decoration: InputDecoration(
         labelText: "Email",
-        hintText: "Nhập Email",
+        hintText: "An@gmail.com",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/mail.svg"),
+        prefixIcon: 
+        Container(
+          padding: EdgeInsets.only(left: 30.0),
+          child: 
+        CustomSurffixIcon(svgIcon: "assets/icons/email.svg"),
+        ),
       ),
     );
   }

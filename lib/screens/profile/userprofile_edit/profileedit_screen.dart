@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/models/profile_response_model.dart';
 
 import 'components/body.dart';
 
 class UserProfileEditScreen extends StatelessWidget {
-  static String routeName = "/userprofileedit";
+  final String userToken;
+  final ProfileResponse? staffProfile;
+  const UserProfileEditScreen(
+      {Key? key, required this.staffProfile, required this.userToken})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("UserProfileEdit"),
+        title: const Text("Cập nhật thông tin cá nhân", style: TextStyle(color: Colors.black),),
       ),
-      body: Body(),
+      body: Body(
+        userToken: userToken,
+        staffProfile: staffProfile,
+      ),
     );
   }
 }

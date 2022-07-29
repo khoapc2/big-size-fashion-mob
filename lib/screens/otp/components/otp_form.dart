@@ -10,11 +10,13 @@ import 'package:shop_app/screens/sign_up%20for%20old%20customer/sign_up_screen.d
 import 'package:shop_app/screens/sign_up/sign_up_screen.dart';
 import 'package:shop_app/size_config.dart';
 import 'package:shop_app/view_model/login_view_model.dart';
+import 'package:twilio_phone_verify/twilio_phone_verify.dart';
 
 import '../../../constants.dart';
 import '../../../locator.dart';
 import '../../../token.dart';
 import '../../../twilio_verify.dart';
+import '../../signup_userprofile/signup_profile_screen.dart';
 
 class OtpForm extends StatefulWidget {
   const OtpForm({
@@ -176,25 +178,33 @@ class _OtpFormState extends State<OtpForm> {
           FormError(errors: errors),
           SizedBox(height: SizeConfig.screenHeight * 0.15),
           DefaultButton(
-            text: "Continue",
+            text: "Tiếp tục",
             press: () async {
-              LoginViewModel loginViewModel = new LoginViewModel();
-              // loginViewModel.getLoginResponse(loginRequestModel).then((value) {
-              //   print("Giá trị của loginRequestModel trả về trong otpform"+value!.isNewCustomer.toString());
-              //   response = value;} );
               LoginResponseModel? loginResponse = await getLoginResponse(_twilio.getPhone()!);
-              if(loginResponse!.content!.isNewCustomer == true){
+if (_formKey.currentState!.validate()) {
+ _formKey.currentState!.save();
+                var twilioPhoneVerify = _twilio.getTwilioPhoneVerify();
+                var code = _number1! +
+                    _number2! +
+                    _number3! +
+                    _number4!;
+                               var twilioResponse = await twilioPhoneVerify.verifySmsCode(
+                    phone: "+84"+_twilio.getPhone()!, code: code);
+                if(_twilio.getTimeLeft()!){
+                    if (twilioResponse.successful!) {
+                  if (twilioResponse.verification!.status == VerificationStatus.approved) {
+
+                    /////
+                    if(loginResponse!.content!.isNewCustomer == true){
                Navigator.push(
                         context,
                       MaterialPageRoute(builder: (context) => SignUpScreen()),
                     );
-                //Navigator.pushNamed(context, SignUpUserProfileScreen.routeName);
               }
               else{
                 _storage.write(key: "token", value: loginResponse.content!.token);
                 _storage.write(key: "phoneNumber", value: _twilio.getPhone());
                   if(loginResponse.content!.isHasWeightHeight == false){
-                    print("IsHasWeightHeight");
                     Navigator.push(
                         context,
                       MaterialPageRoute(builder: (context) => SignUpScreenForOldCustomer()),
@@ -203,43 +213,28 @@ class _OtpFormState extends State<OtpForm> {
                 else{
                 Navigator.pushNamed(context, LoginSuccessScreen.routeName);
                 }
-            }
-
-              //Navigator.pushNamed(context, SignUpUserProfileScreen.routeName);
-              // if (_formKey.currentState!.validate()) {
-              //   _formKey.currentState!.save();
-              //   var twilioPhoneVerify = _twilio.getTwilioPhoneVerify();
-              //   var code = _number1! +
-              //       _number2! +
-              //       _number3! +
-              //       _number4!;
-              //                  var twilioResponse = await twilioPhoneVerify.verifySmsCode(
-              //       phone: _twilio.getPhone()!, code: code);
-              //   if(_twilio.getTimeLeft()!){
-              //       if (twilioResponse.successful!) {
-              //     if (twilioResponse.verification!.status == VerificationStatus.approved) {
-              //       print('Phone number is approved');
-              //       Navigator.pushNamed(context, SignUpUserProfileScreen.routeName);
-              //     } else {
-              //       print(twilioResponse.verification!.status);
-              //       print('Invalid code');
-              //       removeError(error: kExpiredTime);
-              //       addError(error: kInvalidCode);
-              //     }
-              //   } else {
-              //     print("Xác thực code bị lỗi rồi");
-              //     print(twilioResponse.errorMessage);
-              //   }
-              //   print("Vẫn còn thời gian");
-              //   }
-              //   else{
-              //     removeError(error: kInvalidCode);
-              //     addError(error: kExpiredTime);
-              //   }
+                    ///
+                  } 
+                } else {
+                    removeError(error: kExpiredTime);
+                    addError(error: kInvalidCode);
+                }
+                }
+                else{
+                  print("Mã số không hợp lệ");
+                  removeError(error: kInvalidCode);
+                  addError(error: kExpiredTime);
+                }
                 
-              //                 print("Số điện thoại nè"+_twilio.getPhone()!);
+                              print("Số điện thoại nè"+_twilio.getPhone()!);
+}else{
+                  removeError(error: kInvalidCode);
+                  addError(error: kExpiredTime);
+}
 
-              // }
+            } 
+
+  
             },
           )
         ],

@@ -8,11 +8,8 @@ import 'package:shop_app/models/product_model.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:shop_app/models/detail_product_id_model.dart';
-import '../locator.dart';
-import '../twilio_verify.dart';
 
 class DetailProductBloc {
-   var _twilio = locator.get<TwilioVerify>();
 
   Future<DetailProductResponse> getDetailProduct(int productId) async {
     String link = "https://20.211.17.194/";

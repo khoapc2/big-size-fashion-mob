@@ -6,16 +6,21 @@ import 'package:shop_app/models/detail_product_model.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
-class ProductDescription extends StatelessWidget {
-  const ProductDescription({
+class ProductDescription extends StatefulWidget {
+   ProductDescription({
     Key? key,
     required this.product,
     this.pressOnSeeMore,
   }) : super(key: key);
-
   final Content? product;
   final GestureTapCallback? pressOnSeeMore;
+  @override
+  State<StatefulWidget> createState() => ProductDescriptionState();
 
+}
+
+class ProductDescriptionState extends State<ProductDescription>{
+  bool isFullDes = false;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -25,11 +30,20 @@ class ProductDescription extends StatelessWidget {
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: Text(
-            product!.productName!,
+            widget.product!.productName!,
             style: Theme.of(context).textTheme.headline6,
           ),
         ),
+        Padding(
+          padding:
+              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+          child: Text("Nhãn hiệu: "+
+            widget.product!.brand!,style: TextStyle(fontWeight:
+              FontWeight.bold)
+          ),
+        ),
         SizedBox(height: 30.0,),
+        
         // Align(
         //   alignment: Alignment.centerRight,
         //   child: Container(
@@ -56,8 +70,11 @@ class ProductDescription extends StatelessWidget {
             left: getProportionateScreenWidth(20),
             right: getProportionateScreenWidth(64),
           ),
-          child: Text(
-            product!.description!,
+          child: isFullDes? Text(
+            widget.product!.description!,
+            //maxLines: 3,
+          ): Text(
+            widget.product!.description!,
             maxLines: 3,
           ),
         ),
@@ -67,17 +84,25 @@ class ProductDescription extends StatelessWidget {
             vertical: 10,
           ),
           child: GestureDetector(
-            onTap: () {},
+            onTap: () {
+              setState(() {
+                if(isFullDes){
+                  isFullDes = false;
+                }else{
+                  isFullDes = true;
+                }
+              });
+            },
             child: Row(
               children: [
                 Text(
-                  "Xem thêm",
+                  isFullDes? "Bớt": "Xem thêm",
                   style: TextStyle(
                       fontWeight: FontWeight.w600, color: kPrimaryColor),
                 ),
                 SizedBox(width: 5),
                 Icon(
-                  Icons.arrow_forward_ios,
+                  isFullDes? Icons.keyboard_arrow_up_rounded: Icons.arrow_forward_ios ,
                   size: 12,
                   color: kPrimaryColor,
                 ),

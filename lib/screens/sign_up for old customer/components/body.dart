@@ -18,7 +18,7 @@ class Body extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: SizeConfig.screenHeight * 0.04), // 4%
-                Text("Thông tin cần thiết", style: headingStyle),
+                Text("Thông tin cá nhân", style: headingStyle),
 
                 /*
                 Text(

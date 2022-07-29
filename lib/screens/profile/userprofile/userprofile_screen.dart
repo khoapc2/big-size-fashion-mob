@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import 'components/body.dart';
 
 class UserProfileScreen extends StatelessWidget {
-  static String routeName = "/userprofile";
+  const UserProfileScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("UserProfile"),
+        title: const Text("Hồ sơ"),
       ),
-      body: Body(),
+      body: const Body(),
     );
   }
 }

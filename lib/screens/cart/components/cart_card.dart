@@ -71,7 +71,7 @@ class CartCard extends StatefulWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    child: Text("Size "+ widget.cart.size.toString()+", màu "+widget.cart.color.toString()),
+                    child: Text(widget.cart.size.toString()+" - "+widget.cart.color.toString()),
                   )
                 ],
               )

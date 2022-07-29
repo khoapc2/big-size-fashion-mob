@@ -72,7 +72,7 @@ class _StateBody extends State<Body>{
     return SingleChildScrollView(
       controller: _sc,
             padding: EdgeInsets.only(top: 10.0),
-            child:ListView.builder(
+            child :ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: products.length + 1,
@@ -91,7 +91,7 @@ ListTile(
                     enabled: products[index].status.toString() != "Đã nhận hàng",
                     title: Text("Mã đơn hàng: "+products[index].orderId.toString()),
                     //leading: Text("Ngày đặt: "+snapshot.data!.content![i].createDate!),
-                    subtitle: Text('Tổng số tiền:'+ formatter.format(products[index].totalPrice)),
+                    subtitle: Text('Tổng số tiền:'+ formatter.format(products[index].totalPriceAfterDiscount)),
                     trailing: Text('Trạng thái:'+ products[index].status.toString())
                   ),
                   Text("Ngày đặt: "+ products[index].createDate!)

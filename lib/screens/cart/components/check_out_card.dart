@@ -3,16 +3,19 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:shop_app/components/default_button.dart';
+import 'package:shop_app/locator.dart';
 import 'package:shop_app/screens/cart/cart_controller.dart';
 import 'package:shop_app/screens/payment/payment_screen.dart';
 
 
 import '../../../constants.dart';
+import '../../../list_cart.dart';
 import '../../../size_config.dart';
 class CheckoutCard extends StatelessWidget {
    double? total = 0;
    final updateCart;
    final token;
+   var currentListCart = locator.get<ListCart>();
    CheckoutCard({
     Key? key,this.total, this.updateCart, this.token
     
@@ -54,7 +57,7 @@ class CheckoutCard extends StatelessWidget {
                     text: "Tổng cộng:\n",
                     children: [
                       TextSpan(
-                        text: formatter.format(total)+" VNĐ",
+                        text: total == 0.0?"0 VNĐ":formatter.format(total)+" VNĐ",
                         style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
                     ],
@@ -66,12 +69,17 @@ class CheckoutCard extends StatelessWidget {
                     text: "Thanh toán",
                     press: () {
                       updateCart(token);
-                     // Navigator.pushNamed(context, PaymentScreen.routeName);
-                      Navigator.push(
+                      if(currentListCart.listCart!.length == 0){
+                         showAlertDialog(context, "Thêm sản phẩm vào giỏ hàng để thanh toán");
+
+                      }
+                      else{
+                          Navigator.push(
                         context,
                       MaterialPageRoute(builder: (context) => PaymentScreen()),
                     );
-                    
+                      }
+                     // Navigator.pushNamed(context, PaymentScreen.routeName);
                     //print(_controller.total.value.toString());
                       // print(total);
                     },
@@ -86,5 +94,42 @@ class CheckoutCard extends StatelessWidget {
     );
   }
 
+  void _showToast(BuildContext context, String content) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: Text(content),
+        action: SnackBarAction(label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
+      ),
+    );
+  }
+
  
 }
+ showAlertDialog(context, String message) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: const Text("OK"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: const Text("Thông báo"),
+      content: Text(message),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+

@@ -2,23 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/blocs/detail_product_bloc.dart';
 import 'package:shop_app/blocs/cart_bloc.dart';
 import 'package:shop_app/components/default_button.dart';
-import 'package:shop_app/models/Product.dart';
 import 'package:shop_app/models/add_to_cart_model.dart';
 import 'package:shop_app/models/cart_model.dart';
 import 'package:shop_app/models/detail_product_model.dart';
-import 'package:shop_app/models/product_model.dart';
 import 'package:shop_app/models/detail_product_id_model.dart';
 import 'package:shop_app/screens/detail_product/components/size-dots.dart';
 import 'package:shop_app/service/storage_service.dart';
 import 'package:shop_app/size_config.dart';
-import 'package:shop_app/view_model/cart_view_model.dart';
-import 'package:shop_app/view_model/detail_product_view_model.dart';
-import 'package:shop_app/view_model/product_view_model.dart';
 
 import '../details_screen.dart';
 import 'color_dots.dart';
 import 'product_description.dart';
-import 'stores.dart';
 import 'top_rounded_container.dart';
 import 'product_images.dart';
 
@@ -82,7 +76,6 @@ Future<String?> getUserToken() async {
       builder: (context, token){
         if(token.hasData){
           _detailResponse = getListProductById(productId);
-
     return FutureBuilder(
       future: _detailResponse,
       builder: (BuildContext context, AsyncSnapshot<DetailProductResponse> snapshot){
@@ -125,6 +118,15 @@ Future<String?> getUserToken() async {
                               var response = await getProductDetailId(getDetailProductRequest!);
                               if(response.content == 0){
                                 _showToast(context,"Hết hàng rồi bạn ơi vui lòng chọn thuộc tính khác");
+                                // Fluttertoast.showToast(
+                                //           msg:
+                                //               "Vui lòng chọn thuộc tính sản phẩm khác", // message
+                                //           toastLength:
+                                //               Toast.LENGTH_SHORT, // length
+                                //           gravity:
+                                //               ToastGravity.BOTTOM, // location
+                                //           timeInSecForIosWeb: 1 // duration
+                                //           );
                                 return;
                               }
                              // print("Số lượng quantity mà người dùng chọn"+getDetailProductRequest!.quantity.toString());
@@ -134,7 +136,15 @@ Future<String?> getUserToken() async {
                               );
                               addToCart(addToCartRequest, token.data!);
                               _showToast(context,"Thêm vào giỏ hàng thành công");
-
+                                // Fluttertoast.showToast(
+                                //           msg:
+                                //               "Thêm vào giỏ hàng thành công", // message
+                                //           toastLength:
+                                //               Toast.LENGTH_SHORT, // length
+                                //           gravity:
+                                //               ToastGravity.BOTTOM, // location
+                                //           timeInSecForIosWeb: 1 // duration
+                                //           );
                           },
                         ),
                       ),
@@ -183,3 +193,5 @@ Future<String?> getUserToken() async {
       ),
     );
   }
+
+  

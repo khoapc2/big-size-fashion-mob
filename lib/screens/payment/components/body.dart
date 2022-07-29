@@ -309,7 +309,7 @@ class _BodyState extends State<Body> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text("Tổng tiền vận chuyển:"),
-                          Text(formatter.format(currentListCart.shippingFee))
+                          Text(currentListCart.shippingFee == 0.0? "0":formatter.format(currentListCart.shippingFee))
                         ],
                       ),
                     ),

@@ -23,8 +23,8 @@ class RegisterAccountBloc {
         "fullname": registerRequestModel.fullname,
         "email": registerRequestModel.email,
         "gender": registerRequestModel.gender,
-        "weigth": registerRequestModel.weigth,
-        "heigth": registerRequestModel.heigth
+        "weight": registerRequestModel.weigth,
+        "height": registerRequestModel.heigth
       }),
     );
 

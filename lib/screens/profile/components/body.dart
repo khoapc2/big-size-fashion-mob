@@ -24,7 +24,11 @@ class Body extends StatelessWidget {
             text: "My Account",
             icon: "assets/icons/User Icon.svg",
             press: () =>
-                {Navigator.pushNamed(context, UserProfileScreen.routeName)},
+            Navigator.push(
+                        context,
+                      MaterialPageRoute(builder: (context) => UserProfileScreen()),
+                    ),
+                //UserProfileScreen
           ),
           ProfileMenuForPNG(
             text: "Order Status",

@@ -32,11 +32,11 @@ class Content {
   String? fullname;
   String? phoneNumber;
   String? email;
-  Null? birthday;
+  String? birthday;
   String? gender;
   Null? pinCode;
-  Null? weigth;
-  Null? heigth;
+  int? weigth;
+  int? heigth;
 
   Content(
       {this.uid,
