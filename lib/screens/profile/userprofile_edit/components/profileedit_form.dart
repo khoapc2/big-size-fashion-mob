@@ -247,6 +247,7 @@ class _EditProfile extends State<EditProfileForm> {
           margin: const EdgeInsets.only(left: 20, right: 20),
           height: 80,
           child: TextField(
+            keyboardType: TextInputType.phone,
             controller: heightP,
             decoration: InputDecoration(
               filled: true,
@@ -257,7 +258,7 @@ class _EditProfile extends State<EditProfileForm> {
               contentPadding:
                   const EdgeInsets.only(top: 0, left: 20, bottom: 0, right: 10),
             ),
-            maxLength: 10,
+            maxLength: 3,
             style: const TextStyle(
               fontFamily: "QuickSandMedium",
               fontSize: 20,
@@ -283,6 +284,7 @@ class _EditProfile extends State<EditProfileForm> {
           margin: const EdgeInsets.only(left: 20, right: 20),
           height: 80,
           child: TextField(
+            keyboardType: TextInputType.phone,
             controller: weightP,
             decoration: InputDecoration(
               filled: true,

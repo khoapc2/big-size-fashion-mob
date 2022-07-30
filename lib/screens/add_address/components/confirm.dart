@@ -13,10 +13,13 @@ class PaymentButton extends StatelessWidget {
       {required this.receiver,
       this.phoneNumber,
       this.address,
-      });
-  final String? receiver;
-  final String? address;
-  final String? phoneNumber;
+      this.city,
+      this.state});
+   TextEditingController? receiver;
+   TextEditingController? address;
+   TextEditingController? phoneNumber;
+   String? city;
+   String? state;
   AddAddressRequest request = new AddAddressRequest();
   AddressBloc _addAddressBloc = new AddressBloc();
 
@@ -55,27 +58,44 @@ class PaymentButton extends StatelessWidget {
                       text: "Xác nhận",
                       press: () async {
                         String erros = "";
-                        if(address == ", , , "){
-                            erros = "Nhập địa chỉ\n";
+                        if (address!.text == "") {
+                          erros = "Nhập địa chỉ\n";
                         }
-                        if(receiver == ""){
-                          erros+="Nhập tên người nhận\n";
+                        if (receiver!.text == "") {
+                          erros += "Nhập tên người nhận\n";
                         }
-                        if(phoneNumber == ""){
-                          erros+= "Nhập số điện thoại\n";
+                        if (phoneNumber!.text == "") {
+                          
+                          erros += "Nhập số điện thoại\n";
                         }
-                        if(erros == ""){
-                          request.receiveAddress = address;
-                        request.receiverName = receiver;
-                        request.receiverPhone = phoneNumber;
-                        addToAddress(request, snapshot.data!);
-                        _showToast(context, "Thêm địa chỉ thành công");
+                        else{
+                          if(phoneNumber!.text.substring(0,1) != "0" || phoneNumber!.text.length != 10){
+                          erros += "Nhập đúng số điện thoại\n";
+                        }
+                        }
+                        
+                        if (city == "") {
+                          erros += "Nhập thành phố\n";
+                        }
+                        if (state == "") {
+                          erros += "Nhập tỉnh\n";
+                        }
+
+                        if (erros == "") {
+                          request.receiveAddress = address!.text + ", "+
+        city!+", "+state!;
+                          request.receiverName = receiver!.text;
+                          request.receiverPhone = phoneNumber!.text;
+                          addToAddress(request, snapshot.data!);
+                          _showToast(context, "Thêm địa chỉ thành công");
+                          Navigator.pop(context);
+                          Navigator.pop(context);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => AddressScreen()),
                           );
-                        }else{
+                        } else {
                           showAlertDialog(context, erros);
                         }
                         //print(address);

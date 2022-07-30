@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:shop_app/screens/order_history/list_order_screen.dart';
 import 'package:shop_app/screens/profile/userprofile/userprofile_screen.dart';
 import 'package:shop_app/screens/setting/setting_screen.dart';
 import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
@@ -21,7 +20,7 @@ class Body extends StatelessWidget {
           ProfilePic(),
           SizedBox(height: 20),
           ProfileMenu(
-            text: "My Account",
+            text: "Tài khoản",
             icon: "assets/icons/User Icon.svg",
             press: () =>
             Navigator.push(
@@ -30,14 +29,15 @@ class Body extends StatelessWidget {
                     ),
                 //UserProfileScreen
           ),
-          ProfileMenuForPNG(
-            text: "Order Status",
-            icon: "assets/icons/orderHistory.png",
-            press: () => Navigator.push(
-                        context,
-                      MaterialPageRoute(builder: (context) => ListOrderScreen()),
-                    ),
-          ),
+          // ProfileMenuForPNG(
+          //   text: "Order Status",
+          //   icon: "assets/icons/orderHistory.png",
+          //   press: () => Navigator.push(
+          //               context,
+          //             MaterialPageRoute(builder: (context) => ListOrderScreen()),
+          //           ),
+          // ), Code có thể mở
+
           // ProfileMenuForPNG(
           //   text: "Order History",
           //   icon: "assets/icons/orderHistory.png",
@@ -49,23 +49,18 @@ class Body extends StatelessWidget {
           //   ,
           // ),
           ProfileMenu(
-            text: "Notifications",
+            text: "Thông báo",
             icon: "assets/icons/Bell.svg",
             press: () {},
           ),
           ProfileMenu(
-            text: "Settings",
+            text: "Cài đặt",
             icon: "assets/icons/Settings.svg",
             press: () =>
                 {Navigator.pushNamed(context, SettingScreen.routeName)},
           ),
           ProfileMenu(
-            text: "Help Center",
-            icon: "assets/icons/Question mark.svg",
-            press: () {},
-          ),
-          ProfileMenu(
-            text: "Log Out",
+            text: "Đăng xuất",
             icon: "assets/icons/Log out.svg",
 
             press: () async  {
