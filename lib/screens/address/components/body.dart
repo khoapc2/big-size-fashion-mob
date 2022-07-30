@@ -40,6 +40,10 @@ class _StateBody extends State<Body>{
     return await _storageService.readSecureData("token");
   }
 
+  //phoneNumber
+
+  
+
   Future<GetAddressesResponse> getAddress(String token) async {
     var result = await _addressBloc.getAddress(token);
     return result;

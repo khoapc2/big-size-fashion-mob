@@ -7,8 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:shop_app/models/add_address_request_model.dart';
 
+import '../../../blocs/customer_bloc.dart';
 import '../../../components/form_error.dart';
 import '../../../constants.dart';
+import '../../../locator.dart';
+import '../../../models/profile_response_model.dart';
+import '../../../service/storage_service.dart';
+import '../../../twilio_verify.dart';
 import 'confirm.dart';
 
 // ignore: must_be_immutable
@@ -40,14 +45,34 @@ class _AddAddress extends State<AddAdressForm> {
   TextEditingController province = TextEditingController();
   String provinceValue= "";
   final List<String?> errors = [];
+  final StorageService _storageService = StorageService();
+  final CustomerBloc _staffBloc = CustomerBloc();
+  var _twilio = locator.get<TwilioVerify>();
+  
+  Future<String?> getUserToken() async {
+    return await _storageService.readSecureData("token");
+  }
+
+  Future<ProfileResponse?> getStaffProfile(String token) async {
+    return await _staffBloc.getProfile(token);
+  }
+
   
 
   @override
   Widget build(BuildContext context) {
+    print("Phone: "+_twilio.phone.toString());
   GlobalKey<CSCPickerState> _cscPickerKey = GlobalKey();
     Size size = MediaQuery.of(context).size;
-
-    return Column(
+    return FutureBuilder<String?>(
+      future: getUserToken(),
+      builder: (context, token){
+        if(token.hasData){
+          return FutureBuilder<ProfileResponse?>(
+            future: getStaffProfile(token.data!),
+            builder: (context, snapshot){
+            if(snapshot.hasData){
+              return Column(
       children: <Widget>[
         Container(
           alignment: Alignment.center,
@@ -90,7 +115,7 @@ class _AddAddress extends State<AddAdressForm> {
           alignment: Alignment.center,
           height:65.0,
           margin: EdgeInsets.only(left: 20, right: 20),
-          child: TextField(
+          child: TextFormField(
             onChanged: (value){
               receiverValue= value;
               print(receiverValue);
@@ -335,6 +360,27 @@ class _AddAddress extends State<AddAdressForm> {
         // PaymentButton(receiver: "",address: addressTextValue+", "
         // +""+", "+ ""+", "+"",phoneNumber: phoneNumberValue),
       ],
+    );
+            }
+          return _buildProgressIndicator();
+          }
+          );
+
+        }
+        return _buildProgressIndicator(); 
+    });
+    
+  }
+
+  Widget _buildProgressIndicator() {
+    return new Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: new Center(
+        child: new Opacity(
+          opacity: 1.0,
+          child: new CircularProgressIndicator(),
+        ),
+      ),
     );
   }
 

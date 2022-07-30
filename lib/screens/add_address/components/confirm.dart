@@ -65,8 +65,15 @@ class PaymentButton extends StatelessWidget {
                           erros += "Nhập tên người nhận\n";
                         }
                         if (phoneNumber!.text == "") {
+                          
                           erros += "Nhập số điện thoại\n";
                         }
+                        else{
+                          if(phoneNumber!.text.substring(0,1) != "0" || phoneNumber!.text.length != 10){
+                          erros += "Nhập đúng số điện thoại\n";
+                        }
+                        }
+                        
                         if (city == "") {
                           erros += "Nhập thành phố\n";
                         }
