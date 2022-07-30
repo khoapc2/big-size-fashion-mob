@@ -2,8 +2,10 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:shop_app/blocs/address_bloc.dart';
 import 'package:shop_app/blocs/store_bloc.dart';
+import 'package:shop_app/models/delete_address_response.dart';
 import 'package:shop_app/models/ge_nearest_store_model.dart';
 import 'package:shop_app/models/get_address_model.dart';
 import 'package:shop_app/models/orders_model.dart';
@@ -20,7 +22,12 @@ import '../../../locator.dart';
 import '../../../location.dart';
 
 
-class Body extends StatelessWidget{
+class Body extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() => _StateBody();
+}
+
+class _StateBody extends State<Body>{
   var locationSelected = locator.get<Location>();
   var currentListCart = locator.get<ListCart>();
   final StorageService _storageService = StorageService();
@@ -189,7 +196,10 @@ class Body extends StatelessWidget{
     
     
   }
-  
+  Future<deleteAddressResponse> deleteAddress(int addressId, String token) async {
+    var result = await _addressBloc.deleteAddress(addressId, token);
+    return result;
+  }
 
   List<Widget> listAddress(GetAddressesResponse data, BuildContext context, String token){
     return List.generate(data.content!.length, (index) =>
@@ -245,6 +255,15 @@ class Body extends StatelessWidget{
                                 margin: EdgeInsets.only(left: 10),
                                 child: Text(data.content![index].receiverName!, style: TextStyle(color: Colors.black, fontSize: 18),),
                               ),
+                              GestureDetector(
+                                onTap: () => setState(() {
+                                    deleteAddress(data.content![index].addressId!, token);
+                                }),
+                                child: Container(
+                                margin: EdgeInsets.only(left: 40),
+                                child: 
+                              SvgPicture.asset("assets/icons/Trash.svg"))
+                              )
                               
                             ],
                           ),

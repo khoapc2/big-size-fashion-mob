@@ -10,9 +10,9 @@ import 'package:shop_app/models/payment_request_model.dart';
 
 class OrderBloc {
    
-  Future<OrdersResponse> getListOrder(int page, String token) async {
+  Future<OrdersResponse> getListOrder(String token, String createDate) async {
     String link = "https://20.211.17.194/";
-    String url = link + "api/v1/orders/customer"+"?PageNumber="+page.toString();
+    String url = link + "api/v1/orders/customer"+"?CreateDate="+createDate.toString();
 
      OrdersResponse listCartResponse = new OrdersResponse();  
 

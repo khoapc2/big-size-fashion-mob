@@ -182,21 +182,10 @@ class _AddAddress extends State<AddAdressForm> {
           child: TextFormField(
 
             controller: addressText,
-            onChanged: (value) {
-              if(value.isNotEmpty){
+            onChanged: (value)  {
                   addressTextValue = value;
-                  removeError(error: kReceiverNullError);
-              }
-
-              return null;
-            } ,
-            validator: (value) {
-        if (value!.isEmpty) {
-          addError(error: kReceiverNullError);
-          return "";
-        } 
-        return null;
-      },
+                  print(addressTextValue);
+            },
             decoration: InputDecoration(
               //labelText: "Hostel name",
               border: myinputborder(),
@@ -342,8 +331,7 @@ class _AddAddress extends State<AddAdressForm> {
         ),
         
         SizedBox(height: size.height * 0.01),
-        PaymentButton(receiver: receiverValue,address: addressTextValue+", "
-        +streetValue+", "+ cityValue+", "+stateValue,phoneNumber: phoneNumberValue)
+        PaymentButton(receiver: receiver,address: addressText,city: cityValue,state: stateValue,phoneNumber: phoneNumber)
         // PaymentButton(receiver: "",address: addressTextValue+", "
         // +""+", "+ ""+", "+"",phoneNumber: phoneNumberValue),
       ],
