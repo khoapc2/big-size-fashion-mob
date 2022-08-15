@@ -33,7 +33,7 @@ class _BodyState extends State<Body> {
               SizedBox(
                 height: 10,
               ),
-              Text("We sent your code to +1 898 860 ***"),
+              Text("Đã gửi code cho SĐT "+_twilio.getPhone()!.substring(0,5)+"***"),
               buildTimer(),
               OtpForm(),
               SizedBox(height: SizeConfig.screenHeight * 0.1),
@@ -55,7 +55,7 @@ class _BodyState extends State<Body> {
                   Navigator.pushNamed(context, OtpScreen.routeName);
                 },
                 child: Text(
-                  "Resend OTP Code",
+                  "Gửi lại OTP",
                   style: TextStyle(decoration: TextDecoration.underline),
                 ),
               )
@@ -70,7 +70,7 @@ class _BodyState extends State<Body> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("This code will expired in "),
+        Text("Code này sẽ hết hạn trong "),
         TweenAnimationBuilder(
             tween: Tween(begin: 30.0, end: 0.0),
             duration: Duration(seconds: 30),

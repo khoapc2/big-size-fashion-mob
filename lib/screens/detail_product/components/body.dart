@@ -16,19 +16,38 @@ import 'product_description.dart';
 import 'top_rounded_container.dart';
 import 'product_images.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   final int productId;
   final InputForViewingFeedback? inputForViewingFeedback;
+  
+  Body({Key? key, required this.productId, this.inputForViewingFeedback}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _StateBody();
+}
+
+
+class _StateBody extends State<Body>{
+
+
   DetailProductBloc _detailProductBloc = new DetailProductBloc();
   late Future<DetailProductResponse> _detailResponse;
   CartBloc _cartBloc = new CartBloc();
 GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdRequest();
 final StorageService _storageService = StorageService();
-  Body({Key? key, required this.productId, this.inputForViewingFeedback}) : super(key: key);
+
+
+initState(){
+   super.initState();
+   getDetailProductRequest!.productId = widget.productId;
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => null);
+}
 
 Future<String?> getUserToken() async {
     return await _storageService.readSecureData("token");
   }
+
 
   Future<DetailProductResponse> getListProductById(int productId) async {
     
@@ -54,9 +73,29 @@ Future<String?> getUserToken() async {
     return result;
   }
 
+  Future<void> updateTotal() async{
+    print("updateTotal is call");
+    
+      var response = await getProductDetailId(getDetailProductRequest!);
+                              if(response.content == 0){
+                                getDetailProductRequest!.total = 0;
+                                return;
+                              }
+                              var totalProduct = await getTotalByProductDetailId(response.content!);
+                              
+   setState(() {
+     getDetailProductRequest!.total = totalProduct;
+   });
+  }
+
+  Future<int> getTotalByProductDetailId(int productDetailId) async {
+       var response = await  _detailProductBloc.getQuantityByProductId(productDetailId);
+       return response.content!.quantity!;
+  }
+
   Future<GetProductDetailResponse> getProductDetailId(GetProductDetailIdRequest request) async {
-    DetailProductBloc service = new DetailProductBloc();
-    var result = await service.getProductDetailId(request);
+    
+    var result = await _detailProductBloc.getProductDetailId(request);
     return result;
   }
 
@@ -75,12 +114,12 @@ Future<String?> getUserToken() async {
       future: getUserToken(),
       builder: (context, token){
         if(token.hasData){
-          _detailResponse = getListProductById(productId);
+          _detailResponse = getListProductById(widget.productId);
     return FutureBuilder(
       future: _detailResponse,
       builder: (BuildContext context, AsyncSnapshot<DetailProductResponse> snapshot){
       if(snapshot.hasData){
-        inputForViewingFeedback!.urlImage = snapshot.data!.content!.images![0].imageUrl!;
+        widget.inputForViewingFeedback!.urlImage = snapshot.data!.content!.images![0].imageUrl!;
              return 
     ListView(
       children: [
@@ -97,9 +136,11 @@ Future<String?> getUserToken() async {
                 color: Color(0xFFF6F7F9),
                 child: Column(
                   children: [
-                    ColorDots( listColor: snapshot.data!.listColor, getQuantityRequest: getDetailProductRequest),
-                    SizedBox(height: 10),
-                    SizeDots(listSize: snapshot.data!.listSize, getQuantityRequest: getDetailProductRequest),
+                    ColorDots( listColor: snapshot.data!.listColor, getQuantityRequest: getDetailProductRequest,updateTotal: updateTotal),
+                    SizedBox(height: 5),
+                    Text("SL: "+getDetailProductRequest!.total.toString(), style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0),),
+                    SizedBox(height: 5),
+                    SizeDots(listSize: snapshot.data!.listSize, getQuantityRequest: getDetailProductRequest, updateTotal: updateTotal),
                     TopRoundedContainer(
                       color: Colors.white,
                       child: Padding(
@@ -112,7 +153,7 @@ Future<String?> getUserToken() async {
                         child: DefaultButton(
                           text: "Thêm vào giỏ hàng",
                           press: () async {
-                              getDetailProductRequest!.productId = productId;
+                              getDetailProductRequest!.productId = widget.productId;
                               //print(quantityRequest!.colourId);
                               
                               var response = await getProductDetailId(getDetailProductRequest!);

@@ -10,6 +10,7 @@ import 'components/check_out_card.dart';
 
 class CartScreen extends StatefulWidget {
  static String routeName = "/cart";
+ double totalAfterDiscount = 0;
  double total = 0;
  int quantity = 0;
  
@@ -57,14 +58,14 @@ class CartScreenState extends State<CartScreen>{
           }
 
           if(widget.initState == true){
-              widget.total = widget.currentListCart.total;
+              widget.totalAfterDiscount = widget.currentListCart.totalAfterDiscount;
               widget.initState = false;
           }
            
     return Scaffold(
       appBar: buildAppBar(context, token.data!),
-      body:  Body(updateTotal),
-      bottomNavigationBar: CheckoutCard(total: widget.total,updateCart: updateCart,token: token.data!),                                                                                                                                                                                                                                                    
+      body:  widget.currentListCart.listCart!.length !=0? Body(updateTotal): Center(child:Text("Chưa có sản phẩm")),
+      bottomNavigationBar: CheckoutCard(total: widget.totalAfterDiscount,updateCart: updateCart,token: token.data!, updateTotal: updateTotal),                                                                                                                                                                                                                                                    
     );}
     else{
       print("đen là do thằng này nè");
@@ -90,7 +91,7 @@ class CartScreenState extends State<CartScreen>{
       onPressed: (){
         updateCart(token);
         widget.currentListCart.setListCart(null);
-        widget.currentListCart.total = 0;
+        widget.currentListCart.totalAfterDiscount = 0;
         Navigator.pop(context);
       }),
       title: 
@@ -115,7 +116,7 @@ class CartScreenState extends State<CartScreen>{
           onTap: (){
             updateCart(token);
             widget.currentListCart.setListCart(null);
-            widget.currentListCart.total = 0;
+            widget.currentListCart.totalAfterDiscount = 0;
             Navigator.pop(context);
           },
           child: Text(
@@ -142,6 +143,7 @@ class CartScreenState extends State<CartScreen>{
   }
 
     void updateCart(String token){
+        widget.currentListCart.totalAfterDiscount = widget.totalAfterDiscount;
         widget.currentListCart.total = widget.total;
         
         var currentListCart = widget.currentListCart.listCart!;
@@ -172,13 +174,16 @@ class CartScreenState extends State<CartScreen>{
 
    void updateTotal(){
     setState(() {
+      widget.totalAfterDiscount = 0;
       widget.total = 0;
       widget.currentListCart.getListCart()!.forEach((cart) { 
         if(cart.productPromotion == null){
-            widget.total += (cart.quantity!*cart.productPrice!);
-        }else{
-          widget.total += (cart.quantity! * cart.productPromotion!);
+            widget.totalAfterDiscount += (cart.quantity!*cart.productPrice!);
         }
+        else{
+          widget.totalAfterDiscount += (cart.quantity! * cart.productPromotion!);
+        }
+        widget.total += (cart.quantity!*cart.productPrice!);
         });
         widget.quantity = widget.currentListCart.getListCart()!.length;
       print("Total đã đc cập nhật");

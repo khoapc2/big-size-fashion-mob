@@ -509,9 +509,28 @@ class _EditProfile extends State<EditProfileForm> {
               }
               if(heightP.text == ""){
                 errors += "Vui lòng nhập chiêu cao\n";
+              }else{
+                try{
+                    var height = int.parse(heightP.text);
+                    if(height < 145 || height > 251){
+                         errors += "Vui lòng nhập đúng chiều cao\n"; 
+                }
+                }catch(error){
+                  errors += "Vui lòng nhập đúng chiều cao\n";
+                }
               }
               if(weightP.text == ""){
                 errors += "Vui lòng nhập cân nặng\n";
+              }else{
+                try{
+                    var weight = int.parse(weightP.text);
+                if(weight < 40 || weight > 610){
+                 errors += "Vui lòng nhập đúng cân nặng\n"; 
+                }
+                }catch(error){
+                  errors += "Vui lòng nhập đúng cân nặng\n";
+                }
+                
               }
               if(errors == ""){
               UpdateProfileRequestModel content = UpdateProfileRequestModel(

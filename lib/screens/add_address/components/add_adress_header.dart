@@ -14,10 +14,10 @@ class AddAddressEditHeader extends StatelessWidget {
     return Row(
       children: <Widget>[
         SizedBox(
-          width: getProportionateScreenWidth(50),
+          width: getProportionateScreenWidth(30),
         ),
         Container(
-          alignment: Alignment.center,
+          padding: EdgeInsets.symmetric(vertical: getProportionateScreenWidth(1.0)),
           //color: Colors.blue,
           width: 300,
           height: 50,

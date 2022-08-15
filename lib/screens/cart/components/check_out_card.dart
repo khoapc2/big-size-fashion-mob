@@ -14,10 +14,11 @@ import '../../../size_config.dart';
 class CheckoutCard extends StatelessWidget {
    double? total = 0;
    final updateCart;
+   final updateTotal;
    final token;
    var currentListCart = locator.get<ListCart>();
    CheckoutCard({
-    Key? key,this.total, this.updateCart, this.token
+    Key? key,this.total, this.updateCart, this.token, this.updateTotal
     
   }) : super(key: key);
   @override
@@ -57,7 +58,8 @@ class CheckoutCard extends StatelessWidget {
                     text: "Tổng cộng:\n",
                     children: [
                       TextSpan(
-                        text: total == 0.0?"0 VNĐ":formatter.format(total)+" VNĐ",
+                        text: total == 0.0?"0 VNĐ":
+                        formatter.format(total),
                         style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
                     ],
@@ -68,12 +70,14 @@ class CheckoutCard extends StatelessWidget {
                   child: DefaultButton(
                     text: "Thanh toán",
                     press: () {
+                      updateTotal();
                       updateCart(token);
                       if(currentListCart.listCart!.length == 0){
                          showAlertDialog(context, "Thêm sản phẩm vào giỏ hàng để thanh toán");
 
                       }
                       else{
+                        
                           Navigator.push(
                         context,
                       MaterialPageRoute(builder: (context) => PaymentScreen()),

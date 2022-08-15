@@ -55,6 +55,7 @@ class OrderBloc {
       },
       body: jsonEncode(<String, dynamic>{
         "delivery_address": request.deliveryAddress,
+        "zp_trans_id": request.zpTransId,
         "total_price": request.totalPrice,
         "promotion_price": request.promotionPrice,
         "order_type": request.orderType,

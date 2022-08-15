@@ -110,16 +110,24 @@ class _SignFormState extends State<SignForm> {
               ),
             ),
             onPressed: () async {
+              showLoading(context);
               if (_formKey.currentState!.validate())
                 {
                   _formKey.currentState!.save();
                   // if all are valid then go to success screen
                   KeyboardUtil.hideKeyboard(context);
                   _twilio.setPhone(phone!);
-                  var twilioPhoneVerify = _twilio.getTwilioPhoneVerify();
+                 var twilioPhoneVerify = _twilio.getTwilioPhoneVerify();
                  var twilloResponse = await twilioPhoneVerify.sendSmsCode("+84"+phone!); 
-                
-                  Navigator.pushNamed(context, OtpScreen.routeName);
+     
+                  if (twilloResponse.successful!) {
+                    Navigator.pop(context);
+                    Navigator.pushNamed(context, OtpScreen.routeName);
+      
+    } else {
+     print("Lỗi otp: "+twilloResponse.errorMessage.toString());
+    }
+                  
                 }
             },
           ),
@@ -142,13 +150,44 @@ class _SignFormState extends State<SignForm> {
     );
   }
 
+  showLoading(context) {
+    showDialog(
+        // The user CANNOT close this dialog  by pressing outsite it
+        barrierDismissible: false,
+        context: context,
+        builder: (_) {
+          return Dialog(
+            // The background color
+            backgroundColor: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  // The loading indicator
+                  CircularProgressIndicator(),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  // Some text
+                  Text(
+                    "Đang xử lí...",
+                    style: TextStyle(fontFamily: "QuicksandMedium"),
+                  )
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
   TextFormField buildPasswordFormField() {
     return TextFormField(
       obscureText: true,
       onSaved: (newValue) => password = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
-          removeError(error: kPassNullError);
+          removeError(error: kHeightNullError);
         } else if (value.length >= 8) {
           removeError(error: kShortPassError);
         }
@@ -156,7 +195,7 @@ class _SignFormState extends State<SignForm> {
       },
       validator: (value) {
         if (value!.isEmpty) {
-          addError(error: kPassNullError);
+          addError(error: kHeightNullError);
           return "";
         } else if (value.length < 8) {
           addError(error: kShortPassError);
@@ -242,7 +281,7 @@ class _SignFormState extends State<SignForm> {
           fontFamily: "QuickSandBold",
           fontSize: 25,
         ),
-        hintText: "Nhập số điện thoại của bạn",
+        hintText: "Nhập số điện thoại",
         hintStyle: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.bold,

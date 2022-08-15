@@ -19,11 +19,14 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   var formatter = NumberFormat('#,###,000');
-  int activeCard = 0;
+  
   bool _isLoading = false;
   late Timer _timer;
   var locationSelected = locator.get<Location>();
   var currentListCart = locator.get<ListCart>();
+  int activeCard = 0;
+  
+
  pay() {
    setState(() {
       _isLoading = true;
@@ -40,7 +43,12 @@ class _BodyState extends State<Body> {
       },
     );
  }
-
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    this.activeCard = currentListCart.paymentMethod;
+  }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -128,7 +136,7 @@ class _BodyState extends State<Body> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Text("Thanh toán bằng zalo pay", style: TextStyle(color: Colors.black, fontSize: 18),),
+                              Text("Thanh toán bằng ZaloPay", style: TextStyle(color: Colors.black, fontSize: 18),),
                               //Image.network('https://img.icons8.com/ios/2x/sim-card-chip.png', height: 35,),
                             ],
                           )
@@ -300,7 +308,7 @@ class _BodyState extends State<Body> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text("Tổng tiền hàng"),
-                          Text(formatter.format(currentListCart.total))
+                          Text(formatter.format(currentListCart.totalAfterDiscount))
                         ],
                       ),
                     ),
@@ -318,7 +326,7 @@ class _BodyState extends State<Body> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text("Tổng thanh toán: "),
-                          Text(formatter.format(currentListCart.total + currentListCart.shippingFee))
+                          Text(formatter.format(currentListCart.totalAfterDiscount + currentListCart.shippingFee))
                         ],
                       ),
                     )

@@ -1,12 +1,13 @@
-class ZaloResponse {
+class ZaloPayResponse {
   Content? content;
   Null? error;
   bool? isSuccess;
   String? responseTime;
 
-  ZaloResponse({this.content, this.error, this.isSuccess, this.responseTime});
+  ZaloPayResponse(
+      {this.content, this.error, this.isSuccess, this.responseTime});
 
-  ZaloResponse.fromJson(Map<String, dynamic> json) {
+  ZaloPayResponse.fromJson(Map<String, dynamic> json) {
     content =
         json['content'] != null ? new Content.fromJson(json['content']) : null;
     error = json['error'];
@@ -33,6 +34,7 @@ class Content {
   String? subReturnMessage;
   String? orderUrl;
   String? zpTransToken;
+  String? zpTransId;
 
   Content(
       {this.returnCode,
@@ -40,7 +42,8 @@ class Content {
       this.subReturnCode,
       this.subReturnMessage,
       this.orderUrl,
-      this.zpTransToken});
+      this.zpTransToken,
+      this.zpTransId});
 
   Content.fromJson(Map<String, dynamic> json) {
     returnCode = json['return_code'];
@@ -49,6 +52,7 @@ class Content {
     subReturnMessage = json['sub_return_message'];
     orderUrl = json['order_url'];
     zpTransToken = json['zp_trans_token'];
+    zpTransId = json['zp_trans_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -59,6 +63,7 @@ class Content {
     data['sub_return_message'] = this.subReturnMessage;
     data['order_url'] = this.orderUrl;
     data['zp_trans_token'] = this.zpTransToken;
+    data['zp_trans_id'] = this.zpTransId;
     return data;
   }
 }

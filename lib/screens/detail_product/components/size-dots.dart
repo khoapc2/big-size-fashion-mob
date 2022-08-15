@@ -11,8 +11,10 @@ class SizeDots extends StatefulWidget {
   SizeDots({
     Key? key,
    required this.listSize,
-   this.getQuantityRequest
+   this.getQuantityRequest,
+   this.updateTotal
   }) : super(key: key);
+  final updateTotal;
   List<Size>? listSize;
   GetProductDetailIdRequest? getQuantityRequest;
 
@@ -25,11 +27,19 @@ class _SizeDotsState extends State<SizeDots>{
   @override
   void initState() {
     // TODO: implement initState
+    
+
     widget._sizeSelected = widget.listSize![0].sizeName;
     widget.getQuantityRequest!.sizeId = widget.listSize![0].sizeId;
+    widget.getQuantityRequest!.sizeName = widget.listSize![0].sizeName;
+    
+      widget.updateTotal();
   }
   @override
   Widget build(BuildContext context) {
+    if(widget._sizeSelected == null){
+       widget._sizeSelected =  widget.getQuantityRequest!.sizeName;
+    }
     // TODO: implement build
     return 
     Padding(padding: EdgeInsets.symmetric(horizontal: 25.0)
@@ -49,6 +59,8 @@ GestureDetector buildSmallSizePreview(Size size) {
          onTap: () => {setState(() {
         widget._sizeSelected = size.sizeName;
         widget.getQuantityRequest!.sizeId = size.sizeId;
+        widget.getQuantityRequest!.sizeName = widget._sizeSelected;
+        widget.updateTotal();
       })},
        child: AnimatedContainer(
         duration: defaultDuration,

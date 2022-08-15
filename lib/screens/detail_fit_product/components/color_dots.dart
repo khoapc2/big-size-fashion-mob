@@ -12,9 +12,11 @@ class ColorDots extends StatefulWidget {
   ColorDots({
     Key? key,
    required this.listColor,
-   this.getQuantityRequest
+   this.getQuantityRequest,
+   this.updateTotal
 
   }) : super(key: key);
+    final updateTotal;
   List<Colour>? listColor;
   GetProductDetailIdRequest? getQuantityRequest;
 
@@ -27,11 +29,22 @@ class _ColorDotsState extends State<ColorDots>{
   @override
   void initState() {
     // TODO: implement initState 
+     var myNiceColor = int.parse(
+                            "FF" +
+                                widget.listColor![0]
+                                    .colourCode!
+                                    .replaceAll('#', ''),
+                            radix: 16);
+    widget._colorSelected = Color(myNiceColor);
+    widget.getQuantityRequest!.colourId = widget.listColor![0].colourId;
+    widget.getQuantityRequest!.colourCode = Color(myNiceColor);
   }
   @override
   Widget build(BuildContext context) {
     // Now this is fixed and only for demo
-    int selectedColor = 3;
+   if(widget._colorSelected == null){
+       widget._colorSelected =  widget.getQuantityRequest!.colourCode!; 
+    }
     return Padding(
       padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
@@ -66,7 +79,10 @@ class _ColorDotsState extends State<ColorDots>{
             showShadow: true,
             press: () {
               setState(() {
-                widget.getQuantityRequest!.quantity++;
+                if(widget.getQuantityRequest!.quantity < 20 ){
+                    widget.getQuantityRequest!.quantity++;
+                }
+                
               });
             },
           ),
@@ -87,6 +103,9 @@ class _ColorDotsState extends State<ColorDots>{
         print("cliked");
         widget._colorSelected = Color(myNiceColor);
         widget.getQuantityRequest!.colourId = colour.colourId;
+
+        widget.getQuantityRequest!.colourCode = Color(myNiceColor);
+        widget.updateTotal();
         
       })},
       child: Container(

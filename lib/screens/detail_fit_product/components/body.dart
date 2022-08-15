@@ -2,36 +2,42 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/blocs/detail_product_bloc.dart';
 import 'package:shop_app/blocs/cart_bloc.dart';
 import 'package:shop_app/components/default_button.dart';
-import 'package:shop_app/models/Product.dart';
 import 'package:shop_app/models/add_to_cart_model.dart';
 import 'package:shop_app/models/cart_model.dart';
-import 'package:shop_app/models/detail_product_model.dart';
 import 'package:shop_app/models/get_detail_fit_product.dart';
-import 'package:shop_app/models/product_model.dart';
 import 'package:shop_app/models/detail_product_id_model.dart';
 import 'package:shop_app/screens/detail_fit_product/components/size-dots.dart';
 import 'package:shop_app/service/storage_service.dart';
 import 'package:shop_app/size_config.dart';
-import 'package:shop_app/view_model/cart_view_model.dart';
-import 'package:shop_app/view_model/detail_product_view_model.dart';
-import 'package:shop_app/view_model/product_view_model.dart';
 import 'package:shop_app/models/get_detail_fit_product.dart' as fitDetailProduct;
 
 import '../../detail_product/details_screen.dart';
 import 'color_dots.dart';
 import 'product_description.dart';
-import 'stores.dart';
 import 'top_rounded_container.dart';
 import 'product_images.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   final int productId;
   final InputForViewingFeedback? inputForViewingFeedback;
   
-GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdRequest();
+
 
   Body({Key? key, required this.productId, this.inputForViewingFeedback}) : super(key: key);
+  @override
+  State<StatefulWidget> createState() => _StateBody();
+}
 
+class _StateBody extends State<Body>{
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getDetailProductRequest!.productId = widget.productId;
+  }
+
+  GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdRequest();
   final StorageService _storageService = StorageService();
   DetailProductBloc _detailProductBloc = new DetailProductBloc();
   late GetProductDetailResponse response;
@@ -40,6 +46,26 @@ GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdReque
 
   Future<String?> getUserToken() async {
     return await _storageService.readSecureData("token");
+  }
+
+  void updateTotal() async{
+    print("updateTotal is call");
+    
+      var response = await getProductDetailId(getDetailProductRequest!);
+                              if(response.content == 0){
+                                getDetailProductRequest!.total = 0;
+                                return;
+                              }
+                              var totalProduct = await getTotalByProductDetailId(response.content!);
+                              
+   setState(() {
+     getDetailProductRequest!.total = totalProduct;
+   });
+  }
+
+  Future<int> getTotalByProductDetailId(int productDetailId) async {
+       var response = await  _detailProductBloc.getQuantityByProductId(productDetailId);
+       return response.content!.quantity!;
   }
 
    Future<fitDetailProduct.GetDetailFitProductResponse> getDetailFitProduct(int productId, String token) async {
@@ -72,10 +98,10 @@ GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdReque
       builder:(context, token){
         if(token.hasData){
     return FutureBuilder(
-      future: getDetailFitProduct(productId, token.data!),
+      future: getDetailFitProduct(widget.productId, token.data!),
       builder: (BuildContext context, AsyncSnapshot<GetDetailFitProductResponse> snapshot){
       if(snapshot.hasData){
-        inputForViewingFeedback!.urlImage = snapshot.data!.content!.images![0].imageUrl!;
+        widget.inputForViewingFeedback!.urlImage = snapshot.data!.content!.images![0].imageUrl!;
              return 
     ListView(
       children: [
@@ -92,9 +118,11 @@ GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdReque
                 color: Color(0xFFF6F7F9),
                 child: Column(
                   children: [
-                    ColorDots( listColor: snapshot.data!.listColor, getQuantityRequest: getDetailProductRequest),
-                    SizedBox(height: 10),
-                    SizeDots(listSize: snapshot.data!.listSize, getQuantityRequest: getDetailProductRequest),
+                    ColorDots( listColor: snapshot.data!.listColor, getQuantityRequest: getDetailProductRequest, updateTotal: updateTotal,),
+                    SizedBox(height: 5),
+                    Text("SL: "+getDetailProductRequest!.total.toString(), style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0),),
+                    SizedBox(height: 5),
+                    SizeDots(listSize: snapshot.data!.listSize, getQuantityRequest: getDetailProductRequest, updateTotal: updateTotal),
                     TopRoundedContainer(
                       color: Colors.white,
                       child: Padding(
@@ -105,9 +133,9 @@ GetProductDetailIdRequest? getDetailProductRequest = new GetProductDetailIdReque
                           top: getProportionateScreenWidth(15),
                         ),
                         child: DefaultButton(
-                          text: "Thêm vào giỏ h",
+                          text: "Thêm vào giỏ hàng",
                           press: () async {
-                              getDetailProductRequest!.productId = productId;
+                              getDetailProductRequest!.productId = widget.productId;
                               //print(quantityRequest!.colourId);
                               
                               response = await getProductDetailId(getDetailProductRequest!);

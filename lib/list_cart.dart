@@ -2,6 +2,7 @@ import 'models/cart_model.dart';
 
 class ListCart{
   List<Content>? listCart;
+  double totalAfterDiscount = 0;
   double total = 0;
   double shippingFee = 0;
   int? storeId = 0;
@@ -22,9 +23,9 @@ class ListCart{
   void setTotal(){
     this.listCart!.forEach((cart) { 
         if(cart.productPromotion == null){
-            total += (cart.quantity!*cart.productPrice!);
+            totalAfterDiscount += (cart.quantity!*cart.productPrice!);
         }else{
-          total += (cart.quantity! * cart.productPromotion!);
+          totalAfterDiscount += (cart.quantity! * cart.productPromotion!);
         }
         });
   }

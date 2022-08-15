@@ -17,11 +17,23 @@ import '../twilio_verify.dart';
 class ProductBloc {
 
   Future<ProductResponseModel> getListProductByName(String? searchValue, int page) async {
+    // String port = '20.211.17.194';
+    // String endPoint = 'api/v1/products';
+    // Map<String, dynamic> paramenters = {
+    //   'ProductName':"searchValue!",
+    //   'Status':true,"PageNumber":page.toString()
+    // };
+    // Uri url2 = Uri.https(port, endPoint,paramenters);
+   // 
     String link = "https://20.211.17.194/";
     String url = link + "api/v1/products"+"?ProductName="+searchValue!+"&Status=true"+"&PageNumber="+page.toString();
 
     ProductResponseModel productResponseModel;  
 
+    // final response = await http.get(Uri.parse(url),
+    //     headers: <String, String>{
+    //       'Content-Type': 'application/json; charset=UTF-8'
+    //     });
     final response = await http.get(Uri.parse(url),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8'
@@ -132,9 +144,9 @@ Future<GetFitProductByCategoryResponse> getFitProductsByCategory(String token) a
     return productResponseModel;
   }
 
-  Future<GetListFitProductByCategoryResponse> getListFitProductByCategory(String? categoryName, int page, String token) async {
+  Future<GetListFitProductByCategoryResponse> getListFitProductByCategory(String? categoryName, int page, String token, String searchValue) async {
     String link = "https://20.211.17.194/";
-    String url = link + "api/v1/products/fit-with-customer"+"?CategoryName="+categoryName!+"&PageNumber="+ page.toString();
+    String url = link + "api/v1/products/fit-with-customer"+"?CategoryName="+categoryName!+"&PageNumber="+ page.toString()+"&ProductName="+searchValue;
 
     GetListFitProductByCategoryResponse productResponseModel;  
 

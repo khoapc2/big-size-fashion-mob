@@ -4,7 +4,8 @@ class AddOrderResponse {
   bool? isSuccess;
   String? responseTime;
 
-  AddOrderResponse({this.content, this.error, this.isSuccess, this.responseTime});
+  AddOrderResponse(
+      {this.content, this.error, this.isSuccess, this.responseTime});
 
   AddOrderResponse.fromJson(Map<String, dynamic> json) {
     content =
@@ -33,8 +34,8 @@ class Content {
   int? storeId;
   Null? staffId;
   String? createDate;
-  int? totalPrice;
-  int? totalPriceAfterDiscount;
+  double? totalPrice;
+  double? totalPriceAfterDiscount;
   bool? orderType;
   String? paymentMethod;
   Null? approvalDate;
@@ -43,7 +44,8 @@ class Content {
   Null? receivedDate;
   Null? rejectedDate;
   int? status;
-  int? shippingFee;
+  double? shippingFee;
+  String? zpTransId;
 
   Content(
       {this.orderId,
@@ -62,7 +64,8 @@ class Content {
       this.receivedDate,
       this.rejectedDate,
       this.status,
-      this.shippingFee});
+      this.shippingFee,
+      this.zpTransId});
 
   Content.fromJson(Map<String, dynamic> json) {
     orderId = json['order_id'];
@@ -82,6 +85,7 @@ class Content {
     rejectedDate = json['rejected_date'];
     status = json['status'];
     shippingFee = json['shipping_fee'];
+    zpTransId = json['zp_trans_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -103,6 +107,7 @@ class Content {
     data['rejected_date'] = this.rejectedDate;
     data['status'] = this.status;
     data['shipping_fee'] = this.shippingFee;
+    data['zp_trans_id'] = this.zpTransId;
     return data;
   }
 }

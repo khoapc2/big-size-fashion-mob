@@ -65,12 +65,15 @@ class _StateBody extends State<Body>{
       future: _customerAddress,
       builder: (context, snapshot){
           if(snapshot.hasData){
+            if(snapshot.data!.content!.length == 0){
+              return Center(child: Text("Không có địa chỉ nào"));
+            }
               return SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-             children: listAddress(snapshot.data!, context, token.data!)
+             children: listAddress(snapshot.data!, token.data!)
             // [
                 
             //     Container(
@@ -194,7 +197,7 @@ class _StateBody extends State<Body>{
           }
     });
         }
-        return const CircularProgressIndicator();
+        return _buildProgressIndicator();
     });
     // TODO: implement build
     
@@ -205,10 +208,51 @@ class _StateBody extends State<Body>{
     return result;
   }
 
-  List<Widget> listAddress(GetAddressesResponse data, BuildContext context, String token){
+  showLoading(context) {
+    showDialog(
+        // The user CANNOT close this dialog  by pressing outsite it
+        barrierDismissible: false,
+        context: context,
+        builder: (_) {
+          return Dialog(
+            // The background color
+            backgroundColor: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  // The loading indicator
+                  CircularProgressIndicator(),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  // Some text
+                  Text(
+                    "Đang xử lí...",
+                    style: TextStyle(fontFamily: "QuicksandMedium"),
+                  )
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+   Widget _buildProgressIndicator() {
+    return new Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: new Center(
+        child:  CircularProgressIndicator(),
+        ),
+    );
+  }
+
+  List<Widget> listAddress(GetAddressesResponse data, String token){
     return List.generate(data.content!.length, (index) =>
     GestureDetector(
       onTap:() async {
+        showLoading(context);
           print(data.content![index].receiveAddress!);
           locationSelected.setLocation(data.content![index].receiveAddress!);
           print(locationSelected.location);
@@ -218,6 +262,7 @@ class _StateBody extends State<Body>{
         currentListCart.setShippingFee(response.content!.shippingFee!);
         currentListCart.setStoreId(response.content!.storeId);
           print("Tiền phí vận chuyển là:"+currentListCart.shippingFee.toString());
+          Navigator.pop(context);
           Navigator.pop(context);
           Navigator.pop(context);
           Navigator.push(

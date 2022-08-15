@@ -20,7 +20,7 @@ class SearchProductsByCategoryScreen extends StatelessWidget {
     return AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text('Tìm sản phẩm', style: TextStyle(color: Colors.black),),
+        title: Text(category, style: TextStyle(color: Colors.black),),
         leading: BackButton(color: Colors.black,),
       );
 }

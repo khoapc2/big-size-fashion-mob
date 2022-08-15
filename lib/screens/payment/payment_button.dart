@@ -1,8 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_zalopay_sdk/flutter_zalopay_sdk.dart';
 import 'package:intl/intl.dart';
 import 'package:shop_app/blocs/cart_bloc.dart';
+import 'package:shop_app/blocs/detail_product_bloc.dart';
 import 'package:shop_app/blocs/order_bloc.dart';
 import 'package:shop_app/blocs/zalopay_bloc.dart';
 import 'package:shop_app/components/default_button.dart';
@@ -12,28 +13,29 @@ import 'package:shop_app/models/payment_request_model.dart';
 import 'package:shop_app/models/zalo_response_model.dart';
 import 'package:shop_app/screens/home/home_screen.dart';
 import 'package:shop_app/service/storage_service.dart';
-
 import '../../list_cart.dart';
 import '../../location.dart';
 import '../../locator.dart';
 import '../../size_config.dart';
-import '../order_history/list_order_screen.dart';
+import '../orders_status/process_timeline_screen.dart';
 
 class PaymentButton extends StatelessWidget{
   var currentListCart = locator.get<ListCart>();
    var locationSelected = locator.get<Location>();
     final StorageService _storageService = StorageService();
-    late ZaloResponse _zaloPayResponse;
+    late ZaloPayResponse _zaloPayResponse;
     OrderBloc _orderBloc = new OrderBloc();
    String? payResult; 
    ZaloPayBloc _zaloBloc = new ZaloPayBloc();
-   CartBloc _cartBloc = new CartBloc();
+   DetailProductBloc _detailProductBloc = new DetailProductBloc();
+
+   static const MethodChannel platform = MethodChannel('flutter.native/channelPayOrder');
      
 Future<String?> getUserToken() async {
     return await _storageService.readSecureData("token");
   }
 
-  Future<ZaloResponse> createOrderFromZaloPay(double totalPrice, String token) async {
+  Future<ZaloPayResponse> createOrderFromZaloPay(double totalPrice, String token) async {
     
     var result = await _zaloBloc.createOrder(totalPrice, token);
     return result;
@@ -53,7 +55,6 @@ Future<String?> getUserToken() async {
   @override
   Widget build(BuildContext context) {
     var formatter = NumberFormat('#,###,000');
-    // TODO: implement build
     return 
     FutureBuilder<String?>(
       future: getUserToken(),
@@ -74,7 +75,7 @@ Future<String?> getUserToken() async {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("Tổng tiền", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
-                  Text("${formatter.format(currentListCart.total + currentListCart.shippingFee)} VNĐ", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
+                  Text("${formatter.format(currentListCart.totalAfterDiscount + currentListCart.shippingFee)} VNĐ", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
                 ],
               ),
               SizedBox(height: 10),
@@ -86,22 +87,32 @@ Future<String?> getUserToken() async {
                               if(locationSelected.locationId == null){
                                 _showToast(context, "Chọn địa chỉ để nhận hàng");
                               }else{
-                                 var request = new PaymentResquest(
-                                deliveryAddress: locationSelected.locationId,
-                                orderType: true,
-                                paymentMethod: paymentMethod == 0 ? "Trả sau" : "Zalopay",
-                                promotionPrice: 0,
-                                totalPrice: currentListCart.total,
-                                shippingFee: currentListCart.shippingFee,
-                                //storeId: currentListCart.storeId,
-                                storeId: 2,
-                                totalAfterDiscount: currentListCart.total
+                                showLoading(context);
+                                // String? error = await exceedQuantityError();
+                                // if(error != ""){
+                                //     showAlertDialog(context, error!);
+                                //     //Navigator.pop(context);
+                                //     return;
+                                // }
+                                var request = new PaymentResquest(
+                                  deliveryAddress: locationSelected.locationId,
+                                  orderType: true,
+                                  paymentMethod: paymentMethod == 0 ? "Trả sau" : "ZaloPay",
+                                  promotionPrice: 0,
+                                  totalPrice: currentListCart.total,
+                                  shippingFee: currentListCart.shippingFee,
+                                  storeId: currentListCart.storeId,
+                                  zpTransId: "",
+                                  //storeId: 2,
+                                  totalAfterDiscount: currentListCart.totalAfterDiscount
                                 );
                                 
                                 
                             if(paymentMethod != 0){
-                               _zaloPayResponse = await createOrderFromZaloPay(currentListCart.total + currentListCart.shippingFee, token.data!);
-                             
+                               _zaloPayResponse = await createOrderFromZaloPay(currentListCart.totalAfterDiscount + currentListCart.shippingFee, token.data!);
+                              
+                              request.zpTransId = _zaloPayResponse.content!.zpTransId;
+                              
                               FlutterZaloPaySdk.payOrder(zpToken: _zaloPayResponse.content!.zpTransToken!).listen((event) async {
                               //launch(zaloPayResponse.content!.orderUrl!);
                               switch (event) {
@@ -109,34 +120,53 @@ Future<String?> getUserToken() async {
                     _showToast(context, "Khách hàng Huỷ Thanh Toán");
                     break;
                   case FlutterZaloPayStatus.success:
-                    await addOrder(request, token.data!);
-                    _showToast(context, "Thanh toán bằng zalopay thành công");
-                    Navigator.push(
+                    var orderResponse = await addOrder(request, token.data!);
+                    _showToast(context, "Thanh toán bằng ZaloPay thành công");
+                    Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => ListOrderScreen()),
-                );
+                  MaterialPageRoute(builder: (_) => HomeScreen()),
+                  (route) => false);
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProcessTimelinePage(orderResponse.content!.orderId!),
+                )); 
                     updateCart(token.data!);
                     break;
                   case FlutterZaloPayStatus.failed:
                    _showToast(context, "Thanh toán thất bại");
-                  
+                    Navigator.pop(context);
                     break;
                   default:
                     _showToast(context, "Thanh toán thất bại");
+                    Navigator.pop(context);
                     break;
                 }
-                              });
+                              }); 
                             }
                             else{
-                                await addOrder(request, token.data!);
+                                var orderResponse = await addOrder(request, token.data!);
                                 updateCart(token.data!);
                                 _showToast(context, "Thanh toán thành công");
-                                Navigator.push(
+                //                 Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => ListOrderScreen()),
+                // ); Code có thể sẽ mở
+                
+                Navigator.pop(context);
+                Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => ListOrderScreen()),
-                );
+                  MaterialPageRoute(builder: (_) => HomeScreen()),
+                  (route) => false);
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProcessTimelinePage(orderResponse.content!.orderId!),
+                )); 
+
                             }
                             currentListCart.setListCart(null);
+                                currentListCart.totalAfterDiscount = 0;
                                 currentListCart.total = 0;
                                 currentListCart.shippingFee = 0;
                                 locationSelected.setLocationId(null);
@@ -193,4 +223,80 @@ Future<String?> getUserToken() async {
     }
     return false;
   }
+
+  showLoading(context) {
+    showDialog(
+        // The user CANNOT close this dialog  by pressing outsite it
+        barrierDismissible: false,
+        context: context,
+        builder: (_) {
+          return Dialog(
+            // The background color
+            backgroundColor: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  // The loading indicator
+                  CircularProgressIndicator(),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  // Some text
+                  Text(
+                    "Đang xử lí...",
+                    style: TextStyle(fontFamily: "QuicksandMedium"),
+                  )
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  showAlertDialog(context, String message) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: const Text("OK"),
+      onPressed: () {
+        Navigator.pop(context);
+        Navigator.pop(context);
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: const Text("Thông báo"),
+      content: Text(message),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  Future<String?> exceedQuantityError() async {
+    String error = "";
+    for(var cart in currentListCart.listCart!){
+        int actualQuantity = await getTotalByProductDetailId(cart.productDetailId!); 
+        if(cart.quantity! > actualQuantity){
+            error += cart.productName! + " "+cart.size.toString()+"-"+cart.color.toString() + " chỉ còn " + actualQuantity.toString()+"\n";
+        }
+    }
+    return error;
+  }
+
+Future<int> getTotalByProductDetailId(int productDetailId) async {
+       var response = await  _detailProductBloc.getQuantityByProductId(productDetailId);
+       return response.content!.quantity!;
+  }
+
 }

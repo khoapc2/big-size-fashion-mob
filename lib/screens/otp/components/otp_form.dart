@@ -178,7 +178,9 @@ class _OtpFormState extends State<OtpForm> {
           DefaultButton(
             text: "Tiếp tục",
             press: () async {
+              showLoading(context);
               LoginResponseModel? loginResponse = await getLoginResponse(_twilio.getPhone()!);
+              
 if (_formKey.currentState!.validate()) {
  _formKey.currentState!.save();
                 var twilioPhoneVerify = _twilio.getTwilioPhoneVerify();
@@ -188,6 +190,7 @@ if (_formKey.currentState!.validate()) {
                     _number4!;
                                var twilioResponse = await twilioPhoneVerify.verifySmsCode(
                     phone: "+84"+_twilio.getPhone()!, code: code);
+                    Navigator.pop(context);
                 if(_twilio.getTimeLeft()!){
                     if (twilioResponse.successful!) {
                   if (twilioResponse.verification!.status == VerificationStatus.approved) {
@@ -232,13 +235,42 @@ if (_formKey.currentState!.validate()) {
 
             } //Code sẽ mở
 
-Navigator.pushNamed(context, LoginSuccessScreen.routeName);
-
   
             },
           )
         ],
       ),
     );
+  }
+
+  showLoading(context) {
+    showDialog(
+        // The user CANNOT close this dialog  by pressing outsite it
+        barrierDismissible: false,
+        context: context,
+        builder: (_) {
+          return Dialog(
+            // The background color
+            backgroundColor: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  // The loading indicator
+                  CircularProgressIndicator(),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  // Some text
+                  Text(
+                    "Đang xử lí...",
+                    style: TextStyle(fontFamily: "QuicksandMedium"),
+                  )
+                ],
+              ),
+            ),
+          );
+        });
   }
 }

@@ -3,9 +3,9 @@ import 'package:twilio_phone_verify/twilio_phone_verify.dart';
 
 class TwilioVerify{
   TwilioPhoneVerify _twilioPhoneVerify = new TwilioPhoneVerify(
-        accountSid: 'AC8a6e6d6fe2867871a384f317ca3bf3a7', // replace with Account SID
-        authToken: 'd23a2eef5d89c77200ec9497190b9a36',  // replace with Auth Token
-        serviceSid: 'VA5ebe21b94ab43b754c85fe4230affb62' // replace with Service SID
+        accountSid: 'AC99a8f74e1faf99acb4be675365385e0e', // replace with Account SID
+        authToken: '4938c50fddcb2117c7c774343c7425f9',  // replace with Auth Token
+        serviceSid: 'VA44d8396103c55e62ab415a99fd83fb3b' // replace with Service SID
         );
   String? phone;
   bool? timeLeft;

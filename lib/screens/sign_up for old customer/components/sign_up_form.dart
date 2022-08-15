@@ -158,16 +158,31 @@ Future<ProfileResponse?> getStaffProfile(String token) async {
       keyboardType: TextInputType.number,
       onSaved: (newValue) => weight = newValue,
       onChanged: (value) {
-        if (value.isNotEmpty) {
-          removeError(error: kPassNullError);
+         if (value.isNotEmpty) {
+          removeError(error: kWeightNullError);
+          var height = int.parse(value);
+          if(height >=40 && height <= 610){
+            removeError(error: kInvalidWeightError);
+          }
         } 
         weight = value;
       },
       validator: (value) {
-        if (value!.isEmpty) {
-          addError(error: kPassNullError);
+       if (value!.isEmpty) {
+          addError(error: kWeightNullError);
           return "";
-        } 
+        }else{
+          try{
+            var weight = int.parse(value);
+                    if(weight < 40 || weight > 610){
+                         addError(error: kInvalidWeightError);
+                         return "";
+          }
+          }catch(error){
+            addError(error: kInvalidWeightError);
+            return "";
+          }
+          } 
         return null;
       },
       decoration: InputDecoration(
@@ -193,20 +208,29 @@ Future<ProfileResponse?> getStaffProfile(String token) async {
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kInvalidHeght);
-        } else if (value.length == 3) {
-          removeError(error: kShortPassError);
-        }
+          var height = int.parse(value);
+          if(height >=145 && height <= 251){
+            removeError(error: kInvalidHeightError);
+          }
+        } 
         height = value;
       },
       validator: (value) {
         if (value!.isEmpty) {
-          addError(error: kPassNullError);
+          addError(error: kHeightNullError);
           return "";
-        } else if (value.length > 3) {
-          addError(error: kShortPassError);
-          return "";
-        }
-        return null;
+        } else{
+          try{
+            var height = int.parse(value);
+                    if(height < 145 || height > 251){
+                         addError(error: kInvalidHeightError);
+                         return "";
+          }
+          }catch(error){
+            addError(error: kInvalidHeightError);
+            return "";
+          }
+          }
       },
       decoration: InputDecoration(
         labelText: "Chiều cao (cm)",
@@ -348,7 +372,7 @@ Future<ProfileResponse?> getStaffProfile(String token) async {
       onSaved: (newValue) => email = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
-          removeError(error: kGenderNullError);
+          removeError(error: kEmailNullError);
         } else if (emailValidatorRegExp.hasMatch(value)) {
           removeError(error: kInvalidEmailError);
         }
@@ -356,7 +380,7 @@ Future<ProfileResponse?> getStaffProfile(String token) async {
       },
       validator: (value) {
         if (value!.isEmpty) {
-          addError(error: kGenderNullError);
+          addError(error: kEmailNullError);
           return "";
         } else if (!emailValidatorRegExp.hasMatch(value)) {
           addError(error: kInvalidEmailError);

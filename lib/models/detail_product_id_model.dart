@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 class GetProductDetailResponse {
   int? content;
   Null? error;
@@ -27,7 +29,9 @@ class GetProductDetailResponse {
 class GetProductDetailIdRequest{
   int? productId;
   int? colourId;
+  Color? colourCode;
   int? sizeId;
+  String? sizeName;
   int quantity = 1;
-
+  int total = 0;
 }

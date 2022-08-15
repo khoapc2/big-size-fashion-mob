@@ -7,6 +7,7 @@ class PaymentResquest {
   String? paymentMethod;
   double? shippingFee;
   int? storeId;
+  String? zpTransId;
 
   PaymentResquest(
       {this.deliveryAddress,
@@ -16,7 +17,8 @@ class PaymentResquest {
       this.orderType,
       this.paymentMethod,
       this.shippingFee,
-      this.storeId});
+      this.storeId,
+      this.zpTransId});
 
   PaymentResquest.fromJson(Map<String, dynamic> json) {
     deliveryAddress = json['delivery_address'];
@@ -27,6 +29,7 @@ class PaymentResquest {
     paymentMethod = json['payment_method'];
     shippingFee = json['shipping_fee'];
     storeId = json['store_id'];
+    zpTransId = json['zp_trans_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -39,6 +42,7 @@ class PaymentResquest {
     data['payment_method'] = this.paymentMethod;
     data['shipping_fee'] = this.shippingFee;
     data['store_id'] = this.storeId;
+    data['zp_trans_id'] = this.zpTransId;
     return data;
   }
 }

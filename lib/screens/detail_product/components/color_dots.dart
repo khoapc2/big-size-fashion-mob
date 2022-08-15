@@ -5,6 +5,7 @@ import 'package:shop_app/models/detail_product_model.dart';
 import 'package:shop_app/models/detail_product_id_model.dart';
 import 'package:string_to_hex/string_to_hex.dart';
 
+import '../../../blocs/detail_product_bloc.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
@@ -12,10 +13,12 @@ class ColorDots extends StatefulWidget {
   ColorDots({
     Key? key,
    required this.listColor,
-   this.getQuantityRequest
+   this.getQuantityRequest,
+   this.updateTotal
 
   }) : super(key: key);
   List<Colour>? listColor;
+  final updateTotal;
   GetProductDetailIdRequest? getQuantityRequest;
 
   Color? _colorSelected;
@@ -23,9 +26,16 @@ class ColorDots extends StatefulWidget {
   State<StatefulWidget> createState() => _ColorDotsState();
 }
 
+Future<GetProductDetailResponse> getProductDetailId(GetProductDetailIdRequest request) async {
+    DetailProductBloc service = new DetailProductBloc();
+    var result = await service.getProductDetailId(request);
+    return result;
+  }
+
 class _ColorDotsState extends State<ColorDots>{
   @override
   void initState() {
+    
     // TODO: implement initState 
     var myNiceColor = int.parse(
                             "FF" +
@@ -35,11 +45,16 @@ class _ColorDotsState extends State<ColorDots>{
                             radix: 16);
     widget._colorSelected = Color(myNiceColor);
     widget.getQuantityRequest!.colourId = widget.listColor![0].colourId;
+     widget.getQuantityRequest!.colourCode = Color(myNiceColor);
   }
+
   @override
   Widget build(BuildContext context) {
+    if(widget._colorSelected == null){
+       widget._colorSelected =  widget.getQuantityRequest!.colourCode!; 
+    }
+     
     // Now this is fixed and only for demo
-    int selectedColor = 3;
     return Padding(
       padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
@@ -74,7 +89,9 @@ class _ColorDotsState extends State<ColorDots>{
             showShadow: true,
             press: () {
               setState(() {
-                widget.getQuantityRequest!.quantity++;
+                if(widget.getQuantityRequest!.quantity < 20){
+                    widget.getQuantityRequest!.quantity++;
+                }
               });
             },
           ),
@@ -84,6 +101,7 @@ class _ColorDotsState extends State<ColorDots>{
   }
 
   GestureDetector buildSmallColorDot(Colour colour) {
+
     var myNiceColor = int.parse(
                             "FF" +
                                 colour
@@ -95,6 +113,10 @@ class _ColorDotsState extends State<ColorDots>{
         print("cliked");
         widget._colorSelected = Color(myNiceColor);
         widget.getQuantityRequest!.colourId = colour.colourId;
+        widget.getQuantityRequest!.colourCode = Color(myNiceColor);
+        
+        widget.getQuantityRequest!.colourCode = Color(myNiceColor);
+        widget.updateTotal();
         
       })},
       child: Container(

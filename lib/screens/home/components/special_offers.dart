@@ -67,7 +67,7 @@ class SpecialOffers extends StatelessWidget {
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             SearchFitProductsByCategoryScreen(
-                                                category: "Sơ mi")),
+                                                category: "Sơ mi", name: "Sơ mi phù hợp với bạn",)),
                                   );
                                 },
                               ),
@@ -86,7 +86,7 @@ class SpecialOffers extends StatelessWidget {
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             SearchFitProductsByCategoryScreen(
-                                                category: "Áo thun")),
+                                                category: "Áo thun",name: "Áo thun phù hợp với bạn")),
                                   );
                                 },
                               ),
@@ -106,7 +106,7 @@ class SpecialOffers extends StatelessWidget {
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             SearchFitProductsByCategoryScreen(
-                                                category: "Quần dài")),
+                                                category: "Quần dài",name: "Quần dài phù hợp với bạn")),
                                   );
                                 },
                               ),
@@ -126,7 +126,7 @@ class SpecialOffers extends StatelessWidget {
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             SearchFitProductsByCategoryScreen(
-                                                category: "Quần short")),
+                                                category: "Quần short", name: "Quần short phù hợp với bạn")),
                                   );
                                 },
                               ),
@@ -146,7 +146,7 @@ class SpecialOffers extends StatelessWidget {
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             SearchFitProductsByCategoryScreen(
-                                                category: "Đầm")),
+                                                category: "Đầm", name: "Đầm phù hợp với bạn")),
                                   );
                                 },
                               ),

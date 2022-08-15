@@ -4,6 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_app/models/detail_product_model.dart';
 import 'package:shop_app/models/get_detail_fit_product.dart';
+import 'package:shop_app/models/get_quantity_detail_product_response_model.dart';
 import 'package:shop_app/models/product_model.dart';
 
 import 'package:http/http.dart' as http;
@@ -49,6 +50,26 @@ class DetailProductBloc {
     }
     return productResponseModel;
   }
+
+Future<GetQuantityByProductDetail> getQuantityByProductId(int productDetailId) async {
+    String link = "https://20.211.17.194/";
+    String url = link + "api/v1/products/quantity-of-prouduct-in-all-store/"+productDetailId.toString();
+
+    GetQuantityByProductDetail productResponseModel;  
+
+    final response = await http.get(Uri.parse(url),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8'
+        });
+
+    if(response.statusCode == 200){
+      productResponseModel = GetQuantityByProductDetail.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(Exception);
+    }
+    return productResponseModel;
+  }
+  
 
   Future<GetDetailFitProductResponse> getDetailFitProduct(int productId, String token) async {
     String link = "https://20.211.17.194/";

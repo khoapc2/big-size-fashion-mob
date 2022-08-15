@@ -5,13 +5,13 @@ import 'package:shop_app/models/zalo_response_model.dart';
 import 'package:http/http.dart' as http;
 
 class ZaloPayBloc {
-  Future<ZaloResponse> createOrder(
+  Future<ZaloPayResponse> createOrder(
       double totalPrice, String token) async {
         int totalPriceInt = totalPrice.round();
         String totalPriceString = totalPriceInt.toString();
 
     // String link = "https://104.215.186.78/";
-    ZaloResponse addToCartResponse;
+    ZaloPayResponse addToCartResponse;
 
     String link = "https://20.211.17.194/";
     String url = link + "api/v1/zalo-pay/money";
@@ -29,7 +29,7 @@ class ZaloPayBloc {
     ));
       
     if (response.statusCode == 200 || response.statusCode == 400) {
-      addToCartResponse = ZaloResponse.fromJson(json.decode(response.body));
+      addToCartResponse = ZaloPayResponse.fromJson(json.decode(response.body));
     } else {
       print("Status code:" + response.statusCode.toString());
       throw Exception(Exception);

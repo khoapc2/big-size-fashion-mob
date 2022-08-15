@@ -75,15 +75,15 @@ class _BodyState extends State<Body>{
   @override
   Widget build(BuildContext context) {
 
-    return 
-    
-    SafeArea(
+    return
+
+    RefreshIndicator(child: SafeArea(
       child: SingleChildScrollView(
         controller: _sc,
         child: Column(
           children: [
             SizedBox(height: getProportionateScreenHeight(20)),
-            const HomeHeader(),
+             HomeHeader(),
             SizedBox(height: getProportionateScreenWidth(10)),
            // const DiscountBanner(),
             const ImageForHome(),
@@ -102,7 +102,16 @@ class _BodyState extends State<Body>{
           ],
         ),
       ),
-    );
+    ), onRefresh: () async{
+      setState(() {
+        
+      });
+    });
+       
+    
+    
   }
+
+  
 
 }

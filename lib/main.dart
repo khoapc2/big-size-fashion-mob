@@ -14,14 +14,16 @@ import 'package:shop_app/screens/otp/otp_screen.dart';
 import 'package:shop_app/screens/profile/profile_screen.dart';
 import 'package:shop_app/screens/splash/splash_screen.dart';
 import 'package:shop_app/screens/waiting_home/splash_screen.dart';
+import 'package:shop_app/service/storage_service.dart';
 import 'package:shop_app/theme.dart';
 import 'package:shop_app/token.dart';
 import 'package:shop_app/view_model/login_view_model.dart';
 
 import 'models/customer_account/login_response_model.dart';
 
-
+StorageService _storageService = StorageService();
 class MyHttpOverrides extends HttpOverrides {
+  
   @override
   HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)
@@ -29,6 +31,10 @@ class MyHttpOverrides extends HttpOverrides {
           (X509Certificate cert, String host, int port) => true;
   }
 }
+
+Future<String?> getUserToken() async {
+    return await _storageService.readSecureData("token");
+  }
 
   final storage = const FlutterSecureStorage();
 
@@ -84,7 +90,7 @@ Future<void> main() async {
 
 Future<String> naviagateToFirstScreen() async {
     print("Có chạy vào hàm naviagateToFirstScreen");
-    var token = await storage.read(key: "token");
+    var token = await getUserToken();
     if(token == null){
       return SplashScreen.routeName;
     }

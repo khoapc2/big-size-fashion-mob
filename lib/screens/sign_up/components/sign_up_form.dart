@@ -5,10 +5,7 @@ import 'package:shop_app/components/custom_surfix_icon.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/form_error.dart';
 import 'package:shop_app/models/customer_account/register_account_model.dart';
-import 'package:shop_app/screens/complete_profile/complete_profile_screen.dart';
 import 'package:shop_app/screens/login_success/login_success_screen.dart';
-import 'package:shop_app/view_model/register_view_model.dart';
-
 import '../../../constants.dart';
 import '../../../locator.dart';
 import '../../../size_config.dart';
@@ -118,15 +115,30 @@ class _SignUpFormState extends State<SignUpForm> {
       onSaved: (newValue) => weight = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
-          removeError(error: kPassNullError);
+          removeError(error: kWeightNullError);
+          var height = int.parse(value);
+          if(height >=40 && height <= 610){
+            removeError(error: kInvalidWeightError);
+          }
         } 
         weight = value;
       },
       validator: (value) {
         if (value!.isEmpty) {
-          addError(error: kPassNullError);
+          addError(error: kWeightNullError);
           return "";
-        } 
+        }else{
+          try{
+            var weight = int.parse(value);
+                    if(weight < 40 || weight > 610){
+                         addError(error: kInvalidWeightError);
+                         return "";
+          }
+          }catch(error){
+            addError(error: kInvalidWeightError);
+            return "";
+          }
+          } 
         return null;
       },
       decoration: InputDecoration(
@@ -153,20 +165,30 @@ class _SignUpFormState extends State<SignUpForm> {
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kInvalidHeght);
-        } else if (value.length == 3) {
-          removeError(error: kShortPassError);
-        }
+          var height = int.parse(value);
+          if(height >=145 && height <= 251){
+            removeError(error: kInvalidHeightError);
+          }
+        } 
         height = value;
       },
       validator: (value) {
         if (value!.isEmpty) {
-          addError(error: kPassNullError);
+          addError(error: kHeightNullError);
           return "";
-        } else if (value.length > 3) {
-          addError(error: kShortPassError);
-          return "";
-        }
-        return null;
+        } else{
+          try{
+            var height = int.parse(value);
+                    if(height < 145 || height > 251){
+                         addError(error: kInvalidHeightError);
+                         return "";
+          }
+          }catch(error){
+            addError(error: kInvalidHeightError);
+            return "";
+          }
+          }
+          
       },
       decoration: InputDecoration(
         labelText: "Chiều cao (cm)",
@@ -307,7 +329,7 @@ class _SignUpFormState extends State<SignUpForm> {
       onSaved: (newValue) => email = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
-          removeError(error: kGenderNullError);
+          removeError(error: kEmailNullError);
         } else if (emailValidatorRegExp.hasMatch(value)) {
           removeError(error: kInvalidEmailError);
         }
@@ -315,7 +337,7 @@ class _SignUpFormState extends State<SignUpForm> {
       },
       validator: (value) {
         if (value!.isEmpty) {
-          addError(error: kGenderNullError);
+          addError(error: kEmailNullError);
           return "";
         } else if (!emailValidatorRegExp.hasMatch(value)) {
           addError(error: kInvalidEmailError);

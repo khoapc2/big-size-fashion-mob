@@ -22,6 +22,7 @@ class _BodyState extends State<Body> {
   List products = <Content>[];
   int testValue = 1;
   ProductBloc _productBloc = new ProductBloc();
+  bool isFirstRun = true;
 
 
   void initState() {
@@ -64,7 +65,13 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    if(isFirstRun){
+      isFirstRun = false;
+      return _buildProgressIndicator();
+    }
+
+    if(isFirstRun ==false && products.length != 0){
+return Padding(
       padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
       child: ListView.builder(
@@ -105,6 +112,10 @@ class _BodyState extends State<Body> {
         }
       ),
     );
+    }
+      return Center(child: Text("Không có sản phẩm phù hợp"));
+    
+    
   }
 
   Widget _buildProgressIndicator() {

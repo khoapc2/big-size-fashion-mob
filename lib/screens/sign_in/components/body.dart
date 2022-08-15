@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/constants.dart';
 import '../../../size_config.dart';
 import 'sign_form.dart';
 
@@ -18,9 +19,9 @@ class Body extends StatelessWidget {
                 SizedBox(height: SizeConfig.screenHeight * 0.04),
                 Text(
 
-                  "ĐĂNG NHẬP",
+                  "Big Size Shop",
                   style: TextStyle(
-                    color: Colors.black,
+                    color: kPrimaryColor,
                     fontSize: getProportionateScreenWidth(38),
                     fontWeight: FontWeight.bold,
                   ),

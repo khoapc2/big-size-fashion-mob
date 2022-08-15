@@ -202,6 +202,7 @@ class _StateBody extends State<Body> {
               },
             ),
           ),
+          products.length != 0?
           ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -240,7 +241,7 @@ class _StateBody extends State<Body> {
                     ),
                   );
                 }
-              })
+              }): Center(child: Text("Chưa có đơn hàng nào"))
         ],
       ),
     );

@@ -1,5 +1,3 @@
-// ignore_for_file: deprecated_member_use
-
 import 'dart:ui';
 
 import 'package:csc_picker/csc_picker.dart';

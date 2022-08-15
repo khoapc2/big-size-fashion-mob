@@ -10,7 +10,10 @@ class Body extends StatelessWidget {
   StorageService _storageService = new StorageService();
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return 
+    Container(
+      padding: EdgeInsets.symmetric(horizontal: 20.0),
+      child:  Column(
       children: [
         SizedBox(height: SizeConfig.screenHeight * 0.04),
         Image.asset(
@@ -19,7 +22,7 @@ class Body extends StatelessWidget {
         ),
         SizedBox(height: SizeConfig.screenHeight * 0.08),
         Text(
-          "Login Success",
+          "Đăng nhập thành công",
           style: TextStyle(
             fontSize: getProportionateScreenWidth(30),
             fontWeight: FontWeight.bold,
@@ -30,17 +33,56 @@ class Body extends StatelessWidget {
         SizedBox(
           width: SizeConfig.screenWidth * 0.6,
           child: DefaultButton(
-            text: "Back to home",
+            text: "Về trang chủ",
             press: () async {
+              showLoading(context);
               await HandleMessagingFirebase.receiveMessagingFromServer(
                          (await _storageService.readSecureData("phoneNumber")).toString());
               // print((await _storageService.readSecureData("phoneNumber")).toString());
-              Navigator.pushNamed(context, HomeScreen.routeName);
+               
+               Navigator.pop(context);
+               Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (_) => HomeScreen()),
+                  (route) => false);
             },
           ),
         ),
         Spacer(),
       ],
-    );
+    ));
+   
   }
+
+showLoading(context) {
+    showDialog(
+        // The user CANNOT close this dialog  by pressing outsite it
+        barrierDismissible: false,
+        context: context,
+        builder: (_) {
+          return Dialog(
+            // The background color
+            backgroundColor: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  // The loading indicator
+                  CircularProgressIndicator(),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  // Some text
+                  Text(
+                    "Đang xử lí...",
+                    style: TextStyle(fontFamily: "QuicksandMedium"),
+                  )
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shop_app/blocs/notification_bloc.dart';
 import 'package:shop_app/blocs/product_bloc.dart';
 import 'package:shop_app/models/Cart.dart';
-import 'package:shop_app/models/get_list_fit_product_by_category_model.dart' as listFitPr;
-import 'package:shop_app/models/get_list_fit_product_by_category_model.dart';
+import 'package:shop_app/models/notification_response_model.dart';
 import 'package:shop_app/service/storage_service.dart';
 import 'package:shop_app/view_model/product_view_model.dart';
 
@@ -22,9 +22,11 @@ class _BodyState extends State<Body> {
   ScrollController _sc = new ScrollController();
   bool isLoading = false;
   ProductBloc _productBloc = new ProductBloc();
-  List products = <listFitPr.Content>[];
+  NotificationBloc _notiBloc = new NotificationBloc();
+  List products = <Content>[];
   int testValue = 1;
   final StorageService _storageService = StorageService();
+  bool isFirstRun = true;
 
 
   void initState() {
@@ -45,7 +47,7 @@ class _BodyState extends State<Body> {
       });
      //call api
      var token = await getUserToken();
-      var response = await getFitProductsByCategory(widget.contents, page, token!);
+      var response = await getNotiication(token!, page);
       setState(() {
         isLoading = false;
         products.addAll(response.content!.toList());
@@ -54,9 +56,9 @@ class _BodyState extends State<Body> {
     }
   }
 
-     Future<GetListFitProductByCategoryResponse> getFitProductsByCategory(String categoryName, int page, String token) async {
+     Future<NotificationResponse> getNotiication(String token, int page) async {
     
-    var result = await _productBloc.getListFitProductByCategory(categoryName, page, token);
+    var result = await _notiBloc.getNotification(token, page);
     return result;
   }
 
@@ -72,6 +74,13 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
+if(isFirstRun){
+      isFirstRun = false;
+      return _buildProgressIndicator();
+    }
+  if(isFirstRun != true && products.length != 0){
+      
+
     return Padding(
       padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
@@ -84,39 +93,18 @@ class _BodyState extends State<Body> {
         } else {
            return Padding(
           padding: EdgeInsets.symmetric(vertical: 10),
-          child: Dismissible(
-            key: Key(products[index].productId.toString()),
-            // direction: DismissDirection.endToStart,
-            // onDismissed: (direction) {
-            //   setState(() {
-            //     demoCarts.removeAt(index);
-            //   });
-            // },
-            background: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              decoration: BoxDecoration(
-                color: Color(0xFFFFE6E6),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Row(
-                children: [
-                  Spacer(),
-                  SvgPicture.asset("assets/icons/Trash.svg"),
-                ],
-              ),
-            ),
-            child: Column(children: [
+          child:
+
+          Column(children: [
               CartCard(content: products[index]),
                 Divider(thickness: 2.0,
             color: Colors.grey[100],)
             ]
-                
-            ),
-          ),
-        );}
+        ));}
         } 
       ),
-    );
+    );}
+    return Center(child: Text("Không có thông báo"),);
   }
 
   Widget _buildProgressIndicator() {

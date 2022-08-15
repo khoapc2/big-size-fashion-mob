@@ -34,9 +34,11 @@ final RegExp emailValidatorRegExp =
 final RegExp phoneNumberValidatorRegExp = RegExp(r"^(?:[+0]9)?[0-9]{10}$");
 //const String kPhoneNullError = "Vui lòng nhập SĐT của bạn";
 const String kNameNullError = "Vui lòng nhập tên";
-const String kInvalidEmailError = "Please Enter Valid Email";
+const String kInvalidEmailError = "Vui lòng nhập đúng email";
 const String kInvalidPhoneError = "Làm ơn nhập đúng số điện thoại";
-const String kPassNullError = "Vui lòng nhập cân nặng";
+const String kHeightNullError = "Vui lòng nhập chiều cao";
+const String kWeightNullError = "Vui lòng nhập cân nặng";
+const String kInvalidWeightError = "Vui lòng nhập đúng cân nặng";
 const String kInvalidHeght = "Vui lòng nhập chiều cao";
 const String kShortPassError = "Vui lòng nhập đúng chiều cao";
 const String kMatchPassError = "Passwords don't match";
@@ -46,7 +48,9 @@ const String kAddressNullError = "Địa chỉ không được bỏ trống";
 const String kInvalidCode = "Nhập sai mã code";
 const String kExpiredTime = "Hết thời gian vui lòng gửi lại mã code";
 const String kGenderNullError = "Vui lòng nhập giới tính";
+const String kEmailNullError = "Vui lòng nhập email";
 const String kReceiverNullError = "Ngươi nhận không được để trống";
+const String kInvalidHeightError = "Vui lòng nhập đúng chiều cao";
 
 final otpInputDecoration = InputDecoration(
   contentPadding:
