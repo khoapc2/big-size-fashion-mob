@@ -48,17 +48,17 @@ class Body extends StatelessWidget {
           //           )
           //   ,
           // ),
-          ProfileMenu(
-            text: "Thông báo",
-            icon: "assets/icons/Bell.svg",
-            press: () {},
-          ),
-          ProfileMenu(
-            text: "Cài đặt",
-            icon: "assets/icons/Settings.svg",
-            press: () =>
-                {Navigator.pushNamed(context, SettingScreen.routeName)},
-          ),
+          // ProfileMenu(
+          //   text: "Thông báo",
+          //   icon: "assets/icons/Bell.svg",
+          //   press: () {},
+          // ),
+          // ProfileMenu(
+          //   text: "Cài đặt",
+          //   icon: "assets/icons/Settings.svg",
+          //   press: () =>
+          //       {Navigator.pushNamed(context, SettingScreen.routeName)},
+          // ),
           ProfileMenu(
             text: "Đăng xuất",
             icon: "assets/icons/Log out.svg",

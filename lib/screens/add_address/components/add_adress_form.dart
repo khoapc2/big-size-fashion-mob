@@ -103,7 +103,7 @@ class _AddAddress extends State<AddAdressForm> {
             "Người nhận",
             style: TextStyle(
               fontFamily: "QuickSandBold",
-              fontSize: 25,
+              fontSize: 20,
               color: Color(0xFF000000),
             ),
           ),
@@ -142,7 +142,7 @@ class _AddAddress extends State<AddAdressForm> {
             "Số điện thoại",
             style: TextStyle(
               fontFamily: "QuickSandBold",
-              fontSize: 25,
+              fontSize: 20,
               color: Color(0xFF000000),
             ),
           ),
@@ -192,7 +192,7 @@ class _AddAddress extends State<AddAdressForm> {
             "Địa chỉ",
             style: TextStyle(
               fontFamily: "QuickSandBold",
-              fontSize: 25,
+              fontSize: 20,
               color: Color(0xFF000000),
             ),
           ),
@@ -233,7 +233,7 @@ class _AddAddress extends State<AddAdressForm> {
             "Vị trí",
             style: TextStyle(
               fontFamily: "QuickSandBold",
-              fontSize: 25,
+              fontSize: 20,
               color: Color(0xFF000000),
             ),
           ),
