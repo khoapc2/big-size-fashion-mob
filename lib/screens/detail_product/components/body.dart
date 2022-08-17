@@ -132,13 +132,18 @@ Future<String?> getUserToken() async {
                 product: snapshot.data!.content,
                 pressOnSeeMore: () {},
               ),
+              Container(
+                width: 330,
+                child: Text("Số lượng: "+getDetailProductRequest!.total.toString(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.0),)
+              ),
+              
               TopRoundedContainer(
                 color: Color(0xFFF6F7F9),
                 child: Column(
                   children: [
                     ColorDots( listColor: snapshot.data!.listColor, getQuantityRequest: getDetailProductRequest,updateTotal: updateTotal),
                     SizedBox(height: 5),
-                    Text("SL: "+getDetailProductRequest!.total.toString(), style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0),),
+                    
                     SizedBox(height: 5),
                     SizeDots(listSize: snapshot.data!.listSize, getQuantityRequest: getDetailProductRequest, updateTotal: updateTotal),
                     TopRoundedContainer(
