@@ -158,7 +158,7 @@ Future<String?> getUserToken() async {
         } else {
            return Padding(
           padding: EdgeInsets.symmetric(vertical: 10),
-          child: Dismissible(
+          child: Container(
             key: Key(products[index].productId.toString()),
             // direction: DismissDirection.endToStart,
             // onDismissed: (direction) {
@@ -166,19 +166,7 @@ Future<String?> getUserToken() async {
             //     demoCarts.removeAt(index);
             //   });
             // },
-            background: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              decoration: BoxDecoration(
-                color: Color(0xFFFFE6E6),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Row(
-                children: [
-                  Spacer(),
-                  SvgPicture.asset("assets/icons/Trash.svg"),
-                ],
-              ),
-            ),
+            
             child: 
             
             CartCard(content: products[index])

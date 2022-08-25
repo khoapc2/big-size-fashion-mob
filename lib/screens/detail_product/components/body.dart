@@ -235,7 +235,7 @@ Future<String?> getUserToken() async {
     scaffold.showSnackBar(
       SnackBar(
         content: Text(content),
-        action: SnackBarAction(label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
+        action: SnackBarAction(label: '', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
   }

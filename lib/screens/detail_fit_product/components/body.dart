@@ -210,7 +210,7 @@ class _StateBody extends State<Body>{
     scaffold.showSnackBar(
       SnackBar(
         content: const Text('Thêm vào giỏ hàng thành công'),
-        action: SnackBarAction(label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
+        action: SnackBarAction(label: '', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
   }

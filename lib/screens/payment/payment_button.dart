@@ -88,12 +88,12 @@ Future<String?> getUserToken() async {
                                 _showToast(context, "Chọn địa chỉ để nhận hàng");
                               }else{
                                 showLoading(context);
-                                // String? error = await exceedQuantityError();
-                                // if(error != ""){
-                                //     showAlertDialog(context, error!);
-                                //     //Navigator.pop(context);
-                                //     return;
-                                // }
+                                String? error = await exceedQuantityError();
+                                if(error != ""){
+                                    showAlertDialog(context, error!);
+                                    //Navigator.pop(context);
+                                    return;
+                                }
                                 var request = new PaymentResquest(
                                   deliveryAddress: locationSelected.locationId,
                                   orderType: true,
@@ -190,7 +190,7 @@ Future<String?> getUserToken() async {
     scaffold.showSnackBar(
       SnackBar(
         content: Text(payResult),
-        action: SnackBarAction(label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
+        action: SnackBarAction(label: '', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
   }
@@ -286,9 +286,9 @@ Future<String?> getUserToken() async {
   Future<String?> exceedQuantityError() async {
     String error = "";
     for(var cart in currentListCart.listCart!){
-        int actualQuantity = await getTotalByProductDetailId(cart.productDetailId!); 
-        if(cart.quantity! > actualQuantity){
-            error += cart.productName! + " "+cart.size.toString()+"-"+cart.color.toString() + " chỉ còn " + actualQuantity.toString()+"\n";
+        //int actualQuantity = await getTotalByProductDetailId(cart.productDetailId!); 
+        if(cart.quantity! > 20){
+            error += cart.productName! + " "+cart.size.toString()+"-"+cart.color.toString() + " không được quá 20 cái\n"+"";
         }
     }
     return error;

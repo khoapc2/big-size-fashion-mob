@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:shop_app/checkout_product.dart';
-import 'package:shop_app/models/Cart.dart';
 import 'package:shop_app/models/cart_model.dart';
-import 'package:shop_app/screens/cart/cart_controller.dart';
-import 'package:shop_app/screens/cart/components/check_out_card.dart';
 
 import '../../../constants.dart';
 import '../../../locator.dart';
@@ -98,8 +94,12 @@ class CartCard extends StatefulWidget {
           children: [
             IconButton(onPressed: (){
               setState(() {
-                var currentQuantity = widget.cart.quantity! + 1;
-                widget.cart.quantity =currentQuantity;
+                var currentQuantity = widget.cart.quantity;
+                 if(widget.cart.quantity! < 20){
+                    currentQuantity = widget.cart.quantity! + 1;
+                 }
+              
+                widget.cart.quantity = currentQuantity;
                 print("Số lượng sau khi tăng "+ currentQuantity.toString());
                 widget.updateTotal();
               });
