@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:shop_app/models/Cart.dart';
-import 'package:shop_app/models/customer_account/login_response_model.dart';
 import 'package:shop_app/models/product_model.dart' as product;
-import 'package:shop_app/screens/cart/components/cart_card.dart';
 import 'package:shop_app/screens/detail_product/details_screen.dart';
 import 'package:shop_app/screens/home/components/section_title.dart';
-import 'package:shop_app/view_model/product_view_model.dart';
 import 'package:intl/intl.dart';
 
 import '../../../constants.dart';

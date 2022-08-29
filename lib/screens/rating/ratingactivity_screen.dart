@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:shop_app/screens/orders_status/components/order_detail.dart';
 import 'components/body.dart';
 import 'components/send_button.dart';

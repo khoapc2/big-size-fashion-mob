@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/blocs/product_bloc.dart';
 import 'package:shop_app/components/product_card.dart';
-import 'package:shop_app/models/Product.dart';
 import 'package:shop_app/models/get_popular_product.dart';
-import 'package:shop_app/view_model/product_view_model.dart';
 
 import '../../../size_config.dart';
 import 'section_title.dart';

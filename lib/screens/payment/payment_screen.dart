@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/components/coustom_bottom_nav_bar.dart';
 import 'package:shop_app/screens/payment/components/body.dart';
 import 'package:shop_app/screens/payment/payment_button.dart';
-
-import '../../enums.dart';
 
 class PaymentScreen extends StatelessWidget{
   static String routeName = "/cart";

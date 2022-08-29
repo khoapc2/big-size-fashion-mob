@@ -6,7 +6,6 @@ import 'package:shop_app/blocs/customer_bloc.dart';
 import 'package:shop_app/constants.dart';
 import 'package:shop_app/models/profile_response_model.dart';
 import 'package:shop_app/resource/styles_manager.dart';
-import 'package:shop_app/size_config.dart';
 
 class UserProfileHeader extends StatefulWidget {
   final String userToken;

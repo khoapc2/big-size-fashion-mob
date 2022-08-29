@@ -1,13 +1,11 @@
 
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/blocs/feedback_bloc.dart';
 import 'package:shop_app/models/create_feedback_request_model.dart';
 import 'package:shop_app/models/create_feedback_response_model.dart';
 import 'package:shop_app/screens/rating/components/body.dart';
 import 'package:shop_app/service/storage_service.dart';
-import 'package:shop_app/view_model/feedback_view_model.dart';
 
 class SendButton extends StatelessWidget{
   SendButton(this.createFeedback);

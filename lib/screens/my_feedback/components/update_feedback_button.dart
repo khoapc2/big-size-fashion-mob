@@ -2,7 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/screens/rating/ratingactivity_screen.dart';
 
 class UpdateFeedbackButton extends StatelessWidget{
   UpdateFeedbackButton();

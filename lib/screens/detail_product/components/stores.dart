@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/blocs/store_bloc.dart';
 import 'package:shop_app/models/Store_model.dart';
-import 'package:shop_app/view_model/store_view_model.dart';
 
 class Stores extends StatefulWidget{
   const Stores({

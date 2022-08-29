@@ -1,13 +1,10 @@
 // ignore_for_file: deprecated_member_use
 
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:shop_app/blocs/register_account_bloc.dart';
 import 'package:shop_app/models/customer_account/register_account_model.dart';
 import 'package:shop_app/screens/login_success/login_success_screen.dart';
-import 'package:shop_app/view_model/register_view_model.dart';
 
 // ignore: must_be_immutable
 class EditProfileForm extends StatefulWidget {

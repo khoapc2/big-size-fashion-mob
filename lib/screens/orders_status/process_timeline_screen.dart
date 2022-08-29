@@ -1,18 +1,8 @@
 
-import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:shop_app/src/connector_theme.dart';
-import 'package:shop_app/src/connectors.dart';
-import 'package:shop_app/src/indicators.dart';
-import 'package:shop_app/src/timeline_theme.dart';
-import 'package:shop_app/src/timeline_tile_builder.dart';
-import 'package:shop_app/src/timelines.dart';
 
-import '../../widget.dart';
 import 'components/body.dart';
-import 'components/feedback_button.dart';
 
 const kTileHeight = 50.0;
 

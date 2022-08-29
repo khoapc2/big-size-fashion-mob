@@ -3,7 +3,6 @@ import 'package:shop_app/blocs/product_bloc.dart';
 import 'package:shop_app/models/get_fit_product_by_category_model.dart';
 import 'package:shop_app/screens/search_fit_products_by_category/search_fit_product_by_category_screen.dart';
 import 'package:shop_app/service/storage_service.dart';
-import 'package:shop_app/view_model/product_view_model.dart';
 
 import '../../../size_config.dart';
 import 'section_title.dart';
@@ -52,7 +51,8 @@ class SpecialOffers extends StatelessWidget {
                           child: Row(
                             children: [
                               SpecialOfferCard(
-                                image: "assets/images/so mi.jpg",
+                                //image: "assets/images/so mi.jpg",
+                                 image: "assets/images/somi.jpg",
                                 category: "Sơ mi",
                                 numOfBrands: snapshot.data!.content!
                                     .firstWhere(

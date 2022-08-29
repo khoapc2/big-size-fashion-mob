@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/screens/search_prodoct/search_product_screen.dart';
-import 'package:shop_app/view_model/product_view_model.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';

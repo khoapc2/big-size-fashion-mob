@@ -6,11 +6,9 @@ import 'package:shop_app/models/rating_response_model.dart';
 import 'package:shop_app/screens/cart/cart_screen.dart';
 import 'package:shop_app/screens/feedback/feedback_screen.dart';
 import 'package:shop_app/screens/home/components/icon_btn_with_counter.dart';
-import 'package:shop_app/view_model/feedback_view_model.dart';
 
 import '../../../size_config.dart';
 import '../../detail_product/details_screen.dart';
-import '../details_screen.dart';
 
 class CustomAppBar extends StatelessWidget {
   final InputForViewingFeedback? inputForViewingFeedback;

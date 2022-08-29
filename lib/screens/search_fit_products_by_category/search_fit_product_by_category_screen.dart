@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/models/Cart.dart';
-import 'package:shop_app/models/get_list_fit_product_by_category_model.dart';
 
 import 'components/body.dart';
 

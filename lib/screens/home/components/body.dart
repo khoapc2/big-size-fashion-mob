@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/blocs/product_bloc.dart';
 import 'package:shop_app/models/product_model.dart';
 import 'package:shop_app/screens/home/components/image_slider.dart';
-import 'package:shop_app/view_model/product_view_model.dart';
 
 import '../../../size_config.dart';
-import '../../../test_method.dart';
 import 'categories.dart';
-import 'discount_banner.dart';
 import 'home_header.dart';
 import 'popular_product.dart';
 import 'products.dart';

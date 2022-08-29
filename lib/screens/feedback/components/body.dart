@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/blocs/feedback_bloc.dart';
 import 'package:shop_app/models/get_list_feedback_model.dart';
-import 'package:shop_app/screens/otp/components/otp_form.dart';
-import 'package:shop_app/view_model/feedback_view_model.dart';
 
 import 'feedback_item.dart';
-import 'image_banner.dart';
 import 'rating_feedback.dart';
 
 class Body extends StatelessWidget {

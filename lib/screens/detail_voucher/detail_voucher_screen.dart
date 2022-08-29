@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 
-import '../../app_properties.dart';
 import 'components/body.dart';
 
 class DetailVoucherPage extends StatelessWidget {

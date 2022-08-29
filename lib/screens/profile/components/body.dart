@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shop_app/screens/profile/userprofile/userprofile_screen.dart';
-import 'package:shop_app/screens/setting/setting_screen.dart';
 import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
 
 import 'profile_menu.dart';

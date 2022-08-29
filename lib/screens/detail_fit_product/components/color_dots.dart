@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/components/rounded_icon_btn.dart';
-import 'package:shop_app/models/Product.dart';
 import 'package:shop_app/models/detail_product_id_model.dart';
 import 'package:shop_app/models/get_detail_fit_product.dart';
-import 'package:string_to_hex/string_to_hex.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';

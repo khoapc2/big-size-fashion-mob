@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop_app/screens/search_product_by_category/search_product_by_category_screen.dart';
-import 'package:shop_app/view_model/product_view_model.dart';
 
 import '../../../size_config.dart';
 

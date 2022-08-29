@@ -11,8 +11,6 @@ import 'package:shop_app/screens/login_success/login_success_screen.dart';
 import 'package:shop_app/screens/otp/otp_screen.dart';
 import 'package:shop_app/screens/pincode/pincode_screen.dart';
 import 'package:shop_app/screens/profile/profile_screen.dart';
-import 'package:shop_app/screens/profile/userprofile/userprofile_screen.dart';
-import 'package:shop_app/screens/profile/userprofile_edit/profileedit_screen.dart';
 import 'package:shop_app/screens/setting/setting_screen.dart';
 import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
 import 'package:shop_app/screens/signup_userprofile/signup_profile_screen.dart';

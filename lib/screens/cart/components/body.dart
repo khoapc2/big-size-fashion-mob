@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
-import 'package:shop_app/models/Cart.dart';
-import 'package:shop_app/models/cart_model.dart';
-import 'package:shop_app/screens/cart/components/check_out_card.dart';
-import 'package:shop_app/view_model/cart_view_model.dart';
 
 import '../../../list_cart.dart';
 import '../../../locator.dart';
 import '../../../size_config.dart';
-import '../cart_controller.dart';
 import 'cart_card.dart';
 
 class Body extends StatefulWidget {

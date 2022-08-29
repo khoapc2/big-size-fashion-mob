@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:intl/intl.dart';
 import 'package:shop_app/constants.dart';
 import 'package:shop_app/models/order_detail_model.dart';
-import 'package:shop_app/screens/my_feedback/my_feedback_screen.dart';
 import 'package:shop_app/screens/rating/ratingactivity_screen.dart';
-
-import '../../../list_cart.dart';
-import '../../../locator.dart';
 import '../../../size_config.dart';
 import 'cart_card.dart';
 

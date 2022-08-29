@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/models/product_model.dart';
-import 'package:shop_app/screens/feedback/feedback_screen.dart';
-
-import '../../models/Product.dart';
 import '../detail_product/details_screen.dart';
 import 'components/body.dart';
 import 'components/custom_app_bar.dart';

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/blocs/address_bloc.dart';
 import 'package:shop_app/components/default_button.dart';
@@ -128,7 +127,7 @@ class PaymentButton extends StatelessWidget {
       SnackBar(
         content: Text(payResult),
         action: SnackBarAction(
-            label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
+            label: '', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
   }

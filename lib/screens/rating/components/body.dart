@@ -1,6 +1,4 @@
 
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/screens/orders_status/components/order_detail.dart';
 import 'package:shop_app/screens/rating/components/rating_star.dart';

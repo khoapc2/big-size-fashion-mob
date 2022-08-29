@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/screens/cart/cart_screen.dart';
 
 import '../../../blocs/cart_bloc.dart';
-import '../../../models/cart_model.dart';
 import '../../../service/storage_service.dart';
 import '../../../size_config.dart';
 import 'icon_btn_with_counter.dart';

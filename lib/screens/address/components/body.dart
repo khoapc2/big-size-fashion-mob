@@ -1,6 +1,5 @@
 
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shop_app/blocs/address_bloc.dart';
@@ -8,13 +7,8 @@ import 'package:shop_app/blocs/store_bloc.dart';
 import 'package:shop_app/models/delete_address_response.dart';
 import 'package:shop_app/models/ge_nearest_store_model.dart';
 import 'package:shop_app/models/get_address_model.dart';
-import 'package:shop_app/models/orders_model.dart';
-import 'package:shop_app/screens/add_address/add_address_screen.dart';
-import 'package:shop_app/screens/orders_status/process_timeline_screen.dart';
 import 'package:shop_app/screens/payment/payment_screen.dart';
 import 'package:shop_app/service/storage_service.dart';
-import 'package:shop_app/view_model/address_view_model.dart';
-import 'package:shop_app/view_model/store_view_model.dart';
 
 import '../../../constants.dart';
 import '../../../list_cart.dart';

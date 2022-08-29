@@ -2,11 +2,8 @@ import 'dart:ui';
 
 import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:shop_app/models/add_address_request_model.dart';
 
 import '../../../blocs/customer_bloc.dart';
-import '../../../components/form_error.dart';
 import '../../../constants.dart';
 import '../../../locator.dart';
 import '../../../models/profile_response_model.dart';

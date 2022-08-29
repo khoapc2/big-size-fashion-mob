@@ -4,22 +4,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_app/locator.dart';
 import 'package:shop_app/routes.dart';
 import 'package:shop_app/screens/home/home_screen.dart';
-import 'package:shop_app/screens/login_success/login_success_screen.dart';
-import 'package:shop_app/screens/otp/otp_screen.dart';
-import 'package:shop_app/screens/profile/profile_screen.dart';
 import 'package:shop_app/screens/splash/splash_screen.dart';
-import 'package:shop_app/screens/waiting_home/splash_screen.dart';
 import 'package:shop_app/service/storage_service.dart';
 import 'package:shop_app/theme.dart';
-import 'package:shop_app/token.dart';
-import 'package:shop_app/view_model/login_view_model.dart';
-
-import 'models/customer_account/login_response_model.dart';
 
 StorageService _storageService = StorageService();
 class MyHttpOverrides extends HttpOverrides {
