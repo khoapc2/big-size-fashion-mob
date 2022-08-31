@@ -161,7 +161,7 @@ Future<ProfileResponse?> getStaffProfile(String token) async {
          if (value.isNotEmpty) {
           removeError(error: kWeightNullError);
           var height = int.parse(value);
-          if(height >=40 && height <= 610){
+          if(height >=40 && height <= 250){
             removeError(error: kInvalidWeightError);
           }
         } 
@@ -174,7 +174,7 @@ Future<ProfileResponse?> getStaffProfile(String token) async {
         }else{
           try{
             var weight = int.parse(value);
-                    if(weight < 40 || weight > 610){
+                    if(weight < 40 || weight > 250){
                          addError(error: kInvalidWeightError);
                          return "";
           }

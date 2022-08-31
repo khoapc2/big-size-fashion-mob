@@ -69,7 +69,7 @@ class _UserProfileHeader extends State<UserProfileHeader> {
                   color: Colors.white,
                 ),
                 //color: Colors.white,
-                width: 400,
+                width: 300,
                 height: 50,
                 child: Shimmer.fromColors(
                   baseColor: Colors.black.withOpacity(0.5),

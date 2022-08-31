@@ -34,8 +34,6 @@ class _OtpFormState extends State<OtpForm> {
   String? _number2;
   String? _number3;
   String? _number4;
-  String? _number5;
-  String? _number6;
 
   FocusNode? pin2FocusNode;
   FocusNode? pin3FocusNode;
@@ -45,7 +43,7 @@ class _OtpFormState extends State<OtpForm> {
   LoginBloc _loginBloc = new LoginBloc();
 
   var _twilio = locator.get<TwilioVerify>();
-  var _token = locator.get<Token>();
+  
   final List<String?> errors = [];
 
   void addError({String? error}) {

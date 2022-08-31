@@ -72,7 +72,8 @@ class SpecialOffers extends StatelessWidget {
                                 },
                               ),
                               SpecialOfferCard(
-                                image: "assets/images/Ao thun.jpg",
+                                // image: "assets/images/Ao thun.jpg",
+                                image: "assets/images/so mi.jpg",
                                 category: "Áo thun",
                                 numOfBrands: snapshot.data!.content!
                                     .firstWhere(

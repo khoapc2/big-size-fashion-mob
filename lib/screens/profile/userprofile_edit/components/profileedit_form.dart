@@ -524,7 +524,7 @@ class _EditProfile extends State<EditProfileForm> {
               }else{
                 try{
                     var weight = int.parse(weightP.text);
-                if(weight < 40 || weight > 610){
+                if(weight < 40 || weight > 251){
                  errors += "Vui lòng nhập đúng cân nặng\n"; 
                 }
                 }catch(error){

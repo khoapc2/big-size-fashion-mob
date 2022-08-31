@@ -16,6 +16,7 @@ class Body extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    print("image will show: "+ para.urlImg!);
     return ListView(
         children: [
           Container(

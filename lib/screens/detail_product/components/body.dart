@@ -134,7 +134,7 @@ Future<String?> getUserToken() async {
               ),
               Container(
                 width: 330,
-                child: Text("Số lượng: "+getDetailProductRequest!.total.toString(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.0),)
+                child: Text("Còn: "+getDetailProductRequest!.total.toString()+" sản phẩm", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.0),)
               ),
               
               TopRoundedContainer(

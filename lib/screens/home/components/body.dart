@@ -18,7 +18,7 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body>{
   ScrollController _sc = new ScrollController();
-  static int page = 1;
+  int page = 1;
   bool isLoading = false;
   var products = <Content>[];
   ProductBloc _produtBloc = new ProductBloc();

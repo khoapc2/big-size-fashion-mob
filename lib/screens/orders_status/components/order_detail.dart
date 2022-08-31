@@ -89,6 +89,9 @@ class _OrderDetailState extends State<OrderDetail> {
                 Divider(thickness: 2.0,
             color: Colors.grey[100],),
                 GestureDetector(onTap: (){
+                  print("productIdFeedback: "+widget._orderDetailResponse.content!.productList![index].productId.toString());
+                 print("product Image: "+ widget._orderDetailResponse.content!.productList![index].productImageUrl.toString());
+                 print("product name: "+widget._orderDetailResponse.content!.productList![index].productName.toString());
                  Navigator.push(
                         context,
                       MaterialPageRoute(builder: (context) => RatingScreen(FeedBackPara(widget._orderDetailResponse.content!.productList![index].productId, widget._orderDetailResponse.content!.productList![index].productImageUrl,

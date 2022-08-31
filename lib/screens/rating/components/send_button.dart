@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:shop_app/blocs/feedback_bloc.dart';
+import 'package:shop_app/constants.dart';
 import 'package:shop_app/models/create_feedback_request_model.dart';
 import 'package:shop_app/models/create_feedback_response_model.dart';
 import 'package:shop_app/screens/rating/components/body.dart';
@@ -30,16 +31,30 @@ Future<CreateFeedbackResponse?> addFeedback(CreateFeedbackRequest request, Strin
   Widget build(BuildContext context) {
     // TODO: implement build
     return 
-    FutureBuilder<String>(builder: (context, token){
+    FutureBuilder<String?>(
+      future: getUserToken(),
+      builder: (context, token){
       if(token.hasData){
         return  GestureDetector(
               onTap: () {
-                CreateFeedbackRequest request = new CreateFeedbackRequest();
+                print("content" +createFeedback.context.toString());
+                
+                if(createFeedback.context == null || createFeedback.context == ""){
+                    showAlertDialog(context, "Nội dung không được bỏ trống");
+                    
+                }else{
+                  
+                  CreateFeedbackRequest request = new CreateFeedbackRequest();
                 request.content = createFeedback.context;
                 request.productId = createFeedback.productId;
+                if(createFeedback.rating == null){
+                  createFeedback.rating = 3;
+                }
                 request.rate = createFeedback.rating!.round();
                       addFeedback(request, token.data!);
                       _showToast(context);
+                }
+                
                     },
               child: Container(
               alignment: Alignment.center,
@@ -47,10 +62,7 @@ Future<CreateFeedbackResponse?> addFeedback(CreateFeedbackRequest request, Strin
               margin: const EdgeInsets.only(left: 20.0, right: 20.0,bottom: 10.0),
               decoration: new BoxDecoration(
                   borderRadius: BorderRadius.circular(80.0),
-                  gradient: new LinearGradient(colors: [
-                    Color.fromARGB(255, 0, 0, 0),
-                    Color.fromARGB(150, 0, 0, 0)
-                  ])),
+                  color: kPrimaryColor),
               padding: const EdgeInsets.all(0),
               child: Text(
                 "Gửi",
@@ -59,6 +71,7 @@ Future<CreateFeedbackResponse?> addFeedback(CreateFeedbackRequest request, Strin
                   fontWeight: FontWeight.bold,
                   fontFamily: "QuickSandBold",
                   fontSize: 30,
+                  color: Colors.white
                 ),
               ),
             ),
@@ -81,6 +94,7 @@ Future<CreateFeedbackResponse?> addFeedback(CreateFeedbackRequest request, Strin
           opacity: 1.0,
           child: new CircularProgressIndicator(),
         ),
+        
       ),
     );
   }
@@ -90,8 +104,35 @@ Future<CreateFeedbackResponse?> addFeedback(CreateFeedbackRequest request, Strin
     scaffold.showSnackBar(
       SnackBar(
         content: const Text('Đã bình luận thành công'),
-        action: SnackBarAction(label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
+        action: SnackBarAction(label: '', onPressed: scaffold.hideCurrentSnackBar),
       ),
+    );
+  }
+
+  showAlertDialog(context, String message) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: const Text("OK"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: const Text("Thông báo"),
+      content: Text(message),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }
