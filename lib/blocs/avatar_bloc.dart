@@ -1,5 +1,3 @@
-
-
 import 'dart:convert';
 import 'dart:io';
 
@@ -8,9 +6,9 @@ import 'package:shop_app/models/update_avatar_response.model.dart';
 import 'package:http/http.dart' as http;
 
 class AvatarBloc {
-  final String _baseUrl = "https://20.211.17.194/";
+  final String _baseUrl = "http://bigsizefashion.somee.com/";
 
-Future<GetAvataResponse> getAvatar(String token) async {
+  Future<GetAvataResponse> getAvatar(String token) async {
     final response = await http.get(
       Uri.parse(_baseUrl + "api/v1/customers/get-avatar"),
       headers: <String, String>{
@@ -18,14 +16,12 @@ Future<GetAvataResponse> getAvatar(String token) async {
         'Authorization': "Bearer $token",
       },
     );
-try{
-return GetAvataResponse.fromJson(jsonDecode(response.body));
-}catch(err){
-  return new GetAvataResponse();
-}
- 
+    try {
+      return GetAvataResponse.fromJson(jsonDecode(response.body));
+    } catch (err) {
+      return new GetAvataResponse();
+    }
   }
-
 
   Future<UpdateAvatarResponse> uploadAvatar(String token, File image) async {
     var request = http.MultipartRequest(
@@ -45,13 +41,13 @@ return GetAvataResponse.fromJson(jsonDecode(response.body));
 
     var result = String.fromCharCodes(responseData);
     UpdateAvatarResponse avatar = new UpdateAvatarResponse();
-  try{
-    avatar = UpdateAvatarResponse.fromJson(jsonDecode(result));
-    print("Upload avatar api: " + result);
-  }catch(err){
-    print(err.toString());
-  }
-    
+    try {
+      avatar = UpdateAvatarResponse.fromJson(jsonDecode(result));
+      print("Upload avatar api: " + result);
+    } catch (err) {
+      print(err.toString());
+    }
+
     //print("Upload avatar api 2: " + avatar.toString());
     return avatar;
   }

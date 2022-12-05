@@ -19,7 +19,7 @@ class RatingScreen extends StatelessWidget{
       ),
       body: Body(para,createFeedBack),
         bottomNavigationBar:
-        SendButton(createFeedBack)
+        SendButton(createFeedBack, para.urlImg!)
     );
     }
   }

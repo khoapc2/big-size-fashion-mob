@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -15,8 +14,8 @@ import '../main.dart';
 import '../twilio_verify.dart';
 
 class ProductBloc {
-
-  Future<ProductResponseModel> getListProductByName(String? searchValue, int page) async {
+  Future<ProductResponseModel> getListProductByName(
+      String? searchValue, int page) async {
     // String port = '20.211.17.194';
     // String endPoint = 'api/v1/products';
     // Map<String, dynamic> paramenters = {
@@ -24,23 +23,29 @@ class ProductBloc {
     //   'Status':true,"PageNumber":page.toString()
     // };
     // Uri url2 = Uri.https(port, endPoint,paramenters);
-   // 
-    String link = "https://20.211.17.194/";
-    String url = link + "api/v1/products"+"?ProductName="+searchValue!+"&Status=true"+"&PageNumber="+page.toString();
+    //
+    String link = "http://bigsizefashion.somee.com/";
+    String url = link +
+        "api/v1/products" +
+        "?ProductName=" +
+        searchValue! +
+        "&Status=true" +
+        "&PageNumber=" +
+        page.toString();
 
-    ProductResponseModel productResponseModel;  
+    ProductResponseModel productResponseModel;
 
     // final response = await http.get(Uri.parse(url),
     //     headers: <String, String>{
     //       'Content-Type': 'application/json; charset=UTF-8'
     //     });
-    final response = await http.get(Uri.parse(url),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8'
-        });
+    final response = await http.get(Uri.parse(url), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8'
+    });
 
-    if(response.statusCode == 200){
-      productResponseModel = ProductResponseModel.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      productResponseModel =
+          ProductResponseModel.fromJson(json.decode(response.body));
     } else {
       throw Exception(Exception);
     }
@@ -48,18 +53,22 @@ class ProductBloc {
   }
 
   Future<ProductResponseModel> getAllProducts(int page) async {
-    String link = "https://20.211.17.194/";
-    String url = link + "api/v1/products"+"?Status=true"+"&PageNumber="+page.toString();
+    String link = "http://bigsizefashion.somee.com/";
+    String url = link +
+        "api/v1/products" +
+        "?Status=true" +
+        "&PageNumber=" +
+        page.toString();
 
-    ProductResponseModel productResponseModel;  
+    ProductResponseModel productResponseModel;
 
-    final response = await http.get(Uri.parse(url),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8'
-        });
+    final response = await http.get(Uri.parse(url), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8'
+    });
 
-    if(response.statusCode == 200){
-      productResponseModel = ProductResponseModel.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      productResponseModel =
+          ProductResponseModel.fromJson(json.decode(response.body));
     } else {
       throw Exception(Exception);
     }
@@ -67,18 +76,18 @@ class ProductBloc {
   }
 
   Future<GetListPopularProductResponse> getPoularProducts() async {
-    String link = "https://20.211.17.194/";
+    String link = "http://bigsizefashion.somee.com/";
     String url = link + "api/v1/products/best-seller";
 
-    GetListPopularProductResponse productResponseModel;  
+    GetListPopularProductResponse productResponseModel;
 
-    final response = await http.get(Uri.parse(url),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8'
-        });
+    final response = await http.get(Uri.parse(url), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8'
+    });
 
-    if(response.statusCode == 200){
-      productResponseModel = GetListPopularProductResponse.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      productResponseModel =
+          GetListPopularProductResponse.fromJson(json.decode(response.body));
     } else {
       throw Exception(Exception);
     }
@@ -86,11 +95,11 @@ class ProductBloc {
   }
 
   // Future<GetQuantityReponse> getQuantity(GetQuantityRequest request) async {
-  //   String link = "https://20.211.17.194/";
+  //   String link = "http://bigsizefashion.somee.com/";
   //   String url = link + "api/v1/products/quantity?"+"ProductId="+request.productId.toString()+
   //   "&ColourId="+request.colourId.toString()+"&SizeId="+request.sizeId.toString()+"&StoreId=1";
 
-  //   GetQuantityReponse productResponseModel;  
+  //   GetQuantityReponse productResponseModel;
 
   //   final response = await http.get(Uri.parse(url),
   //       headers: <String, String>{
@@ -105,67 +114,78 @@ class ProductBloc {
   //   return productResponseModel;
   // }
 
-Future<GetFitProductByCategoryResponse> getFitProductsByCategory(String token) async {
-    String link = "https://20.211.17.194/";
+  Future<GetFitProductByCategoryResponse> getFitProductsByCategory(
+      String token) async {
+    String link = "http://bigsizefashion.somee.com/";
     String url = link + "api/v1/products/get-quantity-fit-product-by-category";
 
-    GetFitProductByCategoryResponse productResponseModel;  
+    GetFitProductByCategoryResponse productResponseModel;
 
-    final response = await http.get(Uri.parse(url),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': "Bearer "+ token
-        });
+    final response = await http.get(Uri.parse(url), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': "Bearer " + token
+    });
 
-    if(response.statusCode == 200){
-      productResponseModel = GetFitProductByCategoryResponse.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      productResponseModel =
+          GetFitProductByCategoryResponse.fromJson(json.decode(response.body));
     } else {
       throw Exception(Exception);
     }
     return productResponseModel;
   }
 
-  Future<GetListProductByCategoryResponse> getListProductByCategory(String? categoryName, int page) async {
-    String link = "https://20.211.17.194/";
-    String url = link + "api/v1/products"+"?Category="+categoryName!+"&Status=true"+"&PageNumber="+page.toString();
+  Future<GetListProductByCategoryResponse> getListProductByCategory(
+      String? categoryName, int page) async {
+    String link = "http://bigsizefashion.somee.com/";
+    String url = link +
+        "api/v1/products" +
+        "?Category=" +
+        categoryName! +
+        "&Status=true" +
+        "&PageNumber=" +
+        page.toString();
 
-    GetListProductByCategoryResponse productResponseModel;  
+    GetListProductByCategoryResponse productResponseModel;
 
-    final response = await http.get(Uri.parse(url),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8'
-        });
+    final response = await http.get(Uri.parse(url), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8'
+    });
 
-    if(response.statusCode == 200){
-      productResponseModel = GetListProductByCategoryResponse.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      productResponseModel =
+          GetListProductByCategoryResponse.fromJson(json.decode(response.body));
     } else {
       throw Exception(Exception);
     }
     return productResponseModel;
   }
 
-  Future<GetListFitProductByCategoryResponse> getListFitProductByCategory(String? categoryName, int page, String token, String searchValue) async {
-    String link = "https://20.211.17.194/";
-    String url = link + "api/v1/products/fit-with-customer"+"?CategoryName="+categoryName!+"&PageNumber="+ page.toString()+"&ProductName="+searchValue;
+  Future<GetListFitProductByCategoryResponse> getListFitProductByCategory(
+      String? categoryName, int page, String token, String searchValue) async {
+    String link = "http://bigsizefashion.somee.com/";
+    String url = link +
+        "api/v1/products/fit-with-customer" +
+        "?CategoryName=" +
+        categoryName! +
+        "&PageNumber=" +
+        page.toString() +
+        "&ProductName=" +
+        searchValue;
 
-    GetListFitProductByCategoryResponse productResponseModel;  
+    GetListFitProductByCategoryResponse productResponseModel;
 
-    final response = await http.get(Uri.parse(url),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': "Bearer "+ token
-        });
+    final response = await http.get(Uri.parse(url), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': "Bearer " + token
+    });
 
-    if(response.statusCode == 200){
-      productResponseModel = GetListFitProductByCategoryResponse.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      productResponseModel = GetListFitProductByCategoryResponse.fromJson(
+          json.decode(response.body));
     } else {
       throw Exception(Exception);
     }
     return productResponseModel;
   }
 }
-
-
-
-
- 

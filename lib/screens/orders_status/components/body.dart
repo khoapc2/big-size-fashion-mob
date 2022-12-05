@@ -135,6 +135,11 @@ class Body extends StatelessWidget {
               builder: (BuildContext context,
                   AsyncSnapshot<OrderDetailResponse> snapshot) {
                 if (snapshot.hasData) {
+                  print(snapshot
+                                              .data!
+                                              .content!
+                                              .deliveryAddress.toString() 
+                                              + "gd");
                   switch (snapshot.data!.content!.status) {
                     case "Đã hủy":
                       _processIndex = -1;
@@ -315,7 +320,13 @@ class Body extends StatelessWidget {
                                           snapshot.data!.content!.orderId!
                                               .toString()),
                                       //leading: Text("Ngày đặt: "+snapshot.data!.content![i].createDate!),
-                                      subtitle: Text('Người nhận: ' +
+                                      subtitle: Text(snapshot
+                                              .data!
+                                              .content!
+                                              .deliveryAddress.toString() == "null" ? 'Người nhận: ' +
+                                          snapshot.data!.content!
+                                              .customerName.toString()
+                                              :'Người nhận: ' +
                                           snapshot.data!.content!
                                               .deliveryAddress!.receiverName!),
                                     )
@@ -360,16 +371,20 @@ class Body extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     ListTile(
-                                      title: Text('Địa chỉ nhận hàng: ' +
-                                          snapshot
+                                      title: Text(
+                                      snapshot
                                               .data!
                                               .content!
-                                              .deliveryAddress!
-                                              .receiveAddress!),
+                                              .deliveryAddress.toString()
+                                               == "null"? "Mua tại cửa hàng" : "Địa chỉ nhận hàng: " + snapshot
+                                              .data!
+                                              .content!
+                                              .deliveryAddress!.receiveAddress!)
                                       //leading: Text("Ngày đặt: "+snapshot.data!.content![i].createDate!),
                                     )
                                   ],
-                                )),
+                                ))
+
                             // Text("Mã đơn hàng:"+snapshot.data!.content!.orderId!.toString(), style: TextStyle(fontWeight: FontWeight.bold,
                             // fontSize: 17.0),),
                             // Text("Tiền đơn hàng:"+formatter.format(snapshot.data!.content!.totalPrice)+" VNĐ",

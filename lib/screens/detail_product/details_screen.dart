@@ -28,7 +28,7 @@ class DetailsScreen extends StatelessWidget {
   }
 }
 
-class InputForViewingFeedback{
+class  InputForViewingFeedback{
   int? productId;
   String? urlImage;
   double? averageRating;

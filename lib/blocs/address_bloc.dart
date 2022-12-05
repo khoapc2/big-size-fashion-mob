@@ -9,19 +9,19 @@ import 'package:http/http.dart' as http;
 
 class AddressBloc {
   Future<GetAddressesResponse> getAddress(String token) async {
-    String link = "https://20.211.17.194/";
+    String link = "http://bigsizefashion.somee.com/";
     String url = link + "api/v1/addresses";
 
-    GetAddressesResponse productResponseModel;  
+    GetAddressesResponse productResponseModel;
 
-    final response = await http.get(Uri.parse(url),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': "Bearer "+ token
-        });
+    final response = await http.get(Uri.parse(url), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': "Bearer " + token
+    });
 
-    if(response.statusCode == 200){
-      productResponseModel = GetAddressesResponse.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      productResponseModel =
+          GetAddressesResponse.fromJson(json.decode(response.body));
     } else {
       throw Exception(Exception);
     }
@@ -30,30 +30,28 @@ class AddressBloc {
 
   Future<AddAddressResponse> addToAddress(
       AddAddressRequest request, String token) async {
-
     // String link = "https://104.215.186.78/";
     AddAddressResponse addToCartResponse;
 
-    String link = "https://20.211.17.194/";
+    String link = "http://bigsizefashion.somee.com/";
     String url = link + "api/v1/addresses";
 
+    final response = await http.post(Uri.parse(url),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': "Bearer " + token
+        },
+        body: jsonEncode(
+          <String, dynamic>{
+            'receiver_name': request.receiverName,
+            'receive_address': request.receiveAddress,
+            'receiver_phone': request.receiverPhone,
+          },
+        ));
 
-    final response = await http.post(
-      Uri.parse(url),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': "Bearer "+ token
-
-      },
-      body: jsonEncode(<String, dynamic>{
-        'receiver_name' : request.receiverName,
-        'receive_address': request.receiveAddress,
-        'receiver_phone': request.receiverPhone,
-      },
-    ));
-      
     if (response.statusCode == 201 || response.statusCode == 400) {
-      addToCartResponse = AddAddressResponse.fromJson(json.decode(response.body));
+      addToCartResponse =
+          AddAddressResponse.fromJson(json.decode(response.body));
     } else {
       print("Status code:" + response.statusCode.toString());
       throw Exception(Exception);
@@ -63,24 +61,23 @@ class AddressBloc {
 
   Future<deleteAddressResponse> deleteAddress(
       int addressId, String token) async {
-
     // String link = "https://104.215.186.78/";
     deleteAddressResponse addToCartResponse;
 
-    String link = "https://20.211.17.194/";
-    String url = link + "api/v1/addresses/"+addressId.toString();
-
+    String link = "http://bigsizefashion.somee.com/";
+    String url = link + "api/v1/addresses/" + addressId.toString();
 
     final response = await http.delete(
       Uri.parse(url),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': "Bearer "+ token
+        'Authorization': "Bearer " + token
+      },
+    );
 
-      },);
-      
     if (response.statusCode == 200 || response.statusCode == 400) {
-      addToCartResponse = deleteAddressResponse.fromJson(json.decode(response.body));
+      addToCartResponse =
+          deleteAddressResponse.fromJson(json.decode(response.body));
     } else {
       print("Status code:" + response.statusCode.toString());
       throw Exception(Exception);

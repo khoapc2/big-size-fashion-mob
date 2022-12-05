@@ -10,7 +10,7 @@ class RegisterAccountBloc {
     RegisterAccountResponse responseModel;
     // String link = "https://104.215.186.78/";
 
-    String link = "https://20.211.17.194/";
+    String link = "http://bigsizefashion.somee.com/";
     String url = link + "api/v1/accounts/create-customer-account";
 
     final response = await http.post(
@@ -29,7 +29,8 @@ class RegisterAccountBloc {
     );
 
     if (response.statusCode == 200 || response.statusCode == 400) {
-      responseModel = RegisterAccountResponse.fromJson(jsonDecode(response.body));
+      responseModel =
+          RegisterAccountResponse.fromJson(jsonDecode(response.body));
     } else {
       print("Status code:" + response.statusCode.toString());
       throw Exception(Exception);

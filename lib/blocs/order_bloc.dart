@@ -9,28 +9,26 @@ import 'package:http/http.dart' as http;
 import 'package:shop_app/models/payment_request_model.dart';
 
 class OrderBloc {
-   
   Future<OrdersResponse> getListOrder(String token, String createDate) async {
-    String link = "https://20.211.17.194/";
-    String url = link + "api/v1/orders/customer"+"?CreateDate="+createDate.toString();
+    String link = "http://bigsizefashion.somee.com/";
+    String url = link +
+        "api/v1/orders/customer" +
+        "?CreateDate=" +
+        createDate.toString();
 
-     OrdersResponse listCartResponse = new OrdersResponse();  
+    OrdersResponse listCartResponse = new OrdersResponse();
 
-     
+    final response = await http.get(Uri.parse(url), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': "Bearer " + token
+    });
 
-    final response = await http.get(Uri.parse(url),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': "Bearer "+ token
-        });
-
-    if(response.statusCode == 200){
-      try{
-          listCartResponse = OrdersResponse.fromJson(json.decode(response.body));
-      }catch(e){
-          print(e.toString());
+    if (response.statusCode == 200) {
+      try {
+        listCartResponse = OrdersResponse.fromJson(json.decode(response.body));
+      } catch (e) {
+        print(e.toString());
       }
-      
     } else {
       throw Exception(Exception);
     }
@@ -42,7 +40,7 @@ class OrderBloc {
       PaymentResquest request, String token) async {
     // String link = "https://104.215.186.78/";
 
-    String link = "https://20.211.17.194/";
+    String link = "http://bigsizefashion.somee.com/";
     String url = link + "api/v1/orders/add-order";
     AddOrderResponse addOrderResponse;
 
@@ -50,8 +48,7 @@ class OrderBloc {
       Uri.parse(url),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': "Bearer "+ token
-
+        'Authorization': "Bearer " + token
       },
       body: jsonEncode(<String, dynamic>{
         "delivery_address": request.deliveryAddress,
@@ -75,24 +72,23 @@ class OrderBloc {
     return addOrderResponse;
   }
 
-   Future<CancelOrderResponse> cancelOrder(
-      int orderId, String token) async {
-
+  Future<CancelOrderResponse> cancelOrder(int orderId, String token) async {
     // String link = "https://104.215.186.78/";
-CancelOrderResponse addToCartResponse;
-    String link = "https://20.211.17.194/";
-    String url = link + "api/v1/orders/cancel/"+orderId.toString();
+    CancelOrderResponse addToCartResponse;
+    String link = "http://bigsizefashion.somee.com/";
+    String url = link + "api/v1/orders/cancel/" + orderId.toString();
 
     final response = await http.put(
       Uri.parse(url),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': "Bearer "+ token
+        'Authorization': "Bearer " + token
       },
     );
-      
+
     if (response.statusCode == 200 || response.statusCode == 400) {
-      addToCartResponse = CancelOrderResponse.fromJson(json.decode(response.body));
+      addToCartResponse =
+          CancelOrderResponse.fromJson(json.decode(response.body));
     } else {
       print("Status code:" + response.statusCode.toString());
       throw Exception(Exception);

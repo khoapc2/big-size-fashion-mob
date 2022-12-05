@@ -8,9 +8,13 @@ import 'package:shop_app/models/create_feedback_response_model.dart';
 import 'package:shop_app/screens/rating/components/body.dart';
 import 'package:shop_app/service/storage_service.dart';
 
+import '../../../models/rating_response_model.dart';
+import '../../feedback/feedback_screen.dart';
+
 class SendButton extends StatelessWidget{
-  SendButton(this.createFeedback);
+  SendButton(this.createFeedback, this.urlImage);
   final CreateFeedback createFeedback;
+  final String urlImage;
   final StorageService _storageService = StorageService();
 FeedbackBloc _feedbackBloc = new FeedbackBloc();  
 
@@ -36,7 +40,7 @@ Future<CreateFeedbackResponse?> addFeedback(CreateFeedbackRequest request, Strin
       builder: (context, token){
       if(token.hasData){
         return  GestureDetector(
-              onTap: () {
+              onTap: () async {
                 print("content" +createFeedback.context.toString());
                 
                 if(createFeedback.context == null || createFeedback.context == ""){
@@ -53,6 +57,11 @@ Future<CreateFeedbackResponse?> addFeedback(CreateFeedbackRequest request, Strin
                 request.rate = createFeedback.rating!.round();
                       addFeedback(request, token.data!);
                       _showToast(context);
+                      RatingResponse rating = await getRating(createFeedback.productId!);
+                      Navigator.push(
+                        context,
+                      MaterialPageRoute(builder: (context) => ViewFeedback(productId: createFeedback.productId, urlImage: urlImage,avarageRating: rating.content)),
+                    );
                 }
                 
                     },
@@ -84,6 +93,12 @@ Future<CreateFeedbackResponse?> addFeedback(CreateFeedbackRequest request, Strin
    
     );
    
+  }
+
+  Future<RatingResponse> getRating(int productId) async {
+    
+    var result = await _feedbackBloc.getRating(productId);
+    return result;
   }
 
   Widget _buildProgressIndicator() {

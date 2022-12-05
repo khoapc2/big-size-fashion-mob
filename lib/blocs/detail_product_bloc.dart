@@ -11,85 +11,93 @@ import 'package:http/http.dart' as http;
 import 'package:shop_app/models/detail_product_id_model.dart';
 
 class DetailProductBloc {
-
   Future<DetailProductResponse> getDetailProduct(int productId) async {
-    String link = "https://20.211.17.194/";
-    String url = link + "api/v1/products/"+productId.toString();
+    String link = "http://bigsizefashion.somee.com/";
+    String url = link + "api/v1/products/" + productId.toString();
 
-    DetailProductResponse detailProductResponseModel;  
+    DetailProductResponse detailProductResponseModel;
 
-    final response = await http.get(Uri.parse(url),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8'
-        });
+    final response = await http.get(Uri.parse(url), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8'
+    });
 
-    if(response.statusCode == 200){
-      detailProductResponseModel = DetailProductResponse.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      detailProductResponseModel =
+          DetailProductResponse.fromJson(json.decode(response.body));
     } else {
       throw Exception(Exception);
     }
     return detailProductResponseModel;
   }
 
-  Future<GetProductDetailResponse> getProductDetailId(GetProductDetailIdRequest request) async {
-    String link = "https://20.211.17.194/";
-    String url = link + "api/v1/product-details?"+"ProductId="+request.productId.toString()+
-    "&ColourId="+request.colourId.toString()+"&SizeId="+request.sizeId.toString();
+  Future<GetProductDetailResponse> getProductDetailId(
+      GetProductDetailIdRequest request) async {
+    String link = "http://bigsizefashion.somee.com/";
+    String url = link +
+        "api/v1/product-details?" +
+        "ProductId=" +
+        request.productId.toString() +
+        "&ColourId=" +
+        request.colourId.toString() +
+        "&SizeId=" +
+        request.sizeId.toString();
 
-    GetProductDetailResponse productResponseModel;  
+    GetProductDetailResponse productResponseModel;
 
-    final response = await http.get(Uri.parse(url),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8'
-        });
+    final response = await http.get(Uri.parse(url), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8'
+    });
 
-    if(response.statusCode == 200){
-      productResponseModel = GetProductDetailResponse.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      productResponseModel =
+          GetProductDetailResponse.fromJson(json.decode(response.body));
     } else {
       throw Exception(Exception);
     }
     return productResponseModel;
   }
 
-Future<GetQuantityByProductDetail> getQuantityByProductId(int productDetailId) async {
-    String link = "https://20.211.17.194/";
-    String url = link + "api/v1/products/quantity-of-prouduct-in-all-store/"+productDetailId.toString();
+  Future<GetQuantityByProductDetail> getQuantityByProductId(
+      int productDetailId) async {
+    String link = "http://bigsizefashion.somee.com/";
+    String url = link +
+        "api/v1/products/quantity-of-prouduct-in-all-store/" +
+        productDetailId.toString();
 
-    GetQuantityByProductDetail productResponseModel;  
+    GetQuantityByProductDetail productResponseModel;
 
-    final response = await http.get(Uri.parse(url),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8'
-        });
+    final response = await http.get(Uri.parse(url), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8'
+    });
 
-    if(response.statusCode == 200){
-      productResponseModel = GetQuantityByProductDetail.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      productResponseModel =
+          GetQuantityByProductDetail.fromJson(json.decode(response.body));
     } else {
       throw Exception(Exception);
     }
     return productResponseModel;
   }
-  
 
-  Future<GetDetailFitProductResponse> getDetailFitProduct(int productId, String token) async {
-    String link = "https://20.211.17.194/";
-    String url = link + "api/v1/products/detail-fit-product/"+productId.toString();
+  Future<GetDetailFitProductResponse> getDetailFitProduct(
+      int productId, String token) async {
+    String link = "http://bigsizefashion.somee.com/";
+    String url =
+        link + "api/v1/products/detail-fit-product/" + productId.toString();
 
-    GetDetailFitProductResponse detailProductResponseModel;  
-   
+    GetDetailFitProductResponse detailProductResponseModel;
 
-    final response = await http.get(Uri.parse(url),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': "Bearer "+ token
-        });
+    final response = await http.get(Uri.parse(url), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': "Bearer " + token
+    });
 
-    if(response.statusCode == 200){
-      detailProductResponseModel = GetDetailFitProductResponse.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      detailProductResponseModel =
+          GetDetailFitProductResponse.fromJson(json.decode(response.body));
     } else {
       throw Exception(Exception);
     }
     return detailProductResponseModel;
   }
-
 }
